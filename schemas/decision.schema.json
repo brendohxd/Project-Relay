@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-relay.dev/schemas/decision.schema.json",
+  "title": "Relay Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "task_id",
+    "gate",
+    "authority",
+    "created_at",
+    "outcome",
+    "rationale",
+    "evidence_hashes",
+    "review_ids"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "id": { "type": "string", "pattern": "^DEC-[A-Za-z0-9_-]{8,}$" },
+    "task_id": { "type": "string", "pattern": "^[A-Z][A-Z0-9_-]{1,31}-[0-9]{4,}$" },
+    "gate": { "type": "string", "minLength": 2, "maxLength": 100 },
+    "authority": { "$ref": "#/$defs/human_actor" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "outcome": { "enum": ["accept", "reject", "remediate", "defer"] },
+    "rationale": { "type": "string", "minLength": 10, "maxLength": 10000 },
+    "evidence_hashes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+    },
+    "review_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^REV-[A-Za-z0-9_-]{8,}$" }
+    },
+    "supersedes": { "type": "string", "pattern": "^DEC-[A-Za-z0-9_-]{8,}$" }
+  },
+  "$defs": {
+    "human_actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "role"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@/-]{1,127}$" },
+        "type": { "const": "human" },
+        "role": { "type": "string", "minLength": 2, "maxLength": 100 }
+      }
+    }
+  }
+}

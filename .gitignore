@@ -1,0 +1,27 @@
+node_modules/
+coverage/
+dist/
+.DS_Store
+*.log
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Public/private hard boundary
+private/
+confidential/
+secrets/
+local-data/
+unpublished/
+research-private/
+commercial-private/
+
+# Generated local state
+.relay/
+relay-local/

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Project Relay — evidence-governed coordination for multi-model AI and human review."
+    />
+    <title>Project Relay</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Project Relay home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Project Relay</span>
+        </a>
+        <div class="status-pill"><span></span> Protocol pre-alpha</div>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="eyebrow">Evidence before consensus</div>
+          <h1>One record for work<br />across many minds.</h1>
+          <p>
+            Relay turns disconnected AI sessions and human reviews into bounded tasks,
+            reproducible evidence, explicit disagreements, and accountable decisions.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#workspace">Inspect workspace</a>
+            <a class="secondary-action" href="../../docs/ARCHITECTURE.md">Read architecture</a>
+          </div>
+        </section>
+
+        <section class="metrics" aria-label="Workspace summary">
+          <article><span>Tasks</span><strong id="metric-tasks">—</strong></article>
+          <article><span>Active</span><strong id="metric-active">—</strong></article>
+          <article><span>Evidence</span><strong id="metric-evidence">—</strong></article>
+          <article><span>Reviews</span><strong id="metric-reviews">—</strong></article>
+          <article><span>Decisions</span><strong id="metric-decisions">—</strong></article>
+        </section>
+
+        <section class="workspace" id="workspace">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">Canonical projection</div>
+              <h2>Current tasks</h2>
+            </div>
+            <div class="source-note" id="source-note">Loading state…</div>
+          </div>
+
+          <div class="task-table" role="table" aria-label="Relay tasks">
+            <div class="task-row task-header" role="row">
+              <span role="columnheader">Task</span>
+              <span role="columnheader">State</span>
+              <span role="columnheader">Risk</span>
+              <span role="columnheader">Evidence</span>
+              <span role="columnheader">Reviews</span>
+            </div>
+            <div id="task-rows" class="task-rows"></div>
+          </div>
+          <p id="load-error" class="load-error" hidden></p>
+        </section>
+
+        <section class="flow-section">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">Default evidence gate</div>
+              <h2>From question to decision</h2>
+            </div>
+          </div>
+          <ol class="flow">
+            <li><b>01</b><span><strong>Bound the task</strong>One question, inputs, constraints, and acceptance criteria.</span></li>
+            <li><b>02</b><span><strong>Submit evidence</strong>Methods, commands, environment, artifacts, failures, and hashes.</span></li>
+            <li><b>03</b><span><strong>Review independently</strong>Reproduce where required and preserve material disagreement.</span></li>
+            <li><b>04</b><span><strong>Record authority</strong>A named human accepts, remediates, rejects, or defers.</span></li>
+          </ol>
+        </section>
+
+        <aside class="principle">
+          <span class="principle-index">R/01</span>
+          <p>Schema validity proves structure. A hash proves integrity. Neither proves that a claim is true.</p>
+        </aside>
+      </main>
+
+      <footer>
+        <span>Project Relay · working title</span>
+        <span id="protocol-version">Protocol —</span>
+      </footer>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1.0",
+  "id": "RELAY-0001",
+  "title": "Validate the Relay protocol kernel",
+  "question": "Does the initial Relay protocol reject malformed records and detect a modified event chain?",
+  "state": "draft",
+  "risk": "moderate",
+  "owner": {
+    "id": "model:builder",
+    "type": "model",
+    "role": "implementation"
+  },
+  "reviewers": [
+    {
+      "id": "human:maintainer",
+      "type": "human",
+      "role": "decision authority"
+    }
+  ],
+  "created_at": "2026-07-19T00:00:00Z",
+  "inputs": [
+    {
+      "uri": "schemas/",
+      "description": "Relay protocol schemas",
+      "media_type": "application/schema+json"
+    }
+  ],
+  "acceptance_criteria": [
+    "All public fixtures pass their declared JSON Schemas.",
+    "A modified event payload fails event-chain verification.",
+    "The same JSON object produces the same hash regardless of object-key insertion order."
+  ],
+  "constraints": [
+    "Use synthetic public-safe fixtures only.",
+    "Do not grant the MCP server repository write access."
+  ],
+  "labels": ["protocol", "validation", "m0"]
+}

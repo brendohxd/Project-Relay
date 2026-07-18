@@ -1,0 +1,24 @@
+{
+  "name": "project-relay",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Evidence-governed coordination for multi-model AI and human review.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "npm@11.9.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build:state": "node scripts/build-console-state.mjs examples/minimal apps/console/state/index.json",
+    "check": "npm run public:check && npm run validate && npm test && npm run build:state && git diff --exit-code -- apps/console/state/index.json",
+    "console": "node scripts/serve-console.mjs",
+    "mcp": "npm --workspace @project-relay/mcp-server start",
+    "public:check": "node scripts/check-public-boundary.mjs",
+    "test": "node --test",
+    "validate": "node scripts/validate-repository.mjs examples/minimal"
+  }
+}

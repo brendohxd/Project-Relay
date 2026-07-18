@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1.0",
+  "id": "EVT-example0001",
+  "task_id": "RELAY-0001",
+  "sequence": 1,
+  "type": "task.created",
+  "actor": {
+    "id": "human:maintainer",
+    "type": "human",
+    "role": "decision authority"
+  },
+  "occurred_at": "2026-07-19T00:00:00Z",
+  "previous_event_hash": null,
+  "payload": {
+    "state": "draft",
+    "title": "Validate the Relay protocol kernel"
+  },
+  "event_hash": "422ba2e34a04fd82f042316a126f65f4f897882cc0569c93ac059991151b2266"
+}

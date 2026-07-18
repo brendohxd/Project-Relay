@@ -1,0 +1,54 @@
+name: Relay task
+description: Propose one bounded task for the Relay backlog.
+title: "[TASK] "
+labels: ["relay-task", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include secrets, private research, personal data, or unpublished evidence."
+  - type: textarea
+    id: question
+    attributes:
+      label: Single question
+      description: State the one question this task must answer.
+      placeholder: Does...?
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk
+      options:
+        - low
+        - moderate
+        - high
+        - critical
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Authoritative inputs
+      description: Link public inputs and provide hashes where possible.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List observable conditions for completion.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints and prohibited changes
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Publication boundary
+      options:
+        - label: I confirm this issue contains only public-safe information.
+          required: true

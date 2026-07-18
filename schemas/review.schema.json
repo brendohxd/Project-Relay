@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-relay.dev/schemas/review.schema.json",
+  "title": "Relay Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "task_id",
+    "reviewer",
+    "created_at",
+    "evidence_ids",
+    "independent",
+    "outcome",
+    "findings",
+    "ai_disclosure"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "id": { "type": "string", "pattern": "^REV-[A-Za-z0-9_-]{8,}$" },
+    "task_id": { "type": "string", "pattern": "^[A-Z][A-Z0-9_-]{1,31}-[0-9]{4,}$" },
+    "reviewer": { "$ref": "#/$defs/actor" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "evidence_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^EVD-[A-Za-z0-9_-]{8,}$" }
+    },
+    "independent": { "type": "boolean" },
+    "independence_notes": { "type": "string", "maxLength": 3000 },
+    "outcome": { "enum": ["pass", "fail", "remediation", "blocked"] },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "category", "summary"],
+        "properties": {
+          "severity": { "enum": ["info", "low", "moderate", "high", "critical"] },
+          "category": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "summary": { "type": "string", "minLength": 3, "maxLength": 5000 },
+          "evidence_uri": { "type": "string", "minLength": 1, "maxLength": 2000 }
+        }
+      }
+    },
+    "ai_disclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["used", "systems", "scope"],
+      "properties": {
+        "used": { "type": "boolean" },
+        "systems": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 200 }
+        },
+        "scope": { "type": "string", "maxLength": 3000 }
+      }
+    }
+  },
+  "$defs": {
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "role"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@/-]{1,127}$" },
+        "type": { "enum": ["human", "model", "service"] },
+        "role": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "provider": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "model": { "type": "string", "minLength": 1, "maxLength": 200 }
+      }
+    }
+  }
+}

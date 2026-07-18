@@ -1,0 +1,29 @@
+{
+  "protocol_version": "0.1.0",
+  "generated_from": "examples/minimal",
+  "summary": {
+    "tasks": 1,
+    "active": 1,
+    "evidence_bundles": 0,
+    "reviews": 0,
+    "decisions": 0
+  },
+  "tasks": [
+    {
+      "id": "RELAY-0001",
+      "title": "Validate the Relay protocol kernel",
+      "question": "Does the initial Relay protocol reject malformed records and detect a modified event chain?",
+      "state": "draft",
+      "risk": "moderate",
+      "owner": {
+        "id": "model:builder",
+        "type": "model",
+        "role": "implementation"
+      },
+      "reviewer_count": 1,
+      "evidence_count": 0,
+      "review_count": 0,
+      "decision_count": 0
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-relay.dev/schemas/event.schema.json",
+  "title": "Relay Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "task_id",
+    "sequence",
+    "type",
+    "actor",
+    "occurred_at",
+    "previous_event_hash",
+    "payload",
+    "event_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "id": { "type": "string", "pattern": "^EVT-[A-Za-z0-9_-]{8,}$" },
+    "task_id": { "type": "string", "pattern": "^[A-Z][A-Z0-9_-]{1,31}-[0-9]{4,}$" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "type": {
+      "enum": [
+        "task.created",
+        "task.ready",
+        "task.claimed",
+        "task.started",
+        "task.submitted",
+        "review.requested",
+        "review.recorded",
+        "reproduction.recorded",
+        "remediation.requested",
+        "decision.recorded",
+        "task.blocked",
+        "task.cancelled",
+        "record.superseded"
+      ]
+    },
+    "actor": { "$ref": "#/$defs/actor" },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "previous_event_hash": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      ]
+    },
+    "payload": { "type": "object" },
+    "event_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "$defs": {
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "role"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@/-]{1,127}$" },
+        "type": { "enum": ["human", "model", "service"] },
+        "role": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "provider": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "model": { "type": "string", "minLength": 1, "maxLength": 200 }
+      }
+    }
+  }
+}
