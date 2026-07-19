@@ -4,7 +4,7 @@
 
 **Stage:** pre-alpha<br>
 **Current milestone:** M2 — GitHub collaboration adapter<br>
-**Roadmap:** 15/28 actionable items complete; 0 blocked; 3 deferred.
+**Roadmap:** 16/28 actionable items complete; 0 blocked; 3 deferred.
 
 | Milestone | Status | Complete | Blocked | Deferred |
 |---|---:|---:|---:|---:|
@@ -12,7 +12,7 @@
 | M1 — Local vertical slice | complete | 6/6 | 0 | 0 |
 | M2 — GitHub collaboration adapter | planned | 2/6 | 0 | 0 |
 | M3 — Research and assessment profiles | planned | 1/6 | 0 | 1 |
-| M4 — Public console and integrations | planned | 3/7 | 0 | 0 |
+| M4 — Public console and integrations | planned | 4/7 | 0 | 0 |
 | M5 — Optional managed service | deferred | 0/0 | 0 | 2 |
 
 ## M0 — Protocol kernel
@@ -104,8 +104,8 @@ Exit criteria:
   - Evidence: [Read-only console](apps/console/index.html)
 - [x] **M4-PAGES-READY: GitHub Pages-ready static bundle** — done
   - Evidence: [Pages entry point](docs/index.html)
-- [ ] **M4-PAGES-PUBLISH: Publish the visual console on GitHub Pages** — planned
-  - Next: After merge, configure Pages from main /docs and record the resulting public URL or blocker.
+- [x] **M4-PAGES-PUBLISH: Publish the visual console on GitHub Pages** — done
+  - Evidence: [Live Project Relay dashboard](https://brendohxd.github.io/Project-Relay/)
 - [ ] **M4-CLIENT-GUIDES: Codex, Claude, Gemini, and compatible MCP guides** — planned
   - Next: Document read-only status and task access before any write integrations.
 - [ ] **M4-MANUAL-BRIDGE: Manual packet bridge** — planned
