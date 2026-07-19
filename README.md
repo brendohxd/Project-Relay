@@ -2,7 +2,7 @@
 
 Project Relay is an evidence-governed coordination layer for multiple AI systems and human reviewers. It uses a Git repository as a shared, inspectable record while MCP provides a provider-neutral integration surface.
 
-> **Status:** pre-alpha public scaffold. The name is a working title, the protocol is unstable, and no production deployment is implied.
+> **Status:** pre-alpha M1 candidate. The name is a working title, the protocol is unstable, and no production deployment is implied.
 
 ## Why it exists
 
@@ -38,14 +38,16 @@ The canonical record is validated JSON plus referenced artifacts in Git history.
 
 ## Current public milestone
 
-This repository starts with:
+The local M1 vertical slice now includes:
 
 - JSON Schemas for tasks, events, evidence, reviews, and decisions;
 - deterministic canonicalisation and SHA-256 provenance helpers;
-- an append-only event-chain verifier;
-- a read-only MCP server for inspection, validation, and event preparation;
-- a static console suitable for a future GitHub Pages deployment;
-- CI and a public-boundary scanner.
+- append-only event-chain verification plus policy-checked task transitions;
+- an evidence-bundle CLI that hashes declared artifacts without executing commands;
+- a read-only MCP server with tools, a task resource, and an independent-review prompt;
+- a deterministic static console projection of state, history, and gate results;
+- a synthetic submission, review, remediation, resubmission, and human-decision fixture;
+- Windows and Linux CI conformance coverage plus a public-boundary scanner.
 
 GitHub write automation, remote MCP transport, authentication, and hosted multi-tenant operation are deliberately deferred until their threat models are reviewed.
 
@@ -87,7 +89,15 @@ The MCP process uses stdio and reads the workspace specified by `RELAY_WORKSPACE
 }
 ```
 
-Use `examples/minimal` as the first workspace.
+Use `examples/m1` to inspect the complete local remediation loop. `examples/minimal` remains the smallest M0 kernel fixture.
+
+Create a validated evidence bundle from an explicit manifest:
+
+```bash
+npm run evidence:create -- --manifest path/to/manifest.json --output path/to/bundle.json
+```
+
+The command reads and hashes declared artifacts. It does not execute the commands recorded in the manifest.
 
 ## Safety and publication boundary
 

@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1.0",
+  "id": "EVT-m1event0007",
+  "task_id": "RELAY-1001",
+  "sequence": 7,
+  "type": "review.recorded",
+  "actor": {
+    "id": "human:auditor",
+    "type": "human",
+    "role": "independent reviewer"
+  },
+  "occurred_at": "2026-07-19T01:07:00Z",
+  "previous_event_hash": "b6f2182d052c0500153ca95014509d82c5e11b1f8c0aba856136d33aa6abfac6",
+  "payload": {
+    "review_id": "REV-m1review001",
+    "outcome": "remediation"
+  },
+  "event_hash": "24e9748dd2de0e76ed6bab87093fbbb47f48f5f914023c8bdf3bf22c6dbba729"
+}

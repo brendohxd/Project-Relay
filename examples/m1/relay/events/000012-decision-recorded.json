@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1.0",
+  "id": "EVT-m1event0012",
+  "task_id": "RELAY-1001",
+  "sequence": 12,
+  "type": "decision.recorded",
+  "actor": {
+    "id": "human:maintainer",
+    "type": "human",
+    "role": "decision authority"
+  },
+  "occurred_at": "2026-07-19T01:13:00Z",
+  "previous_event_hash": "c10cf045d650e8717fa2f207bca3ac3594799554075548a5a4aa337a25bcbb42",
+  "payload": {
+    "from_state": "under_review",
+    "to_state": "accepted",
+    "decision_id": "DEC-m1decision01"
+  },
+  "event_hash": "ce9a39177647066411272d567659fca6fbc86ece804bf4b8c985954a51586011"
+}

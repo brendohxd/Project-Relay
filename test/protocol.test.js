@@ -5,12 +5,15 @@ import test from "node:test";
 import {
   canonicalJson,
   createRegistry,
+  evaluateTaskPolicy,
   eventDigest,
+  readTaskPacket,
   sha256Canonical,
   validateWorkspace,
   verifyEventChain
 } from "@project-relay/protocol";
 import { classifyUpdate } from "../scripts/version-doctor-lib.mjs";
+import { buildEvidenceBundle } from "../scripts/evidence-bundle-lib.mjs";
 
 test("canonical JSON is stable across object-key insertion order", () => {
   const left = { beta: [3, 2, 1], alpha: { yes: true, no: false } };
@@ -53,6 +56,65 @@ test("event-chain verification detects payload tampering", () => {
 test("synthetic example workspace satisfies schemas and chain rules", async () => {
   const result = await validateWorkspace(path.resolve("examples/minimal"));
   assert.equal(result.valid, true, JSON.stringify(result.issues, null, 2));
+});
+
+test("M1 remediation workspace satisfies lifecycle and default policy gates", async () => {
+  const result = await validateWorkspace(path.resolve("examples/m1"));
+  assert.equal(result.valid, true, JSON.stringify(result.issues, null, 2));
+  assert.deepEqual(result.counts, {
+    task: 1,
+    event: 12,
+    evidence: 2,
+    review: 2,
+    decision: 1
+  });
+  assert.equal(result.policy["RELAY-1001"].derived_state, "accepted");
+  assert.ok(Object.values(result.policy["RELAY-1001"].gates).every(Boolean));
+});
+
+test("policy rejects submission and acceptance when evidence is absent", async () => {
+  const packet = await readTaskPacket(path.resolve("examples/m1"), "RELAY-1001");
+  const result = evaluateTaskPolicy({ ...packet, evidence: [] });
+  assert.equal(result.valid, false);
+  assert.ok(result.issues.some((issue) => issue.code === "gate.evidence_unavailable"));
+  assert.ok(result.issues.some((issue) => issue.code === "review.evidence_missing"));
+  assert.ok(result.issues.some((issue) => issue.code === "decision.evidence_missing"));
+});
+
+test("policy rejects an owner presented as an independent reviewer", async () => {
+  const packet = await readTaskPacket(path.resolve("examples/m1"), "RELAY-1001");
+  const altered = structuredClone(packet);
+  altered.reviews[1].reviewer = structuredClone(altered.task.owner);
+  const result = evaluateTaskPolicy(altered);
+  assert.equal(result.valid, false);
+  assert.ok(result.issues.some((issue) => issue.code === "review.self_review"));
+  assert.ok(result.issues.some((issue) => issue.code === "gate.independent_review_required"));
+});
+
+test("policy rejects a transition that skips required lifecycle states", async () => {
+  const packet = await readTaskPacket(path.resolve("examples/m1"), "RELAY-1001");
+  const altered = structuredClone(packet);
+  altered.events[1].type = "task.submitted";
+  altered.events[1].payload = {
+    from_state: "draft",
+    to_state: "submitted",
+    evidence_ids: ["EVD-m1initial01"]
+  };
+  const result = evaluateTaskPolicy(altered);
+  assert.equal(result.valid, false);
+  assert.ok(result.issues.some((issue) => issue.code === "transition.not_allowed"));
+});
+
+test("evidence builder hashes declared artifacts without executing commands", async () => {
+  const { bundle, validation } = await buildEvidenceBundle(
+    path.resolve("examples/m1/manifests/remediated-evidence.json")
+  );
+  assert.equal(validation.valid, true, JSON.stringify(validation.errors, null, 2));
+  assert.equal(
+    bundle.artifacts[0].sha256,
+    "06a671f90d9687c3d7eac777f41b3d2e6fbfd05a92c481b42b967869609c3f5a"
+  );
+  assert.equal(bundle.commands[0], "node scripts/validate-repository.mjs examples/m1");
 });
 
 test("version doctor recommends compatible stable updates", () => {

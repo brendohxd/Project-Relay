@@ -8,13 +8,16 @@
 - Public-boundary scanner and CI
 - Read-only local MCP server
 
-## M1 — local vertical slice
+## M1 — local vertical slice — implementation candidate
 
-- Policy-checked task transition engine
-- Evidence bundle CLI
-- MCP resources and prompts
-- Deterministic state projection for the console
-- Cross-platform installation and conformance tests
+- Policy-checked task transition engine implemented for the default lifecycle
+- Evidence bundle CLI implemented without arbitrary command execution
+- MCP task resource and bounded independent-review prompt implemented
+- Deterministic gate and transition projection implemented for the console
+- Windows and Linux conformance matrix configured
+- Synthetic task covers submission, failed review, remediation, resubmission, pass review, and human acceptance
+
+M1 becomes complete when the candidate passes both CI operating systems and receives review.
 
 ## M2 — GitHub collaboration adapter
 

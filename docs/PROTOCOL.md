@@ -36,7 +36,9 @@ draft -> ready -> claimed -> in_progress -> submitted -> under_review
 Any active state may become blocked. Rejected and cancelled are terminal.
 ```
 
-The validator checks document shape and chain integrity. A future policy engine will enforce allowed state transitions and project-specific gates.
+The validator checks document shape, chain integrity, allowed default transitions, linked evidence and reviews, remediation records, and human decision authority. Future policy profiles will add project-specific gates without changing the meaning of schema validity.
+
+Transition events after `task.created` declare `payload.from_state` and `payload.to_state`. Submission and review-request events also identify the evidence bundles available at that point. The current task document must agree with the state derived from its event chain.
 
 ## Default evidence gate
 

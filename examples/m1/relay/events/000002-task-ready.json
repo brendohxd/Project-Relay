@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1.0",
+  "id": "EVT-m1event0002",
+  "task_id": "RELAY-1001",
+  "sequence": 2,
+  "type": "task.ready",
+  "actor": {
+    "id": "human:maintainer",
+    "type": "human",
+    "role": "decision authority"
+  },
+  "occurred_at": "2026-07-19T01:01:00Z",
+  "previous_event_hash": "931e65ac600472da1bdea28ca24988df2f6f8635f0a9fa9e0566b80fb03e8ee2",
+  "payload": {
+    "from_state": "draft",
+    "to_state": "ready"
+  },
+  "event_hash": "7cbad813d4196ce0a718856e8a950ce9d5725c0b9d9f681e4df3df60fb2d1a53"
+}

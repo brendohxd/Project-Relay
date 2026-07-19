@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1.0",
+  "id": "EVT-m1event0005",
+  "task_id": "RELAY-1001",
+  "sequence": 5,
+  "type": "task.submitted",
+  "actor": {
+    "id": "model:builder",
+    "type": "model",
+    "role": "implementation"
+  },
+  "occurred_at": "2026-07-19T01:05:00Z",
+  "previous_event_hash": "b6eeb0d58e05f521594491e4246af24ddd05676b9874d31a4f3103138de7ebcb",
+  "payload": {
+    "from_state": "in_progress",
+    "to_state": "submitted",
+    "evidence_ids": [
+      "EVD-m1initial01"
+    ]
+  },
+  "event_hash": "303388180eb393b774603d578b940d95895bdd6b26873fd3e4ffd408d41cd049"
+}
