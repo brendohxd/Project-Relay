@@ -38,9 +38,13 @@ function stateLabel(state) {
   return state.replaceAll("_", " ");
 }
 
-function renderMilestone(milestone) {
-  const card = document.createElement("article");
+function renderMilestone(milestone, currentMilestone) {
+  const card = document.createElement("details");
   card.className = `milestone-card milestone-${milestone.summary.state}`;
+  card.open = milestone.id === currentMilestone || milestone.summary.state === "blocked";
+
+  const summary = document.createElement("summary");
+  summary.className = "milestone-summary";
   const heading = document.createElement("div");
   heading.className = "milestone-heading";
   const name = document.createElement("div");
@@ -49,9 +53,31 @@ function renderMilestone(milestone) {
   title.textContent = milestone.title;
   name.append(id, title);
   heading.append(name, cell(`badge badge-${milestone.summary.state}`, stateLabel(milestone.summary.state)));
+
   const progress = document.createElement("p");
   progress.className = "milestone-progress";
   progress.textContent = `${milestone.summary.completed}/${milestone.summary.actionable} actionable items complete`;
+  const progressTrack = document.createElement("span");
+  progressTrack.className = "milestone-progress-track";
+  progressTrack.setAttribute("role", "progressbar");
+  progressTrack.setAttribute("aria-valuemin", "0");
+  progressTrack.setAttribute("aria-valuemax", String(milestone.summary.actionable));
+  progressTrack.setAttribute("aria-valuenow", String(milestone.summary.completed));
+  const progressFill = document.createElement("i");
+  const progressPercent = milestone.summary.actionable === 0 ? 0 : milestone.summary.completed / milestone.summary.actionable * 100;
+  progressFill.style.width = `${progressPercent}%`;
+  progressTrack.append(progressFill);
+
+  const nextItem = milestone.items.find((item) => item.state !== "done" && item.state !== "deferred");
+  const next = document.createElement("p");
+  next.className = "milestone-next";
+  next.textContent = nextItem
+    ? `Next · ${nextItem.next_action ?? nextItem.blocker?.summary ?? nextItem.title}`
+    : milestone.summary.actionable > 0 && milestone.summary.completed === milestone.summary.actionable
+      ? "All actionable items complete"
+      : "No active next action";
+  summary.append(heading, progress, progressTrack, next);
+
   const list = document.createElement("ul");
   list.className = "roadmap-items";
   for (const item of milestone.items) {
@@ -62,15 +88,27 @@ function renderMilestone(milestone) {
     const itemTitle = document.createElement("strong");
     itemTitle.textContent = item.title;
     detail.append(itemTitle, cell("item-state", stateLabel(item.state)));
-    if (item.blocker) detail.append(cell("item-note", item.blocker.summary));
-    else if (item.next_action && item.state !== "done") detail.append(cell("item-note", item.next_action));
+    if (item.rationale) detail.append(cell("item-note", item.rationale));
+    if (item.blocker) detail.append(cell("item-note item-blocker", item.blocker.summary));
+    if (item.next_action && item.state !== "done") detail.append(cell("item-note item-next-action", `Next · ${item.next_action}`));
+    if (item.evidence?.length) {
+      const evidence = document.createElement("span");
+      evidence.className = "item-evidence";
+      for (const artifact of item.evidence) {
+        const link = document.createElement("a");
+        link.href = artifact.uri;
+        link.textContent = artifact.label;
+        link.rel = "noreferrer";
+        evidence.append(link);
+      }
+      detail.append(evidence);
+    }
     row.append(detail);
     list.append(row);
   }
-  card.append(heading, progress, list);
+  card.append(summary, list);
   return card;
 }
-
 function renderPilot(pilot) {
   const card = document.createElement("article");
   card.className = "pilot-card";
@@ -90,33 +128,31 @@ function renderPilot(pilot) {
 }
 
 function renderTask(task) {
-  const row = document.createElement("article");
-  row.className = "task-row";
-  row.setAttribute("role", "row");
-  const title = document.createElement("span");
+  const card = document.createElement("article");
+  card.className = "task-card";
+  const title = document.createElement("div");
   title.className = "task-title";
-  title.setAttribute("role", "cell");
   const strong = document.createElement("strong");
   strong.textContent = task.title;
   const small = document.createElement("small");
   small.textContent = `${task.id} · ${task.history.length} transitions · policy ${task.policy_valid ? "valid" : "failed"}`;
   title.append(strong, small);
-  row.append(
-    title,
+  const facts = document.createElement("div");
+  facts.className = "task-facts";
+  facts.append(
     taskCell("State", `badge badge-state ${task.policy_valid ? "" : "badge-policy-failed"}`, stateLabel(task.derived_state)),
     taskCell("Risk", `badge badge-risk-${task.risk}`, task.risk),
-    taskCell("Evidence", "", String(task.evidence_count)),
-    taskCell("Reviews", "", String(task.review_count))
+    taskCell("Evidence", "task-count", String(task.evidence_count)),
+    taskCell("Reviews", "task-count", String(task.review_count))
   );
   const gates = document.createElement("div");
   gates.className = "task-gates";
   for (const [name, satisfied] of Object.entries(task.gates)) {
     gates.append(cell(`gate ${satisfied ? "gate-pass" : "gate-fail"}`, `${satisfied ? "✓" : "×"} ${stateLabel(name)}`));
   }
-  row.append(gates);
-  return row;
+  card.append(title, facts, gates);
+  return card;
 }
-
 try {
   const response = await fetch("./state/index.json", { cache: "no-store" });
   if (!response.ok) throw new Error(`State request failed with ${response.status}`);
@@ -129,7 +165,7 @@ try {
   elements.roadmapBlocked.textContent = project.summary.counts.blocked;
   elements.roadmapDeferred.textContent = project.summary.counts.deferred;
   elements.projectUpdated.textContent = `updated · ${project.updated_at}`;
-  elements.milestoneRows.replaceChildren(...project.milestones.map(renderMilestone));
+  elements.milestoneRows.replaceChildren(...project.milestones.map((milestone) => renderMilestone(milestone, project.summary.current_milestone)));
   elements.pilotRows.replaceChildren(...project.pilots.map(renderPilot));
 
   elements.tasks.textContent = state.summary.tasks;
