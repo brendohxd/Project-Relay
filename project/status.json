@@ -1,0 +1,397 @@
+{
+  "schema_version": "0.1.0",
+  "project": {
+    "id": "project-relay",
+    "name": "Project Relay",
+    "stage": "pre-alpha",
+    "repository": "https://github.com/brendohxd/Project-Relay"
+  },
+  "updated_at": "2026-07-19",
+  "milestones": [
+    {
+      "id": "M0",
+      "title": "Protocol kernel",
+      "exit_criteria": [
+        "The provider-neutral protocol kernel, local read-only MCP surface, fixtures, and public boundary are implemented."
+      ],
+      "items": [
+        {
+          "id": "M0-PROTOCOL",
+          "title": "Canonical schemas, hashes, and event-chain verification",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Foundation commit",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/99f8c9c"
+            }
+          ]
+        },
+        {
+          "id": "M0-MCP",
+          "title": "Read-only local MCP server",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "M0 implementation",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/99f8c9c"
+            }
+          ]
+        },
+        {
+          "id": "M0-PUBLIC",
+          "title": "Public-boundary scanner and repository checks",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "M0 implementation",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/99f8c9c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M1",
+      "title": "Local vertical slice",
+      "exit_criteria": [
+        "The complete local remediation loop passes Windows and Linux verification and receives human review."
+      ],
+      "items": [
+        {
+          "id": "M1-LIFECYCLE",
+          "title": "Policy transition engine and remediation fixture",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "M1 implementation commit",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/d899218"
+            }
+          ]
+        },
+        {
+          "id": "M1-EVIDENCE",
+          "title": "Evidence CLI, independent review, reproduction, and human gates",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "M1 review fixes",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/786648e"
+            }
+          ]
+        },
+        {
+          "id": "M1-LOCAL-VERIFY",
+          "title": "Windows local verification with 18 tests",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Draft PR verification record",
+              "uri": "https://github.com/brendohxd/Project-Relay/pull/1#issuecomment-5014591903"
+            }
+          ]
+        },
+        {
+          "id": "M1-HUMAN-REVIEW",
+          "title": "Human review of draft PR #1",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Approved and merged M1 pull request",
+              "uri": "https://github.com/brendohxd/Project-Relay/pull/1"
+            }
+          ]
+        },
+        {
+          "id": "M1-LINUX-VERIFY",
+          "title": "Linux conformance verification",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Passing Windows and Linux M1 matrix",
+              "uri": "https://github.com/brendohxd/Project-Relay/actions/runs/29680192255"
+            }
+          ]
+        },
+        {
+          "id": "M1-MERGE",
+          "title": "Merge the reviewed M1 candidate",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "M1 merge commit",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/65a7d36ea2d9d29271b970ba883baa9c5a5a2b34"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M2",
+      "title": "GitHub collaboration adapter",
+      "exit_criteria": [
+        "An approved Relay proposal can be translated into an idempotent, least-privilege GitHub change with conflict and failure records."
+      ],
+      "items": [
+        {
+          "id": "M2-CAPABILITIES",
+          "title": "Declared actor capabilities",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Capability foundation",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/11dc90a"
+            }
+          ]
+        },
+        {
+          "id": "M2-CAUSAL-LINKS",
+          "title": "Typed causal provenance links",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Causal-link foundation",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/11dc90a"
+            }
+          ]
+        },
+        {
+          "id": "M2-PROPOSAL",
+          "title": "Deterministic network-free GitHub mutation proposal",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Define proposal input and output contracts before authentication or writes."
+        },
+        {
+          "id": "M2-CONTRACT",
+          "title": "Fake-GitHub contract, conflict, retry, and idempotency tests",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Test the adapter without live repository mutations."
+        },
+        {
+          "id": "M2-AUTH",
+          "title": "Repository-scoped least-privilege authentication",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Add dedicated fine-grained credentials only after proposal behavior is reviewed."
+        },
+        {
+          "id": "M2-WRITE-PILOT",
+          "title": "Explicitly approved live write pilot",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Require fresh user approval and a clean threat-model review."
+        }
+      ]
+    },
+    {
+      "id": "M3",
+      "title": "Research and assessment profiles",
+      "exit_criteria": [
+        "Synthetic high-risk profiles prove blind reproduction, independence, disagreement, supersession, and human authority before real domain use."
+      ],
+      "items": [
+        {
+          "id": "M3-REPRODUCTION",
+          "title": "Independent high-risk reproduction core",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Independent reproduction gates",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/786648e"
+            }
+          ]
+        },
+        {
+          "id": "M3-BLIND-PACKET",
+          "title": "Blind reproduction packet contract",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Design and test against synthetic claims before any ITSM packet."
+        },
+        {
+          "id": "M3-DISAGREEMENT",
+          "title": "Adversarial review and disagreement ledger",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Preserve incompatible findings without forced consensus."
+        },
+        {
+          "id": "M3-SUPERSESSION",
+          "title": "Remediation and supersession graph",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Build on typed causal links and immutable prior records."
+        },
+        {
+          "id": "M3-ITSM-PROFILE",
+          "title": "ITSM operational policy profile",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Implement only after the synthetic research profile passes."
+        },
+        {
+          "id": "M3-EDUCATION-PROFILE",
+          "title": "Synthetic education marking and moderation profile",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Model rubric assessment, moderation, appeals, and named human authority without real student data."
+        },
+        {
+          "id": "M3-HIRING-PROFILE",
+          "title": "Synthetic hiring-assistance profile",
+          "state": "deferred",
+          "evidence": [],
+          "rationale": "Hiring requires dedicated privacy, fairness, discrimination, explainability, and legal threat models; Relay must remain decision support with human authority."
+        }
+      ]
+    },
+    {
+      "id": "M4",
+      "title": "Public console and integrations",
+      "exit_criteria": [
+        "Users can inspect project and task status through credential-free projections and supported client guides."
+      ],
+      "items": [
+        {
+          "id": "M4-STATUS",
+          "title": "Canonical project status and generated GitHub view",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Canonical project status",
+              "uri": "project/status.json"
+            },
+            {
+              "label": "Generated GitHub status",
+              "uri": "STATUS.md"
+            }
+          ]
+        },
+        {
+          "id": "M4-CONSOLE",
+          "title": "Visual milestone, blocker, and pilot dashboard",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Read-only console",
+              "uri": "apps/console/index.html"
+            }
+          ]
+        },
+        {
+          "id": "M4-PAGES-READY",
+          "title": "GitHub Pages-ready static bundle",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Pages entry point",
+              "uri": "docs/index.html"
+            }
+          ]
+        },
+        {
+          "id": "M4-PAGES-PUBLISH",
+          "title": "Publish the visual console on GitHub Pages",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "After merge, configure Pages from main /docs and record the resulting public URL or blocker."
+        },
+        {
+          "id": "M4-CLIENT-GUIDES",
+          "title": "Codex, Claude, Gemini, and compatible MCP guides",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Document read-only status and task access before any write integrations."
+        },
+        {
+          "id": "M4-MANUAL-BRIDGE",
+          "title": "Manual packet bridge",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Support clients without GitHub or MCP while preserving the same evidence contract."
+        },
+        {
+          "id": "M4-NOTIFICATIONS",
+          "title": "Notifications and human approval inbox",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Begin only after authenticated M2 write boundaries are proven."
+        }
+      ]
+    },
+    {
+      "id": "M5",
+      "title": "Optional managed service",
+      "exit_criteria": [
+        "Security, funding, licensing, product demand, and service responsibilities are explicitly approved before hosted development."
+      ],
+      "items": [
+        {
+          "id": "M5-HOSTED",
+          "title": "Hosted authentication, secrets, tenancy, and audit service",
+          "state": "deferred",
+          "evidence": [],
+          "rationale": "No hosted service is authorised before security, funding, licensing, and demand gates are resolved."
+        },
+        {
+          "id": "M5-BILLING",
+          "title": "Usage controls, billing, support, and service objectives",
+          "state": "deferred",
+          "evidence": [],
+          "rationale": "No paid infrastructure or billing work is required for the current local-first roadmap."
+        }
+      ]
+    }
+  ],
+  "pilots": [
+    {
+      "id": "itsm",
+      "name": "ITSM proving ground",
+      "visibility": "operational-summary-only",
+      "boundary": "Relay may show workflow readiness and gate progress only. ITSM equations, claims, datasets, results, manuscripts, and scientific acceptance remain in the separate ITSM repository and knowledge base.",
+      "items": [
+        {
+          "id": "ITSM-BOUNDARY",
+          "title": "Relay and ITSM separation rule documented",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "ITSM pilot operating model",
+              "uri": "https://app.notion.com/p/3a236fb4bd1d810fb409f87153bc3e84"
+            }
+          ]
+        },
+        {
+          "id": "ITSM-ROLES",
+          "title": "Operational owner, review, reproduction, audit, and authority roles documented",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "ITSM pilot operating model",
+              "uri": "https://app.notion.com/p/3a236fb4bd1d810fb409f87153bc3e84"
+            }
+          ]
+        },
+        {
+          "id": "ITSM-SYNTHETIC",
+          "title": "Synthetic research profile passes before ITSM use",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Complete the M3 synthetic research-gate fixture."
+        },
+        {
+          "id": "ITSM-REAL-PILOT",
+          "title": "First real ITSM Relay packet",
+          "state": "blocked",
+          "evidence": [],
+          "blocker": {
+            "kind": "dependency",
+            "summary": "A real ITSM packet must wait for the synthetic M3 profile and explicit selection of a boundary-safe pilot task."
+          },
+          "next_action": "Select the pilot only after the synthetic profile passes."
+        }
+      ]
+    }
+  ]
+}
