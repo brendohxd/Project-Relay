@@ -102,6 +102,8 @@ footer { border-top: 1px solid var(--line); color: var(--muted); display: flex; 
   .task-header { display: none; }
   .task-row { gap: 12px; grid-template-columns: 1fr 1fr; padding: 18px 6px; }
   .task-title { grid-column: 1 / -1; }
+  .task-cell { align-items: flex-start; display: flex; flex-direction: column; gap: 6px; }
+  .task-cell::before { color: var(--muted); content: attr(data-label); font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
   .flow { grid-template-columns: 1fr; }
   .flow li { min-height: 150px; }
   .flow li > span { margin-top: 36px; }
@@ -142,3 +144,4 @@ h3 { font-size: 19px; margin: 5px 0 0; }
   .project-metrics article { border-bottom: 1px solid var(--line); }
   .milestone-grid { grid-template-columns: 1fr; }
   .milestone-heading, .pilot-heading { align-items: start; flex-direction: column; }
+}

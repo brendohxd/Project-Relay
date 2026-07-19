@@ -25,6 +25,15 @@ function cell(className, text) {
   return node;
 }
 
+function taskCell(label, className, text) {
+  const node = document.createElement("span");
+  node.className = "task-cell";
+  node.dataset.label = label;
+  node.setAttribute("role", "cell");
+  node.append(cell(className, text));
+  return node;
+}
+
 function stateLabel(state) {
   return state.replaceAll("_", " ");
 }
@@ -86,6 +95,7 @@ function renderTask(task) {
   row.setAttribute("role", "row");
   const title = document.createElement("span");
   title.className = "task-title";
+  title.setAttribute("role", "cell");
   const strong = document.createElement("strong");
   strong.textContent = task.title;
   const small = document.createElement("small");
@@ -93,10 +103,10 @@ function renderTask(task) {
   title.append(strong, small);
   row.append(
     title,
-    cell(`badge badge-state ${task.policy_valid ? "" : "badge-policy-failed"}`, stateLabel(task.derived_state)),
-    cell(`badge badge-risk-${task.risk}`, task.risk),
-    cell("", String(task.evidence_count)),
-    cell("", String(task.review_count))
+    taskCell("State", `badge badge-state ${task.policy_valid ? "" : "badge-policy-failed"}`, stateLabel(task.derived_state)),
+    taskCell("Risk", `badge badge-risk-${task.risk}`, task.risk),
+    taskCell("Evidence", "", String(task.evidence_count)),
+    taskCell("Reviews", "", String(task.review_count))
   );
   const gates = document.createElement("div");
   gates.className = "task-gates";
