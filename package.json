@@ -19,6 +19,8 @@
     "mcp": "npm --workspace @project-relay/mcp-server start",
     "public:check": "node scripts/check-public-boundary.mjs",
     "test": "node --test",
-    "validate": "node scripts/validate-repository.mjs examples/minimal"
+    "validate": "node scripts/validate-repository.mjs examples/minimal",
+    "versions:check": "node scripts/version-doctor.mjs check",
+    "versions:update": "node scripts/version-doctor.mjs update"
   }
 }

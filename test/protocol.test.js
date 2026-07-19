@@ -10,6 +10,7 @@ import {
   validateWorkspace,
   verifyEventChain
 } from "@project-relay/protocol";
+import { classifyUpdate } from "../scripts/version-doctor-lib.mjs";
 
 test("canonical JSON is stable across object-key insertion order", () => {
   const left = { beta: [3, 2, 1], alpha: { yes: true, no: false } };
@@ -52,4 +53,21 @@ test("event-chain verification detects payload tampering", () => {
 test("synthetic example workspace satisfies schemas and chain rules", async () => {
   const result = await validateWorkspace(path.resolve("examples/minimal"));
   assert.equal(result.valid, true, JSON.stringify(result.issues, null, 2));
+});
+
+test("version doctor recommends compatible stable updates", () => {
+  assert.deepEqual(classifyUpdate("4.4.3", "4.5.0"), {
+    advisable: true,
+    reason: "compatible same-major update"
+  });
+  assert.deepEqual(classifyUpdate("0.6.2", "0.6.9"), {
+    advisable: true,
+    reason: "compatible pre-1.0 patch update"
+  });
+});
+
+test("version doctor quarantines risky update classes", () => {
+  assert.equal(classifyUpdate("4.4.3", "5.0.0").advisable, false);
+  assert.equal(classifyUpdate("0.6.2", "0.7.0").advisable, false);
+  assert.equal(classifyUpdate("4.4.3", "4.5.0-beta.1").advisable, false);
 });

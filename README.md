@@ -59,6 +59,18 @@ npm run check
 npm run mcp
 ```
 
+Check direct dependency versions without changing the repository:
+
+```bash
+npm run versions:check
+```
+
+To review conservative updates and receive an interactive `[y/N]` installation prompt:
+
+```bash
+npm run versions:update
+```
+
 The MCP process uses stdio and reads the workspace specified by `RELAY_WORKSPACE` (the current directory by default):
 
 ```json
@@ -88,6 +100,7 @@ See [Publication Boundary](docs/PUBLICATION_BOUNDARY.md) and [Security](SECURITY
 - [Architecture](docs/ARCHITECTURE.md)
 - [Protocol and decision gates](docs/PROTOCOL.md)
 - [Public/private publication boundary](docs/PUBLICATION_BOUNDARY.md)
+- [Version maintenance](docs/VERSION_MAINTENANCE.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)
 - [Licence status](LICENSE-STATUS.md)
