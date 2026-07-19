@@ -13,10 +13,13 @@ import {
   validateWorkspace
 } from "@project-relay/protocol";
 import { z } from "zod";
+import { loadProjectStatus } from "../../../scripts/project-status-lib.mjs";
 
 const VERSION = "0.1.0";
 const workspace = path.resolve(process.env.RELAY_WORKSPACE ?? process.cwd());
 const taskIdPattern = /^[A-Z][A-Z0-9_-]{1,31}-[0-9]{4,}$/;
+const projectStatusFile = path.resolve(process.env.RELAY_PROJECT_STATUS ?? "project/status.json");
+const projectStatusSchema = path.resolve(process.env.RELAY_PROJECT_STATUS_SCHEMA ?? "project/status.schema.json");
 const eventTypes = [
   "task.created",
   "task.ready",
@@ -241,6 +244,44 @@ server.registerTool(
     return result({ event, validation }, !validation.valid);
   }
 );
+server.registerTool(
+  "relay_get_project_status",
+  {
+    title: "Get Project Relay status",
+    description: "Read the validated roadmap, blockers, and operational-only pilot summaries.",
+    inputSchema: {}
+  },
+  async () => {
+    try {
+      return result(await loadProjectStatus(projectStatusFile, projectStatusSchema));
+    } catch (error) {
+      return result({ error: error.message, issues: error.issues ?? [] }, true);
+    }
+  }
+);
+
+server.registerResource(
+  "relay-project-status",
+  "relay://project/status",
+  {
+    title: "Project Relay status",
+    description: "Validated project roadmap and operational-only proving-ground status.",
+    mimeType: "application/json"
+  },
+  async (uri) => {
+    const status = await loadProjectStatus(projectStatusFile, projectStatusSchema);
+    return {
+      contents: [
+        {
+          uri: uri.href,
+          mimeType: "application/json",
+          text: JSON.stringify(status, null, 2)
+        }
+      ]
+    };
+  }
+);
+
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

@@ -2,11 +2,14 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { readDocuments, readTaskPacket, validateWorkspace } from "@project-relay/protocol";
+import { loadProjectStatus } from "./project-status-lib.mjs";
 
 const workspaceArgument = process.argv[2] ?? "examples/minimal";
 const outputArgument = process.argv[3] ?? "apps/console/state/index.json";
 const workspace = path.resolve(workspaceArgument);
 const output = path.resolve(outputArgument);
+const projectStatusFile = path.resolve(process.argv[4] ?? "project/status.json");
+const projectStatusSchema = path.resolve("project/status.schema.json");
 
 const verification = await validateWorkspace(workspace);
 if (!verification.valid) {
@@ -26,11 +29,12 @@ async function load(kind) {
   );
 }
 
-const [tasks, evidence, reviews, decisions] = await Promise.all([
+const [tasks, evidence, reviews, decisions, project] = await Promise.all([
   load("task"),
   load("evidence"),
   load("review"),
-  load("decision")
+  load("decision"),
+  loadProjectStatus(projectStatusFile, projectStatusSchema)
 ]);
 const packets = new Map(
   (
@@ -44,6 +48,7 @@ const countFor = (records, taskId) => records.filter((record) => record.task_id 
 const snapshot = {
   protocol_version: "0.1.0",
   generated_from: workspaceArgument.replaceAll("\\", "/"),
+  project,
   summary: {
     tasks: tasks.length,
     active: tasks.filter((task) => !["accepted", "rejected", "cancelled"].includes(task.state)).length,
