@@ -293,9 +293,13 @@
         {
           "id": "M4-PAGES-PUBLISH",
           "title": "Publish the visual console on GitHub Pages",
-          "state": "planned",
-          "evidence": [],
-          "next_action": "After merge, configure Pages from main /docs and record the resulting public URL or blocker."
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Live Project Relay dashboard",
+              "uri": "https://brendohxd.github.io/Project-Relay/"
+            }
+          ]
         },
         {
           "id": "M4-CLIENT-GUIDES",

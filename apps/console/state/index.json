@@ -352,9 +352,13 @@
           {
             "id": "M4-PAGES-PUBLISH",
             "title": "Publish the visual console on GitHub Pages",
-            "state": "planned",
-            "evidence": [],
-            "next_action": "After merge, configure Pages from main /docs and record the resulting public URL or blocker."
+            "state": "done",
+            "evidence": [
+              {
+                "label": "Live Project Relay dashboard",
+                "uri": "https://brendohxd.github.io/Project-Relay/"
+              }
+            ]
           },
           {
             "id": "M4-CLIENT-GUIDES",
@@ -381,15 +385,15 @@
         "summary": {
           "state": "planned",
           "counts": {
-            "done": 3,
+            "done": 4,
             "in_progress": 0,
             "blocked": 0,
-            "planned": 4,
+            "planned": 3,
             "deferred": 0
           },
           "total": 7,
           "actionable": 7,
-          "completed": 3,
+          "completed": 4,
           "blockers": []
         }
       },
@@ -510,15 +514,15 @@
     "summary": {
       "state": "planned",
       "counts": {
-        "done": 15,
+        "done": 16,
         "in_progress": 0,
         "blocked": 0,
-        "planned": 13,
+        "planned": 12,
         "deferred": 3
       },
       "total": 31,
       "actionable": 28,
-      "completed": 15,
+      "completed": 16,
       "blockers": [],
       "current_milestone": "M2",
       "current_milestone_title": "GitHub collaboration adapter"
