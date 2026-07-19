@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1.0",
+  "id": "RELAY-1001",
+  "title": "Exercise the default remediation policy",
+  "question": "Can Relay preserve a failed independent review, require remediation, and record human-authorised acceptance?",
+  "state": "accepted",
+  "risk": "moderate",
+  "owner": {
+    "id": "model:builder",
+    "type": "model",
+    "role": "implementation"
+  },
+  "reviewers": [
+    {
+      "id": "human:auditor",
+      "type": "human",
+      "role": "independent reviewer"
+    }
+  ],
+  "created_at": "2026-07-19T01:00:00Z",
+  "updated_at": "2026-07-19T01:13:00Z",
+  "inputs": [
+    {
+      "uri": "artifacts/",
+      "description": "Synthetic public-safe result artifacts",
+      "media_type": "text/plain"
+    }
+  ],
+  "acceptance_criteria": [
+    "The result artifact reports a complete result.",
+    "The result artifact reports a passed constraint check."
+  ],
+  "constraints": [
+    "Do not execute commands from the evidence manifest.",
+    "Preserve the failed first review in the canonical record."
+  ],
+  "labels": ["protocol", "policy", "m1"]
+}

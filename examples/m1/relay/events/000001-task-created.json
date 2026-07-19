@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1.0",
+  "id": "EVT-m1event0001",
+  "task_id": "RELAY-1001",
+  "sequence": 1,
+  "type": "task.created",
+  "actor": {
+    "id": "human:maintainer",
+    "type": "human",
+    "role": "decision authority"
+  },
+  "occurred_at": "2026-07-19T01:00:00Z",
+  "previous_event_hash": null,
+  "payload": {
+    "state": "draft",
+    "title": "Exercise the default remediation policy"
+  },
+  "event_hash": "931e65ac600472da1bdea28ca24988df2f6f8635f0a9fa9e0566b80fb03e8ee2"
+}

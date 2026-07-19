@@ -25,6 +25,39 @@ const DOCUMENT_LOCATIONS = Object.freeze({
   decision: "relay/decisions"
 });
 
+export const TASK_TRANSITIONS = Object.freeze({
+  draft: Object.freeze(["ready", "blocked", "cancelled"]),
+  ready: Object.freeze(["claimed", "blocked", "cancelled"]),
+  claimed: Object.freeze(["in_progress", "blocked", "cancelled"]),
+  in_progress: Object.freeze(["submitted", "blocked", "cancelled"]),
+  submitted: Object.freeze(["under_review", "blocked", "cancelled"]),
+  under_review: Object.freeze(["remediation", "accepted", "rejected", "blocked", "cancelled"]),
+  remediation: Object.freeze(["submitted", "blocked", "cancelled"]),
+  blocked: Object.freeze([]),
+  accepted: Object.freeze([]),
+  rejected: Object.freeze([]),
+  cancelled: Object.freeze([])
+});
+
+const EVENT_TARGET_STATES = Object.freeze({
+  "task.created": "draft",
+  "task.ready": "ready",
+  "task.claimed": "claimed",
+  "task.started": "in_progress",
+  "task.submitted": "submitted",
+  "review.requested": "under_review",
+  "remediation.requested": "remediation",
+  "task.blocked": "blocked",
+  "task.cancelled": "cancelled"
+});
+
+const DECISION_TARGET_STATES = Object.freeze({
+  accept: "accepted",
+  reject: "rejected",
+  remediate: "remediation",
+  defer: "blocked"
+});
+
 const schemaId = (kind) => `https://project-relay.dev/schemas/${kind}.schema.json`;
 
 export async function createRegistry(schemaDirectory = DEFAULT_SCHEMA_DIRECTORY) {
@@ -112,6 +145,7 @@ export function eventDigest(event) {
 export function verifyEventChain(events) {
   const ordered = [...events].sort((left, right) => left.sequence - right.sequence);
   const errors = [];
+  const seenEventIds = new Set();
   let previous = null;
   let expectedSequence = 1;
 
@@ -138,11 +172,386 @@ export function verifyEventChain(events) {
       });
     }
 
+    for (const link of event.causal_links ?? []) {
+      if (link.target_event_id === event.id) {
+        errors.push({
+          event_id: event.id,
+          message: "causal link cannot target its containing event"
+        });
+      } else if (!seenEventIds.has(link.target_event_id)) {
+        errors.push({
+          event_id: event.id,
+          message: `causal link target ${link.target_event_id} must be an earlier event in the task chain`
+        });
+      }
+    }
+
+    seenEventIds.add(event.id);
+
     previous = event.event_hash;
     expectedSequence += 1;
   }
 
   return { valid: errors.length === 0, errors };
+}
+
+function policyIssue(code, message, details = {}) {
+  return { code, message, ...details };
+}
+
+function isAtOrBefore(record, event) {
+  return Date.parse(record.created_at) <= Date.parse(event.occurred_at);
+}
+
+export function evaluateTaskPolicy({ task, events = [], evidence = [], reviews = [], decisions = [] }) {
+  const taskEvents = events
+    .filter((event) => event.task_id === task.id)
+    .sort((left, right) => left.sequence - right.sequence);
+  const taskEvidence = evidence.filter((record) => record.task_id === task.id);
+  const taskReviews = reviews.filter((record) => record.task_id === task.id);
+  const taskDecisions = decisions.filter((record) => record.task_id === task.id);
+  const evidenceById = new Map(taskEvidence.map((record) => [record.id, record]));
+  const reviewsById = new Map(taskReviews.map((record) => [record.id, record]));
+  const decisionsById = new Map(taskDecisions.map((record) => [record.id, record]));
+  const issues = [];
+  const history = [];
+  let state = null;
+
+  for (const review of taskReviews) {
+    for (const evidenceId of review.evidence_ids) {
+      if (!evidenceById.has(evidenceId)) {
+        issues.push(
+          policyIssue(
+            "review.evidence_missing",
+            `Review ${review.id} references missing evidence ${evidenceId}`,
+            { review_id: review.id }
+          )
+        );
+      } else if (
+        review.independent &&
+        evidenceById.get(evidenceId).producer.id === review.reviewer.id
+      ) {
+        issues.push(
+          policyIssue(
+            "review.own_evidence",
+            `Reviewer ${review.reviewer.id} cannot independently review evidence they produced`,
+            { review_id: review.id, evidence_id: evidenceId }
+          )
+        );
+      }
+    }
+    if (review.independent && review.reviewer.id === task.owner.id) {
+      issues.push(
+        policyIssue(
+          "review.self_review",
+          `Task owner ${task.owner.id} cannot provide independent review`,
+          { review_id: review.id }
+        )
+      );
+    }
+  }
+
+  const evidenceHashes = new Map(taskEvidence.map((record) => [sha256Canonical(record), record.id]));
+  const independentReproductions = [];
+  for (const reproduction of taskEvidence.filter((record) => record.status === "reproduced")) {
+    const source = evidenceById.get(reproduction.reproduction_of);
+    if (!source || source.id === reproduction.id) {
+      issues.push(
+        policyIssue(
+          "evidence.reproduction_source_missing",
+          `Reproduction ${reproduction.id} must reference another evidence bundle in the task`,
+          { evidence_id: reproduction.id }
+        )
+      );
+    } else if (
+      reproduction.producer.id === source.producer.id ||
+      reproduction.producer.id === task.owner.id
+    ) {
+      issues.push(
+        policyIssue(
+          "evidence.reproduction_not_independent",
+          `Reproduction ${reproduction.id} must be produced independently`,
+          { evidence_id: reproduction.id }
+        )
+      );
+    } else {
+      independentReproductions.push(reproduction);
+    }
+  }
+  for (const decision of taskDecisions) {
+    for (const reviewId of decision.review_ids) {
+      if (!reviewsById.has(reviewId)) {
+        issues.push(
+          policyIssue(
+            "decision.review_missing",
+            `Decision ${decision.id} references missing review ${reviewId}`,
+            { decision_id: decision.id }
+          )
+        );
+      }
+    }
+    for (const hash of decision.evidence_hashes) {
+      if (!evidenceHashes.has(hash)) {
+        issues.push(
+          policyIssue(
+            "decision.evidence_missing",
+            `Decision ${decision.id} references an unknown evidence hash`,
+            { decision_id: decision.id }
+          )
+        );
+      }
+    }
+  }
+
+  for (const event of taskEvents) {
+    let targetState = EVENT_TARGET_STATES[event.type] ?? null;
+    let linkedDecision;
+
+    if (event.type === "decision.recorded") {
+      linkedDecision = decisionsById.get(event.payload.decision_id);
+      if (!linkedDecision) {
+        issues.push(
+          policyIssue("event.decision_missing", `Event ${event.id} references a missing decision`, {
+            event_id: event.id
+          })
+        );
+      } else {
+        targetState = DECISION_TARGET_STATES[linkedDecision.outcome];
+        if (!isAtOrBefore(linkedDecision, event)) {
+          issues.push(
+            policyIssue(
+              "event.decision_not_recorded",
+              `Decision ${linkedDecision.id} was created after event ${event.id}`,
+              { event_id: event.id }
+            )
+          );
+        }
+      }
+    }
+
+    if (!targetState) {
+      if (event.type === "review.recorded") {
+        const review = reviewsById.get(event.payload.review_id);
+        if (!review) {
+          issues.push(
+            policyIssue("event.review_missing", `Event ${event.id} references a missing review`, {
+              event_id: event.id
+            })
+          );
+        } else if (!isAtOrBefore(review, event)) {
+          issues.push(
+            policyIssue(
+              "event.review_not_recorded",
+              `Review ${review.id} was created after event ${event.id}`,
+              { event_id: event.id }
+            )
+          );
+        }
+      }
+      continue;
+    }
+
+    const fromState = state;
+    if (event.type === "task.created") {
+      if (state !== null) {
+        issues.push(
+          policyIssue(
+            "transition.duplicate_creation",
+            `Task ${task.id} has more than one creation transition`,
+            { event_id: event.id }
+          )
+        );
+      }
+    } else if (!state || !TASK_TRANSITIONS[state]?.includes(targetState)) {
+      issues.push(
+        policyIssue(
+          "transition.not_allowed",
+          `Transition ${state ?? "none"} -> ${targetState} is not allowed`,
+          { event_id: event.id }
+        )
+      );
+    }
+
+    if (event.payload.from_state !== undefined && event.payload.from_state !== fromState) {
+      issues.push(
+        policyIssue(
+          "transition.from_state_mismatch",
+          `Event ${event.id} declares from_state ${event.payload.from_state}, expected ${fromState}`,
+          { event_id: event.id }
+        )
+      );
+    }
+    const declaredTarget = event.payload.to_state ?? event.payload.state;
+    if (declaredTarget !== undefined && declaredTarget !== targetState) {
+      issues.push(
+        policyIssue(
+          "transition.to_state_mismatch",
+          `Event ${event.id} declares target ${declaredTarget}, expected ${targetState}`,
+          { event_id: event.id }
+        )
+      );
+    }
+
+    if (
+      event.type !== "task.created" &&
+      (event.payload.from_state === undefined || event.payload.to_state === undefined)
+    ) {
+      issues.push(
+        policyIssue(
+          "transition.state_declaration_required",
+          `Event ${event.id} must declare from_state and to_state`,
+          { event_id: event.id }
+        )
+      );
+    }
+
+    if (event.type === "task.submitted" || event.type === "review.requested") {
+      const linkedEvidenceIds = event.payload.evidence_ids;
+      if (!Array.isArray(linkedEvidenceIds) || linkedEvidenceIds.length === 0) {
+        issues.push(
+          policyIssue(
+            "gate.evidence_required",
+            `${event.type} requires at least one linked evidence bundle`,
+            { event_id: event.id }
+          )
+        );
+      } else {
+        for (const evidenceId of linkedEvidenceIds) {
+          const record = evidenceById.get(evidenceId);
+          if (!record || !isAtOrBefore(record, event)) {
+            issues.push(
+              policyIssue(
+                "gate.evidence_unavailable",
+                `Evidence ${evidenceId} was not available for event ${event.id}`,
+                { event_id: event.id }
+              )
+            );
+          }
+        }
+      }
+    }
+
+    if (event.type === "remediation.requested") {
+      const review = reviewsById.get(event.payload.review_id);
+      if (
+        !review ||
+        !isAtOrBefore(review, event) ||
+        !["fail", "remediation"].includes(review.outcome)
+      ) {
+        issues.push(
+          policyIssue(
+            "gate.remediation_review_required",
+            "Remediation requires a linked fail or remediation review",
+            { event_id: event.id }
+          )
+        );
+      }
+    }
+
+    if (linkedDecision?.outcome === "accept") {
+      const passingReview = linkedDecision.review_ids
+        .map((id) => reviewsById.get(id))
+        .find(
+          (review) =>
+            review?.outcome === "pass" &&
+            review.independent &&
+            review.reviewer.id !== task.owner.id &&
+            isAtOrBefore(review, event)
+        );
+      if (!passingReview) {
+        issues.push(
+          policyIssue(
+            "gate.independent_review_required",
+            "Acceptance requires a referenced independent pass review by someone other than the task owner",
+            { event_id: event.id }
+          )
+        );
+      } else {
+        const decisionEvidenceIds = new Set(
+          linkedDecision.evidence_hashes.map((hash) => evidenceHashes.get(hash)).filter(Boolean)
+        );
+        if (!passingReview.evidence_ids.some((id) => decisionEvidenceIds.has(id))) {
+          issues.push(
+            policyIssue(
+              "gate.reviewed_evidence_required",
+              "Acceptance decision must hash evidence considered by its independent pass review",
+              { event_id: event.id }
+            )
+          );
+        }
+      }
+      if (["high", "critical"].includes(task.risk)) {
+        const decisionEvidenceIds = new Set(
+          linkedDecision.evidence_hashes.map((hash) => evidenceHashes.get(hash)).filter(Boolean)
+        );
+        const acceptedReproduction = independentReproductions.find(
+          (reproduction) =>
+            decisionEvidenceIds.has(reproduction.id) &&
+            passingReview?.evidence_ids.includes(reproduction.id) &&
+            isAtOrBefore(reproduction, event)
+        );
+        if (!acceptedReproduction) {
+          issues.push(
+            policyIssue(
+              "gate.independent_reproduction_required",
+              "High-risk acceptance requires independently produced reproduction evidence reviewed and hashed by the decision",
+              { event_id: event.id }
+            )
+          );
+        }
+      }
+    }
+
+    state = targetState;
+    history.push({
+      sequence: event.sequence,
+      event_id: event.id,
+      type: event.type,
+      from_state: fromState,
+      to_state: targetState,
+      occurred_at: event.occurred_at
+    });
+  }
+
+  if (state !== task.state) {
+    issues.push(
+      policyIssue(
+        "task.state_mismatch",
+        `Task document state ${task.state} does not match derived state ${state ?? "none"}`
+      )
+    );
+  }
+
+  const independentPass = taskReviews.some(
+    (review) =>
+      review.outcome === "pass" &&
+      review.independent &&
+      review.reviewer.id !== task.owner.id
+  );
+  const remediationReviewExists = taskReviews.some((review) =>
+    ["fail", "remediation"].includes(review.outcome)
+  );
+  const remediationEventExists = taskEvents.some(
+    (event) => event.type === "remediation.requested"
+  );
+  const humanDecision = taskDecisions.some((decision) => decision.authority.type === "human");
+
+  return {
+    valid: issues.length === 0,
+    task_id: task.id,
+    derived_state: state,
+    history,
+    gates: {
+      evidence_present: taskEvidence.length > 0,
+      independent_review: independentPass,
+      independent_reproduction:
+        !["high", "critical"].includes(task.risk) || independentReproductions.length > 0,
+      remediation_recorded: !remediationReviewExists || remediationEventExists,
+      human_decision: humanDecision,
+      final_state_consistent: state === task.state
+    },
+    issues
+  };
 }
 
 async function directoryExists(directory) {
@@ -180,6 +589,7 @@ export async function validateWorkspace(workspace, options = {}) {
   const issues = [];
   const counts = Object.fromEntries(DOCUMENT_KINDS.map((kind) => [kind, 0]));
   const events = [];
+  const documentsByKind = Object.fromEntries(DOCUMENT_KINDS.map((kind) => [kind, []]));
 
   for (const kind of DOCUMENT_KINDS) {
     const location = path.join(root, DOCUMENT_LOCATIONS[kind]);
@@ -191,8 +601,9 @@ export async function validateWorkspace(workspace, options = {}) {
       const result = registry.validate(kind, document);
       if (!result.valid) {
         issues.push({ file, message: "schema validation failed", errors: result.errors });
-      } else if (kind === "event") {
-        events.push(document);
+      } else {
+        documentsByKind[kind].push(document);
+        if (kind === "event") events.push(document);
       }
     }
   }
@@ -205,10 +616,59 @@ export async function validateWorkspace(workspace, options = {}) {
     }
   }
 
+  const taskIds = new Set(documentsByKind.task.map((task) => task.id));
+  for (const kind of ["event", "evidence", "review", "decision"]) {
+    for (const document of documentsByKind[kind]) {
+      if (!taskIds.has(document.task_id)) {
+        issues.push({
+          file: `${kind}:${document.id}`,
+          message: `references missing task ${document.task_id}`
+        });
+      }
+    }
+  }
+
+  const policy = {};
+  for (const task of documentsByKind.task) {
+    const evaluation = evaluateTaskPolicy({
+      task,
+      events: documentsByKind.event,
+      evidence: documentsByKind.evidence,
+      reviews: documentsByKind.review,
+      decisions: documentsByKind.decision
+    });
+    policy[task.id] = evaluation;
+    for (const error of evaluation.issues) {
+      issues.push({ file: `policy:${task.id}`, message: error.message, ...error });
+    }
+  }
+
   return {
     valid: issues.length === 0,
     workspace: root,
     counts,
+    policy,
     issues
   };
+}
+
+export async function readTaskPacket(workspace, taskId) {
+  const root = path.resolve(workspace);
+  const loaded = {};
+  for (const kind of DOCUMENT_KINDS) {
+    loaded[kind] = (
+      await readDocuments(path.join(root, DOCUMENT_LOCATIONS[kind]))
+    ).documents.map(({ document }) => document);
+  }
+  const task = loaded.task.find((candidate) => candidate.id === taskId);
+  if (!task) return null;
+  const related = (records) => records.filter((record) => record.task_id === taskId);
+  const packet = {
+    task,
+    events: related(loaded.event).sort((left, right) => left.sequence - right.sequence),
+    evidence: related(loaded.evidence),
+    reviews: related(loaded.review),
+    decisions: related(loaded.decision)
+  };
+  return { ...packet, policy: evaluateTaskPolicy(packet) };
 }

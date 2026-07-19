@@ -14,8 +14,13 @@ concurrency:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    name: Verify on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - name: Check out source
         uses: actions/checkout@v6

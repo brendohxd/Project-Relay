@@ -29,13 +29,13 @@ Provides a stable tool surface for MCP-capable clients. The first release is loc
 
 Will translate approved proposals into branches, commits, pull requests, labels, and review requests. It is intentionally separate from the protocol and will use least-privilege GitHub permissions.
 
-### Policy engine — planned
+### Policy engine
 
-Will evaluate declared gates such as independent reproduction, security review, or named human approval. It will not assess scientific truth; it checks whether the required process evidence exists.
+The local default policy derives task state from append-only events, enforces allowed transitions, verifies linked evidence and reviews, preserves remediation, and requires a human-authored decision for acceptance. It does not assess scientific truth; it checks whether required process evidence exists. Project-specific profiles remain planned.
 
 ### Web console
 
-A static, read-only projection designed for GitHub Pages. It consumes a generated state snapshot and holds no credentials. Any future write action must leave Pages and enter an authenticated service or GitHub flow.
+A static, read-only projection designed for GitHub Pages. It consumes a generated state snapshot containing derived state, transition history, and gate results, and holds no credentials. Any future write action must leave Pages and enter an authenticated service or GitHub flow.
 
 ## Trust boundaries
 

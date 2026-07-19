@@ -1,0 +1,2 @@
+# Relay hashes raw bytes and checks generated files byte-for-byte across platforms.
+* text=auto eol=lf

@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1.0",
+  "id": "EVT-m1event0010",
+  "task_id": "RELAY-1001",
+  "sequence": 10,
+  "type": "review.requested",
+  "actor": {
+    "id": "human:maintainer",
+    "type": "human",
+    "role": "decision authority"
+  },
+  "occurred_at": "2026-07-19T01:11:00Z",
+  "previous_event_hash": "b5d79b44575d523cea4c50aa713a5fb0e8fb23cb5b15cec153a5cf45736b6fc7",
+  "payload": {
+    "from_state": "submitted",
+    "to_state": "under_review",
+    "evidence_ids": [
+      "EVD-m1remedied01"
+    ]
+  },
+  "event_hash": "3249e902233c48c2608a856b7b1de57bc2a35fdb675d9c925ddfb415d3802cad"
+}

@@ -75,7 +75,12 @@ h2 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -.035em; margin: 8px 0 0
 .task-title small { color: var(--muted); font-family: ui-monospace, monospace; margin-top: 5px; }
 .badge { border: 1px solid var(--line); border-radius: 999px; display: inline-flex; font-family: ui-monospace, monospace; font-size: 10px; padding: 6px 9px; text-transform: uppercase; width: fit-content; }
 .badge-state { border-color: rgba(121, 168, 255, .4); color: var(--blue); }
+.badge-policy-failed { border-color: rgba(255, 107, 53, .5); color: var(--orange); }
 .badge-risk-high, .badge-risk-critical { border-color: rgba(255, 107, 53, .5); color: var(--orange); }
+.task-gates { display: flex; flex-wrap: wrap; gap: 7px; grid-column: 1 / -1; padding-bottom: 14px; }
+.gate { border: 1px solid var(--line); border-radius: 999px; font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .04em; padding: 5px 8px; text-transform: uppercase; }
+.gate-pass { border-color: rgba(185, 247, 124, .32); color: var(--lime); }
+.gate-fail { border-color: rgba(255, 107, 53, .5); color: var(--orange); }
 .load-error { background: rgba(255, 107, 53, .09); border: 1px solid rgba(255, 107, 53, .35); color: #ffc2ac; padding: 16px; }
 .flow { counter-reset: relay; display: grid; gap: 1px; grid-template-columns: repeat(4, 1fr); list-style: none; margin: 0; padding: 0; }
 .flow li { background: var(--panel); min-height: 210px; padding: 22px; }

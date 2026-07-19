@@ -13,13 +13,17 @@
     "packages/*"
   ],
   "scripts": {
-    "build:state": "node scripts/build-console-state.mjs examples/minimal apps/console/state/index.json",
-    "check": "npm run public:check && npm run validate && npm test && npm run build:state && git diff --exit-code -- apps/console/state/index.json",
+    "build:m1-events": "node scripts/build-m1-example-events.mjs",
+    "build:state": "node scripts/build-console-state.mjs examples/m1 apps/console/state/index.json",
+    "build:state:check": "node scripts/check-console-state.mjs",
+    "check": "npm run public:check && npm run validate && npm test && npm run build:state:check",
     "console": "node scripts/serve-console.mjs",
+    "doctor": "node scripts/project-doctor.mjs",
+    "evidence:create": "node scripts/create-evidence-bundle.mjs",
     "mcp": "npm --workspace @project-relay/mcp-server start",
     "public:check": "node scripts/check-public-boundary.mjs",
     "test": "node --test",
-    "validate": "node scripts/validate-repository.mjs examples/minimal",
+    "validate": "node scripts/validate-repository.mjs examples/minimal examples/m1",
     "versions:check": "node scripts/version-doctor.mjs check",
     "versions:update": "node scripts/version-doctor.mjs update"
   }

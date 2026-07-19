@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { readDocuments, validateWorkspace } from "@project-relay/protocol";
+import { readDocuments, readTaskPacket, validateWorkspace } from "@project-relay/protocol";
 
 const workspaceArgument = process.argv[2] ?? "examples/minimal";
 const outputArgument = process.argv[3] ?? "apps/console/state/index.json";
@@ -32,6 +32,13 @@ const [tasks, evidence, reviews, decisions] = await Promise.all([
   load("review"),
   load("decision")
 ]);
+const packets = new Map(
+  (
+    await Promise.all(
+      tasks.map(async (task) => [task.id, await readTaskPacket(workspace, task.id)])
+    )
+  )
+);
 
 const countFor = (records, taskId) => records.filter((record) => record.task_id === taskId).length;
 const snapshot = {
@@ -42,21 +49,33 @@ const snapshot = {
     active: tasks.filter((task) => !["accepted", "rejected", "cancelled"].includes(task.state)).length,
     evidence_bundles: evidence.length,
     reviews: reviews.length,
-    decisions: decisions.length
+    decisions: decisions.length,
+    failed_gates: [...packets.values()].reduce(
+      (total, packet) =>
+        total + Object.values(packet.policy.gates).filter((satisfied) => !satisfied).length,
+      0
+    )
   },
   tasks: tasks
-    .map((task) => ({
-      id: task.id,
-      title: task.title,
-      question: task.question,
-      state: task.state,
-      risk: task.risk,
-      owner: task.owner,
-      reviewer_count: task.reviewers.length,
-      evidence_count: countFor(evidence, task.id),
-      review_count: countFor(reviews, task.id),
-      decision_count: countFor(decisions, task.id)
-    }))
+    .map((task) => {
+      const packet = packets.get(task.id);
+      return {
+        id: task.id,
+        title: task.title,
+        question: task.question,
+        state: task.state,
+        derived_state: packet.policy.derived_state,
+        policy_valid: packet.policy.valid,
+        gates: packet.policy.gates,
+        history: packet.policy.history,
+        risk: task.risk,
+        owner: task.owner,
+        reviewer_count: task.reviewers.length,
+        evidence_count: countFor(evidence, task.id),
+        review_count: countFor(reviews, task.id),
+        decision_count: countFor(decisions, task.id)
+      };
+    })
     .sort((left, right) => left.id.localeCompare(right.id))
 };
 

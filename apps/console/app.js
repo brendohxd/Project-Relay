@@ -27,16 +27,31 @@ function renderTask(task) {
   const strong = document.createElement("strong");
   strong.textContent = task.title;
   const small = document.createElement("small");
-  small.textContent = task.id;
+  small.textContent = `${task.id} · ${task.history.length} transitions · policy ${task.policy_valid ? "valid" : "failed"}`;
   title.append(strong, small);
 
   row.append(
     title,
-    cell("badge badge-state", task.state.replaceAll("_", " ")),
+    cell(
+      `badge badge-state ${task.policy_valid ? "" : "badge-policy-failed"}`,
+      task.derived_state.replaceAll("_", " ")
+    ),
     cell(`badge badge-risk-${task.risk}`, task.risk),
     cell("", String(task.evidence_count)),
     cell("", String(task.review_count))
   );
+
+  const gates = document.createElement("div");
+  gates.className = "task-gates";
+  for (const [name, satisfied] of Object.entries(task.gates)) {
+    gates.append(
+      cell(
+        `gate ${satisfied ? "gate-pass" : "gate-fail"}`,
+        `${satisfied ? "✓" : "×"} ${name.replaceAll("_", " ")}`
+      )
+    );
+  }
+  row.append(gates);
   return row;
 }
 

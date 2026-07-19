@@ -10,6 +10,8 @@ A task asks one bounded question. It declares an owner, reviewers, risk, inputs,
 
 An evidence bundle connects a claim to its method, exact commands, environment, artifacts, hashes, and limitations. Its status begins as `provisional`; reproduction and audit are separate events.
 
+A bundle with status `reproduced` must name its source through `reproduction_of`. For a high- or critical-risk acceptance, the reproduction must come from a producer other than the task owner and source producer, be considered by the independent passing review, and be hashed by the human decision.
+
 ### Review
 
 A review names its reviewer, independence status, evidence considered, findings, outcome, and AI disclosure. `independent: true` is a declared property that can be audited; it is not inferred from using a different brand of model.
@@ -21,6 +23,10 @@ A decision records a gate outcome and rationale. In protocol `0.1`, the decision
 ### Event
 
 An event is an append-only envelope describing a state transition or material action. Events contain a sequence number, previous-event hash, actor, timestamp, payload, and their own deterministic hash.
+
+Actors may declare bounded capability identifiers such as `relay.task.submit` or `evidence.bundle.create`. A declaration is auditable metadata, not proof that the actor is authorised or technically able to exercise it. Policy remains responsible for deciding whether a capability is permitted at a gate.
+
+Events may add typed `causal_links` to earlier events in the same task chain using `caused-by`, `derived-from`, `responds-to`, or `supersedes`. Forward and self-references are invalid. These links explain provenance without changing sequence order or replacing the hash chain.
 
 ## Task lifecycle
 
@@ -36,7 +42,9 @@ draft -> ready -> claimed -> in_progress -> submitted -> under_review
 Any active state may become blocked. Rejected and cancelled are terminal.
 ```
 
-The validator checks document shape and chain integrity. A future policy engine will enforce allowed state transitions and project-specific gates.
+The validator checks document shape, chain integrity, allowed default transitions, linked evidence and reviews, remediation records, and human decision authority. Future policy profiles will add project-specific gates without changing the meaning of schema validity.
+
+Transition events after `task.created` declare `payload.from_state` and `payload.to_state`. Submission and review-request events also identify the evidence bundles available at that point. The current task document must agree with the state derived from its event chain.
 
 ## Default evidence gate
 
@@ -58,6 +66,8 @@ This is the **Relay Canonical JSON 0.1** profile. It is intentionally labelled r
 - Every material claim points to evidence or is labelled unsupported.
 - Evidence preserves failures and exclusions as well as successful outputs.
 - Prior penalties and data-fit metrics remain separable when applicable.
+- Declared capabilities never imply authority by themselves.
+- Causal links point backward to existing events in the same task chain.
 - AI involvement is disclosed at the review and decision boundary.
 - A failed gate cannot be relabelled as acceptance without a new decision record.
 - Rejected and superseded records remain discoverable.

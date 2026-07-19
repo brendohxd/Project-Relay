@@ -33,9 +33,13 @@ async function walk(directory) {
 
 async function candidateFiles() {
   try {
-    const output = execFileSync("git", ["ls-files", "-z"], { cwd: root });
-    const tracked = output.toString("utf8").split("\0").filter(Boolean);
-    return tracked.length > 0 ? tracked : walk(root);
+    const output = execFileSync(
+      "git",
+      ["ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+      { cwd: root }
+    );
+    const publicFiles = output.toString("utf8").split("\0").filter(Boolean);
+    return publicFiles.length > 0 ? publicFiles : walk(root);
   } catch {
     return walk(root);
   }

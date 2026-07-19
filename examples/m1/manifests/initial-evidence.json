@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.1.0",
+  "id": "EVD-m1initial01",
+  "task_id": "RELAY-1001",
+  "producer": {
+    "id": "model:builder",
+    "type": "model",
+    "role": "implementation"
+  },
+  "created_at": "2026-07-19T01:04:00Z",
+  "claim": "The synthetic result satisfies the task acceptance criteria.",
+  "method": "Inspect the declared synthetic artifact and compare each line with the acceptance criteria.",
+  "commands": [
+    "node scripts/validate-repository.mjs examples/m1"
+  ],
+  "environment": {
+    "runtime": "Node.js 24",
+    "platform": "synthetic cross-platform fixture",
+    "dependencies": {
+      "project-relay": "0.1.0"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "../artifacts/initial-result.txt",
+      "uri": "artifacts/initial-result.txt",
+      "media_type": "text/plain"
+    }
+  ],
+  "failures": [],
+  "limitations": [
+    "This is a synthetic protocol fixture and does not establish scientific validity."
+  ],
+  "status": "provisional"
+}

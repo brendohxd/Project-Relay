@@ -1,19 +1,112 @@
 {
   "protocol_version": "0.1.0",
-  "generated_from": "examples/minimal",
+  "generated_from": "examples/m1",
   "summary": {
     "tasks": 1,
-    "active": 1,
-    "evidence_bundles": 0,
-    "reviews": 0,
-    "decisions": 0
+    "active": 0,
+    "evidence_bundles": 2,
+    "reviews": 2,
+    "decisions": 1,
+    "failed_gates": 0
   },
   "tasks": [
     {
-      "id": "RELAY-0001",
-      "title": "Validate the Relay protocol kernel",
-      "question": "Does the initial Relay protocol reject malformed records and detect a modified event chain?",
-      "state": "draft",
+      "id": "RELAY-1001",
+      "title": "Exercise the default remediation policy",
+      "question": "Can Relay preserve a failed independent review, require remediation, and record human-authorised acceptance?",
+      "state": "accepted",
+      "derived_state": "accepted",
+      "policy_valid": true,
+      "gates": {
+        "evidence_present": true,
+        "independent_review": true,
+        "independent_reproduction": true,
+        "remediation_recorded": true,
+        "human_decision": true,
+        "final_state_consistent": true
+      },
+      "history": [
+        {
+          "sequence": 1,
+          "event_id": "EVT-m1event0001",
+          "type": "task.created",
+          "from_state": null,
+          "to_state": "draft",
+          "occurred_at": "2026-07-19T01:00:00Z"
+        },
+        {
+          "sequence": 2,
+          "event_id": "EVT-m1event0002",
+          "type": "task.ready",
+          "from_state": "draft",
+          "to_state": "ready",
+          "occurred_at": "2026-07-19T01:01:00Z"
+        },
+        {
+          "sequence": 3,
+          "event_id": "EVT-m1event0003",
+          "type": "task.claimed",
+          "from_state": "ready",
+          "to_state": "claimed",
+          "occurred_at": "2026-07-19T01:02:00Z"
+        },
+        {
+          "sequence": 4,
+          "event_id": "EVT-m1event0004",
+          "type": "task.started",
+          "from_state": "claimed",
+          "to_state": "in_progress",
+          "occurred_at": "2026-07-19T01:03:00Z"
+        },
+        {
+          "sequence": 5,
+          "event_id": "EVT-m1event0005",
+          "type": "task.submitted",
+          "from_state": "in_progress",
+          "to_state": "submitted",
+          "occurred_at": "2026-07-19T01:05:00Z"
+        },
+        {
+          "sequence": 6,
+          "event_id": "EVT-m1event0006",
+          "type": "review.requested",
+          "from_state": "submitted",
+          "to_state": "under_review",
+          "occurred_at": "2026-07-19T01:06:00Z"
+        },
+        {
+          "sequence": 8,
+          "event_id": "EVT-m1event0008",
+          "type": "remediation.requested",
+          "from_state": "under_review",
+          "to_state": "remediation",
+          "occurred_at": "2026-07-19T01:08:00Z"
+        },
+        {
+          "sequence": 9,
+          "event_id": "EVT-m1event0009",
+          "type": "task.submitted",
+          "from_state": "remediation",
+          "to_state": "submitted",
+          "occurred_at": "2026-07-19T01:10:00Z"
+        },
+        {
+          "sequence": 10,
+          "event_id": "EVT-m1event0010",
+          "type": "review.requested",
+          "from_state": "submitted",
+          "to_state": "under_review",
+          "occurred_at": "2026-07-19T01:11:00Z"
+        },
+        {
+          "sequence": 12,
+          "event_id": "EVT-m1event0012",
+          "type": "decision.recorded",
+          "from_state": "under_review",
+          "to_state": "accepted",
+          "occurred_at": "2026-07-19T01:13:00Z"
+        }
+      ],
       "risk": "moderate",
       "owner": {
         "id": "model:builder",
@@ -21,9 +114,9 @@
         "role": "implementation"
       },
       "reviewer_count": 1,
-      "evidence_count": 0,
-      "review_count": 0,
-      "decision_count": 0
+      "evidence_count": 2,
+      "review_count": 2,
+      "decision_count": 1
     }
   ]
 }

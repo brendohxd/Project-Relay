@@ -2,13 +2,14 @@ import { randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
   DOCUMENT_KINDS,
   createRegistry,
   eventDigest,
   readDocuments,
+  readTaskPacket,
   validateWorkspace
 } from "@project-relay/protocol";
 import { z } from "zod";
@@ -36,8 +37,14 @@ const actorSchema = z.object({
   id: z.string().min(2).max(128),
   type: z.enum(["human", "model", "service"]),
   role: z.string().min(2).max(100),
+  capabilities: z.array(z.string().regex(/^[a-z][a-z0-9._:-]{1,99}$/)).optional(),
   provider: z.string().min(1).max(100).optional(),
   model: z.string().min(1).max(200).optional()
+});
+const causalLinkSchema = z.object({
+  relation: z.enum(["caused-by", "derived-from", "responds-to", "supersedes"]),
+  targetEventId: z.string().regex(/^EVT-[A-Za-z0-9_-]{8,}$/),
+  note: z.string().min(1).max(500).optional()
 });
 
 const registryPromise = createRegistry();
@@ -70,6 +77,70 @@ server.registerTool(
       file: path.relative(workspace, file)
     }));
     return result({ workspace, tasks, issues: loaded.issues });
+  }
+);
+
+server.registerResource(
+  "relay-task-packet",
+  new ResourceTemplate("relay://tasks/{id}", { list: undefined }),
+  {
+    title: "Relay task packet",
+    description:
+      "Read one task with its events, evidence, reviews, decisions, derived state, and policy gates.",
+    mimeType: "application/json"
+  },
+  async (uri, { id }) => {
+    const taskId = String(id);
+    if (!taskIdPattern.test(taskId)) {
+      throw new Error("Invalid Relay task identifier");
+    }
+    const packet = await readTaskPacket(workspace, taskId);
+    if (!packet) throw new Error(`Relay task not found: ${taskId}`);
+    return {
+      contents: [
+        {
+          uri: uri.href,
+          mimeType: "application/json",
+          text: JSON.stringify(packet, null, 2)
+        }
+      ]
+    };
+  }
+);
+
+server.registerPrompt(
+  "relay_review_task",
+  {
+    title: "Review a Relay task",
+    description:
+      "Prepare a bounded independent-review prompt from the canonical local task packet.",
+    argsSchema: {
+      taskId: z.string().regex(taskIdPattern).describe("Relay task identifier")
+    }
+  },
+  async ({ taskId }) => {
+    const packet = await readTaskPacket(workspace, taskId);
+    if (!packet) throw new Error(`Relay task not found: ${taskId}`);
+    return {
+      description: `Independent review packet for ${taskId}`,
+      messages: [
+        {
+          role: "user",
+          content: {
+            type: "text",
+            text: [
+              "Review the Relay task packet below against its single question and acceptance criteria.",
+              "Check evidence references, commands, environment, failures, limitations, and policy issues.",
+              "State whether your review is independent and disclose any AI assistance.",
+              "Preserve disagreement and request remediation when a criterion is not satisfied.",
+              "Do not make or imply the final human decision.",
+              "",
+              JSON.stringify(packet, null, 2)
+            ].join("\n")
+          }
+        }
+      ]
+    };
   }
 );
 
@@ -138,10 +209,11 @@ server.registerTool(
       type: z.enum(eventTypes),
       actor: actorSchema,
       previousEventHash: z.string().regex(/^[a-f0-9]{64}$/).nullable().optional(),
+      causalLinks: z.array(causalLinkSchema).optional(),
       payload: z.record(z.string(), z.unknown())
     }
   },
-  async ({ taskId, sequence, type, actor, previousEventHash, payload }) => {
+  async ({ taskId, sequence, type, actor, previousEventHash, causalLinks, payload }) => {
     const event = {
       schema_version: VERSION,
       id: `EVT-${randomUUID()}`,
@@ -151,6 +223,15 @@ server.registerTool(
       actor,
       occurred_at: new Date().toISOString(),
       previous_event_hash: previousEventHash ?? null,
+      ...(causalLinks
+        ? {
+            causal_links: causalLinks.map(({ relation, targetEventId, note }) => ({
+              relation,
+              target_event_id: targetEventId,
+              ...(note ? { note } : {})
+            }))
+          }
+        : {}),
       payload,
       event_hash: ""
     };
