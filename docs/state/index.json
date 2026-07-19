@@ -121,18 +121,13 @@
           {
             "id": "M1-LINUX-VERIFY",
             "title": "Linux conformance verification",
-            "state": "blocked",
+            "state": "done",
             "evidence": [
               {
-                "label": "Blocked GitHub Actions run",
-                "uri": "https://github.com/brendohxd/Project-Relay/actions"
+                "label": "Passing Windows and Linux M1 matrix",
+                "uri": "https://github.com/brendohxd/Project-Relay/actions/runs/29680192255"
               }
-            ],
-            "blocker": {
-              "kind": "external",
-              "summary": "GitHub-hosted runners are unavailable because of the account-level billing lock; no Linux result exists."
-            },
-            "next_action": "Rerun the existing matrix when GitHub-hosted runners become available."
+            ]
           },
           {
             "id": "M1-MERGE",
@@ -145,15 +140,15 @@
         "summary": {
           "state": "planned",
           "counts": {
-            "done": 3,
+            "done": 4,
             "in_progress": 0,
-            "blocked": 2,
+            "blocked": 1,
             "planned": 1,
             "deferred": 0
           },
           "total": 6,
           "actionable": 6,
-          "completed": 3,
+          "completed": 4,
           "blockers": [
             {
               "id": "M1-HUMAN-REVIEW",
@@ -165,22 +160,6 @@
                 "summary": "Draft PR #1 has no recorded human review decision."
               },
               "next_action": "Review the protocol behavior, limitations, and public boundary in draft PR #1."
-            },
-            {
-              "id": "M1-LINUX-VERIFY",
-              "title": "Linux conformance verification",
-              "state": "blocked",
-              "evidence": [
-                {
-                  "label": "Blocked GitHub Actions run",
-                  "uri": "https://github.com/brendohxd/Project-Relay/actions"
-                }
-              ],
-              "blocker": {
-                "kind": "external",
-                "summary": "GitHub-hosted runners are unavailable because of the account-level billing lock; no Linux result exists."
-              },
-              "next_action": "Rerun the existing matrix when GitHub-hosted runners become available."
             }
           ]
         }
@@ -381,12 +360,8 @@
           {
             "id": "M4-PAGES-PUBLISH",
             "title": "Publish the visual console on GitHub Pages",
-            "state": "blocked",
+            "state": "planned",
             "evidence": [],
-            "blocker": {
-              "kind": "external",
-              "summary": "GitHub Pages is not configured and its deployment job may be blocked by the same account-level Actions restriction."
-            },
             "next_action": "After merge, configure Pages from main /docs and record the resulting public URL or blocker."
           },
           {
@@ -416,26 +391,14 @@
           "counts": {
             "done": 3,
             "in_progress": 0,
-            "blocked": 1,
-            "planned": 3,
+            "blocked": 0,
+            "planned": 4,
             "deferred": 0
           },
           "total": 7,
           "actionable": 7,
           "completed": 3,
-          "blockers": [
-            {
-              "id": "M4-PAGES-PUBLISH",
-              "title": "Publish the visual console on GitHub Pages",
-              "state": "blocked",
-              "evidence": [],
-              "blocker": {
-                "kind": "external",
-                "summary": "GitHub Pages is not configured and its deployment job may be blocked by the same account-level Actions restriction."
-              },
-              "next_action": "After merge, configure Pages from main /docs and record the resulting public URL or blocker."
-            }
-          ]
+          "blockers": []
         }
       },
       {
@@ -555,15 +518,15 @@
     "summary": {
       "state": "planned",
       "counts": {
-        "done": 12,
+        "done": 13,
         "in_progress": 0,
-        "blocked": 3,
-        "planned": 13,
+        "blocked": 1,
+        "planned": 14,
         "deferred": 3
       },
       "total": 31,
       "actionable": 28,
-      "completed": 12,
+      "completed": 13,
       "blockers": [
         {
           "id": "M1-HUMAN-REVIEW",
@@ -575,33 +538,6 @@
             "summary": "Draft PR #1 has no recorded human review decision."
           },
           "next_action": "Review the protocol behavior, limitations, and public boundary in draft PR #1."
-        },
-        {
-          "id": "M1-LINUX-VERIFY",
-          "title": "Linux conformance verification",
-          "state": "blocked",
-          "evidence": [
-            {
-              "label": "Blocked GitHub Actions run",
-              "uri": "https://github.com/brendohxd/Project-Relay/actions"
-            }
-          ],
-          "blocker": {
-            "kind": "external",
-            "summary": "GitHub-hosted runners are unavailable because of the account-level billing lock; no Linux result exists."
-          },
-          "next_action": "Rerun the existing matrix when GitHub-hosted runners become available."
-        },
-        {
-          "id": "M4-PAGES-PUBLISH",
-          "title": "Publish the visual console on GitHub Pages",
-          "state": "blocked",
-          "evidence": [],
-          "blocker": {
-            "kind": "external",
-            "summary": "GitHub Pages is not configured and its deployment job may be blocked by the same account-level Actions restriction."
-          },
-          "next_action": "After merge, configure Pages from main /docs and record the resulting public URL or blocker."
         }
       ],
       "current_milestone": "M1",

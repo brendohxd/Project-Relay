@@ -15,7 +15,7 @@ test("canonical project status validates and identifies the current milestone", 
   const status = await loadProjectStatus();
   assert.equal(status.milestones[0].summary.state, "complete");
   assert.equal(status.summary.current_milestone, "M1");
-  assert.equal(status.summary.counts.blocked, 3);
+  assert.equal(status.summary.counts.blocked, 1);
 });
 
 test("generated status preserves the ITSM publication boundary", () => {

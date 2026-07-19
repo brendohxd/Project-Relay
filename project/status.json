@@ -104,18 +104,13 @@
         {
           "id": "M1-LINUX-VERIFY",
           "title": "Linux conformance verification",
-          "state": "blocked",
+          "state": "done",
           "evidence": [
             {
-              "label": "Blocked GitHub Actions run",
-              "uri": "https://github.com/brendohxd/Project-Relay/actions"
+              "label": "Passing Windows and Linux M1 matrix",
+              "uri": "https://github.com/brendohxd/Project-Relay/actions/runs/29680192255"
             }
-          ],
-          "blocker": {
-            "kind": "external",
-            "summary": "GitHub-hosted runners are unavailable because of the account-level billing lock; no Linux result exists."
-          },
-          "next_action": "Rerun the existing matrix when GitHub-hosted runners become available."
+          ]
         },
         {
           "id": "M1-MERGE",
@@ -294,12 +289,8 @@
         {
           "id": "M4-PAGES-PUBLISH",
           "title": "Publish the visual console on GitHub Pages",
-          "state": "blocked",
+          "state": "planned",
           "evidence": [],
-          "blocker": {
-            "kind": "external",
-            "summary": "GitHub Pages is not configured and its deployment job may be blocked by the same account-level Actions restriction."
-          },
           "next_action": "After merge, configure Pages from main /docs and record the resulting public URL or blocker."
         },
         {

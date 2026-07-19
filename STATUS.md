@@ -4,15 +4,15 @@
 
 **Stage:** pre-alpha<br>
 **Current milestone:** M1 — Local vertical slice<br>
-**Roadmap:** 12/28 actionable items complete; 3 blocked; 3 deferred.
+**Roadmap:** 13/28 actionable items complete; 1 blocked; 3 deferred.
 
 | Milestone | Status | Complete | Blocked | Deferred |
 |---|---:|---:|---:|---:|
 | M0 — Protocol kernel | complete | 3/3 | 0 | 0 |
-| M1 — Local vertical slice | planned | 3/6 | 2 | 0 |
+| M1 — Local vertical slice | planned | 4/6 | 1 | 0 |
 | M2 — GitHub collaboration adapter | planned | 2/6 | 0 | 0 |
 | M3 — Research and assessment profiles | planned | 1/6 | 0 | 1 |
-| M4 — Public console and integrations | planned | 3/7 | 1 | 0 |
+| M4 — Public console and integrations | planned | 3/7 | 0 | 0 |
 | M5 — Optional managed service | deferred | 0/0 | 0 | 2 |
 
 ## M0 — Protocol kernel
@@ -45,10 +45,8 @@ Exit criteria:
 - [ ] **M1-HUMAN-REVIEW: Human review of draft PR #1** — blocked
   - Blocker (human-action): Draft PR #1 has no recorded human review decision.
   - Next: Review the protocol behavior, limitations, and public boundary in draft PR #1.
-- [ ] **M1-LINUX-VERIFY: Linux conformance verification** — blocked
-  - Blocker (external): GitHub-hosted runners are unavailable because of the account-level billing lock; no Linux result exists.
-  - Next: Rerun the existing matrix when GitHub-hosted runners become available.
-  - Evidence: [Blocked GitHub Actions run](https://github.com/brendohxd/Project-Relay/actions)
+- [x] **M1-LINUX-VERIFY: Linux conformance verification** — done
+  - Evidence: [Passing Windows and Linux M1 matrix](https://github.com/brendohxd/Project-Relay/actions/runs/29680192255)
 - [ ] **M1-MERGE: Merge the reviewed M1 candidate** — planned
   - Next: Merge only after human review and Linux verification both pass.
 
@@ -107,8 +105,7 @@ Exit criteria:
   - Evidence: [Read-only console](apps/console/index.html)
 - [x] **M4-PAGES-READY: GitHub Pages-ready static bundle** — done
   - Evidence: [Pages entry point](docs/index.html)
-- [ ] **M4-PAGES-PUBLISH: Publish the visual console on GitHub Pages** — blocked
-  - Blocker (external): GitHub Pages is not configured and its deployment job may be blocked by the same account-level Actions restriction.
+- [ ] **M4-PAGES-PUBLISH: Publish the visual console on GitHub Pages** — planned
   - Next: After merge, configure Pages from main /docs and record the resulting public URL or blocker.
 - [ ] **M4-CLIENT-GUIDES: Codex, Claude, Gemini, and compatible MCP guides** — planned
   - Next: Document read-only status and task access before any write integrations.
