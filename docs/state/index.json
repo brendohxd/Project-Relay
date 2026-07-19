@@ -110,13 +110,13 @@
           {
             "id": "M1-HUMAN-REVIEW",
             "title": "Human review of draft PR #1",
-            "state": "blocked",
-            "evidence": [],
-            "blocker": {
-              "kind": "human-action",
-              "summary": "Draft PR #1 has no recorded human review decision."
-            },
-            "next_action": "Review the protocol behavior, limitations, and public boundary in draft PR #1."
+            "state": "done",
+            "evidence": [
+              {
+                "label": "Approved and merged M1 pull request",
+                "uri": "https://github.com/brendohxd/Project-Relay/pull/1"
+              }
+            ]
           },
           {
             "id": "M1-LINUX-VERIFY",
@@ -132,36 +132,28 @@
           {
             "id": "M1-MERGE",
             "title": "Merge the reviewed M1 candidate",
-            "state": "planned",
-            "evidence": [],
-            "next_action": "Merge only after human review and Linux verification both pass."
+            "state": "done",
+            "evidence": [
+              {
+                "label": "M1 merge commit",
+                "uri": "https://github.com/brendohxd/Project-Relay/commit/65a7d36ea2d9d29271b970ba883baa9c5a5a2b34"
+              }
+            ]
           }
         ],
         "summary": {
-          "state": "planned",
+          "state": "complete",
           "counts": {
-            "done": 4,
+            "done": 6,
             "in_progress": 0,
-            "blocked": 1,
-            "planned": 1,
+            "blocked": 0,
+            "planned": 0,
             "deferred": 0
           },
           "total": 6,
           "actionable": 6,
-          "completed": 4,
-          "blockers": [
-            {
-              "id": "M1-HUMAN-REVIEW",
-              "title": "Human review of draft PR #1",
-              "state": "blocked",
-              "evidence": [],
-              "blocker": {
-                "kind": "human-action",
-                "summary": "Draft PR #1 has no recorded human review decision."
-              },
-              "next_action": "Review the protocol behavior, limitations, and public boundary in draft PR #1."
-            }
-          ]
+          "completed": 6,
+          "blockers": []
         }
       },
       {
@@ -518,30 +510,18 @@
     "summary": {
       "state": "planned",
       "counts": {
-        "done": 13,
+        "done": 15,
         "in_progress": 0,
-        "blocked": 1,
-        "planned": 14,
+        "blocked": 0,
+        "planned": 13,
         "deferred": 3
       },
       "total": 31,
       "actionable": 28,
-      "completed": 13,
-      "blockers": [
-        {
-          "id": "M1-HUMAN-REVIEW",
-          "title": "Human review of draft PR #1",
-          "state": "blocked",
-          "evidence": [],
-          "blocker": {
-            "kind": "human-action",
-            "summary": "Draft PR #1 has no recorded human review decision."
-          },
-          "next_action": "Review the protocol behavior, limitations, and public boundary in draft PR #1."
-        }
-      ],
-      "current_milestone": "M1",
-      "current_milestone_title": "Local vertical slice"
+      "completed": 15,
+      "blockers": [],
+      "current_milestone": "M2",
+      "current_milestone_title": "GitHub collaboration adapter"
     }
   },
   "summary": {

@@ -21,12 +21,12 @@ test("MCP exposes the M1 task resource and bounded review prompt", async () => {
     assert.ok(resources.resources.some((item) => item.uri === "relay://project/status"));
     const projectResource = await client.readResource({ uri: "relay://project/status" });
     const projectStatus = JSON.parse(projectResource.contents[0].text);
-    assert.equal(projectStatus.summary.current_milestone, "M1");
+    assert.equal(projectStatus.summary.current_milestone, "M2");
     assert.equal(projectStatus.pilots[0].visibility, "operational-summary-only");
 
     const statusTool = await client.callTool({ name: "relay_get_project_status", arguments: {} });
     assert.equal(statusTool.isError, false);
-    assert.equal(statusTool.structuredContent.summary.current_milestone, "M1");
+    assert.equal(statusTool.structuredContent.summary.current_milestone, "M2");
     const templates = await client.listResourceTemplates();
     assert.ok(
       templates.resourceTemplates.some(

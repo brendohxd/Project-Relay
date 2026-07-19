@@ -93,13 +93,13 @@
         {
           "id": "M1-HUMAN-REVIEW",
           "title": "Human review of draft PR #1",
-          "state": "blocked",
-          "evidence": [],
-          "blocker": {
-            "kind": "human-action",
-            "summary": "Draft PR #1 has no recorded human review decision."
-          },
-          "next_action": "Review the protocol behavior, limitations, and public boundary in draft PR #1."
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Approved and merged M1 pull request",
+              "uri": "https://github.com/brendohxd/Project-Relay/pull/1"
+            }
+          ]
         },
         {
           "id": "M1-LINUX-VERIFY",
@@ -115,9 +115,13 @@
         {
           "id": "M1-MERGE",
           "title": "Merge the reviewed M1 candidate",
-          "state": "planned",
-          "evidence": [],
-          "next_action": "Merge only after human review and Linux verification both pass."
+          "state": "done",
+          "evidence": [
+            {
+              "label": "M1 merge commit",
+              "uri": "https://github.com/brendohxd/Project-Relay/commit/65a7d36ea2d9d29271b970ba883baa9c5a5a2b34"
+            }
+          ]
         }
       ]
     },
