@@ -21,6 +21,8 @@ M1 becomes complete when the candidate passes both CI operating systems and rece
 
 ## M2 — GitHub collaboration adapter
 
+- Enforce declared actor capabilities at authenticated write boundaries
+- Preserve typed causal provenance links in branch and pull-request projections
 - Least-privilege GitHub authentication
 - Branch and pull-request proposal flow
 - Issue and label projections
@@ -31,6 +33,7 @@ M1 becomes complete when the candidate passes both CI operating systems and rece
 
 - Blind reproduction packets
 - Reviewer independence declarations
+- Rebuildable research indexes that never replace canonical evidence
 - Adversarial review and disagreement ledger
 - Remediation loops and supersession graph
 - Project-specific policy profiles, beginning with ITSM

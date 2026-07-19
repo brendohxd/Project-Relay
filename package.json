@@ -18,6 +18,7 @@
     "build:state:check": "node scripts/check-console-state.mjs",
     "check": "npm run public:check && npm run validate && npm test && npm run build:state:check",
     "console": "node scripts/serve-console.mjs",
+    "doctor": "node scripts/project-doctor.mjs",
     "evidence:create": "node scripts/create-evidence-bundle.mjs",
     "mcp": "npm --workspace @project-relay/mcp-server start",
     "public:check": "node scripts/check-public-boundary.mjs",

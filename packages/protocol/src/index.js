@@ -145,6 +145,7 @@ export function eventDigest(event) {
 export function verifyEventChain(events) {
   const ordered = [...events].sort((left, right) => left.sequence - right.sequence);
   const errors = [];
+  const seenEventIds = new Set();
   let previous = null;
   let expectedSequence = 1;
 
@@ -170,6 +171,22 @@ export function verifyEventChain(events) {
         message: `event_hash mismatch; calculated ${calculated}`
       });
     }
+
+    for (const link of event.causal_links ?? []) {
+      if (link.target_event_id === event.id) {
+        errors.push({
+          event_id: event.id,
+          message: "causal link cannot target its containing event"
+        });
+      } else if (!seenEventIds.has(link.target_event_id)) {
+        errors.push({
+          event_id: event.id,
+          message: `causal link target ${link.target_event_id} must be an earlier event in the task chain`
+        });
+      }
+    }
+
+    seenEventIds.add(event.id);
 
     previous = event.event_hash;
     expectedSequence += 1;

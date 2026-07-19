@@ -67,6 +67,12 @@ Check direct dependency versions without changing the repository:
 npm run versions:check
 ```
 
+Run the offline local doctor for measured runtime, Git, lockfile, workspace, and worktree checks:
+
+```bash
+npm run doctor
+```
+
 To review conservative updates and receive an interactive `[y/N]` installation prompt:
 
 ```bash

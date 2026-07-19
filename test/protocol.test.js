@@ -13,6 +13,7 @@ import {
   verifyEventChain
 } from "@project-relay/protocol";
 import { classifyUpdate } from "../scripts/version-doctor-lib.mjs";
+import { DOCTOR_STATUS, summarizeDoctor } from "../scripts/project-doctor-lib.mjs";
 import { buildEvidenceBundle } from "../scripts/evidence-bundle-lib.mjs";
 
 test("canonical JSON is stable across object-key insertion order", () => {
@@ -51,6 +52,50 @@ test("event-chain verification detects payload tampering", () => {
   const tampered = structuredClone(event);
   tampered.payload.state = "accepted";
   assert.equal(verifyEventChain([tampered]).valid, false);
+});
+
+test("event chain accepts backward causal links and rejects forward links", () => {
+  const first = {
+    schema_version: "0.1.0",
+    id: "EVT-causal0001",
+    task_id: "RELAY-0001",
+    sequence: 1,
+    type: "task.created",
+    actor: { id: "human:tester", type: "human", role: "reviewer" },
+    occurred_at: "2026-07-19T00:00:00Z",
+    previous_event_hash: null,
+    payload: { state: "draft" },
+    event_hash: ""
+  };
+  first.event_hash = eventDigest(first);
+  const second = {
+    ...structuredClone(first),
+    id: "EVT-causal0002",
+    sequence: 2,
+    type: "task.ready",
+    occurred_at: "2026-07-19T00:01:00Z",
+    previous_event_hash: first.event_hash,
+    causal_links: [{ relation: "caused-by", target_event_id: first.id }],
+    payload: { from_state: "draft", to_state: "ready" },
+    event_hash: ""
+  };
+  second.event_hash = eventDigest(second);
+  assert.equal(verifyEventChain([first, second]).valid, true);
+
+  const forward = structuredClone(first);
+  forward.causal_links = [{ relation: "caused-by", target_event_id: second.id }];
+  forward.event_hash = eventDigest(forward);
+  assert.equal(verifyEventChain([forward, second]).valid, false);
+});
+
+test("actor capability declarations are schema validated", async () => {
+  const registry = await createRegistry();
+  const packet = await readTaskPacket(path.resolve("examples/m1"), "RELAY-1001");
+  const task = structuredClone(packet.task);
+  task.owner.capabilities = ["relay.task.submit", "evidence.bundle.create"];
+  assert.equal(registry.validate("task", task).valid, true);
+  task.owner.capabilities = ["Invalid Capability"];
+  assert.equal(registry.validate("task", task).valid, false);
 });
 
 test("synthetic example workspace satisfies schemas and chain rules", async () => {
@@ -132,4 +177,14 @@ test("version doctor quarantines risky update classes", () => {
   assert.equal(classifyUpdate("4.4.3", "5.0.0").advisable, false);
   assert.equal(classifyUpdate("0.6.2", "0.7.0").advisable, false);
   assert.equal(classifyUpdate("4.4.3", "4.5.0-beta.1").advisable, false);
+});
+
+test("local doctor never treats unknown as healthy", () => {
+  const summary = summarizeDoctor([
+    { status: DOCTOR_STATUS.PASS },
+    { status: DOCTOR_STATUS.UNKNOWN }
+  ]);
+  assert.equal(summary.healthy, false);
+  assert.equal(summary.exitCode, 1);
+  assert.equal(summary.counts.UNKNOWN, 1);
 });

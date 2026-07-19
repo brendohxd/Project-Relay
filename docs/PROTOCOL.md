@@ -22,6 +22,10 @@ A decision records a gate outcome and rationale. In protocol `0.1`, the decision
 
 An event is an append-only envelope describing a state transition or material action. Events contain a sequence number, previous-event hash, actor, timestamp, payload, and their own deterministic hash.
 
+Actors may declare bounded capability identifiers such as `relay.task.submit` or `evidence.bundle.create`. A declaration is auditable metadata, not proof that the actor is authorised or technically able to exercise it. Policy remains responsible for deciding whether a capability is permitted at a gate.
+
+Events may add typed `causal_links` to earlier events in the same task chain using `caused-by`, `derived-from`, `responds-to`, or `supersedes`. Forward and self-references are invalid. These links explain provenance without changing sequence order or replacing the hash chain.
+
 ## Task lifecycle
 
 ```text
@@ -60,6 +64,8 @@ This is the **Relay Canonical JSON 0.1** profile. It is intentionally labelled r
 - Every material claim points to evidence or is labelled unsupported.
 - Evidence preserves failures and exclusions as well as successful outputs.
 - Prior penalties and data-fit metrics remain separable when applicable.
+- Declared capabilities never imply authority by themselves.
+- Causal links point backward to existing events in the same task chain.
 - AI involvement is disclosed at the review and decision boundary.
 - A failed gate cannot be relabelled as acceptance without a new decision record.
 - Rejected and superseded records remain discoverable.
