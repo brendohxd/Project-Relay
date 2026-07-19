@@ -188,3 +188,57 @@ test("local doctor never treats unknown as healthy", () => {
   assert.equal(summary.exitCode, 1);
   assert.equal(summary.counts.UNKNOWN, 1);
 });
+
+test("reproduced evidence requires an explicit source bundle", async () => {
+  const registry = await createRegistry();
+  const packet = await readTaskPacket(path.resolve("examples/m1"), "RELAY-1001");
+  const reproduction = structuredClone(packet.evidence[1]);
+  reproduction.id = "EVD-reproduce001";
+  reproduction.status = "reproduced";
+  assert.equal(registry.validate("evidence", reproduction).valid, false);
+  reproduction.reproduction_of = packet.evidence[1].id;
+  assert.equal(registry.validate("evidence", reproduction).valid, true);
+});
+
+test("high-risk acceptance requires reviewed independent reproduction evidence", async () => {
+  const packet = await readTaskPacket(path.resolve("examples/m1"), "RELAY-1001");
+  const missing = structuredClone(packet);
+  missing.task.risk = "high";
+  const rejected = evaluateTaskPolicy(missing);
+  assert.equal(rejected.valid, false);
+  assert.ok(
+    rejected.issues.some((issue) => issue.code === "gate.independent_reproduction_required")
+  );
+
+  const complete = structuredClone(missing);
+  const reproduction = structuredClone(complete.evidence[1]);
+  reproduction.id = "EVD-reproduce001";
+  reproduction.producer = {
+    id: "human:reproducer",
+    type: "human",
+    role: "independent reproducer"
+  };
+  reproduction.created_at = "2026-07-19T01:11:30Z";
+  reproduction.status = "reproduced";
+  reproduction.reproduction_of = complete.evidence[1].id;
+  complete.evidence.push(reproduction);
+  complete.reviews[1].evidence_ids.push(reproduction.id);
+  complete.decisions[0].evidence_hashes.push(sha256Canonical(reproduction));
+
+  const accepted = evaluateTaskPolicy(complete);
+  assert.equal(accepted.valid, true, JSON.stringify(accepted.issues, null, 2));
+  assert.equal(accepted.gates.independent_reproduction, true);
+});
+
+test("independent reviewers cannot review evidence they produced", async () => {
+  const packet = await readTaskPacket(path.resolve("examples/m1"), "RELAY-1001");
+  const altered = structuredClone(packet);
+  altered.evidence[1].producer = {
+    id: "human:auditor",
+    type: "human",
+    role: "evidence producer"
+  };
+  const result = evaluateTaskPolicy(altered);
+  assert.equal(result.valid, false);
+  assert.ok(result.issues.some((issue) => issue.code === "review.own_evidence"));
+});

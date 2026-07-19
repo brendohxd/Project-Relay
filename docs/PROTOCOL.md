@@ -10,6 +10,8 @@ A task asks one bounded question. It declares an owner, reviewers, risk, inputs,
 
 An evidence bundle connects a claim to its method, exact commands, environment, artifacts, hashes, and limitations. Its status begins as `provisional`; reproduction and audit are separate events.
 
+A bundle with status `reproduced` must name its source through `reproduction_of`. For a high- or critical-risk acceptance, the reproduction must come from a producer other than the task owner and source producer, be considered by the independent passing review, and be hashed by the human decision.
+
 ### Review
 
 A review names its reviewer, independence status, evidence considered, findings, outcome, and AI disclosure. `independent: true` is a declared property that can be audited; it is not inferred from using a different brand of model.

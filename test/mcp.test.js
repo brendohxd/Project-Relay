@@ -36,6 +36,36 @@ test("MCP exposes the M1 task resource and bounded review prompt", async () => {
       arguments: { taskId: "RELAY-1001" }
     });
     assert.match(prompt.messages[0].content.text, /Do not make or imply the final human decision/);
+
+    const prepared = await client.callTool({
+      name: "relay_prepare_event",
+      arguments: {
+        taskId: "RELAY-1001",
+        sequence: 13,
+        type: "record.superseded",
+        actor: {
+          id: "service:relay-test",
+          type: "service",
+          role: "fixture",
+          capabilities: ["relay.event.prepare"]
+        },
+        previousEventHash: "a".repeat(64),
+        causalLinks: [
+          {
+            relation: "supersedes",
+            targetEventId: "EVT-m1event00011",
+            note: "Synthetic MCP coverage"
+          }
+        ],
+        payload: {}
+      }
+    });
+    assert.equal(prepared.structuredContent.validation.valid, true);
+    assert.deepEqual(prepared.structuredContent.event.actor.capabilities, ["relay.event.prepare"]);
+    assert.equal(
+      prepared.structuredContent.event.causal_links[0].target_event_id,
+      "EVT-m1event00011"
+    );
   } finally {
     await client.close();
   }

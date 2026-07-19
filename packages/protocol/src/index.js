@@ -227,6 +227,17 @@ export function evaluateTaskPolicy({ task, events = [], evidence = [], reviews =
             { review_id: review.id }
           )
         );
+      } else if (
+        review.independent &&
+        evidenceById.get(evidenceId).producer.id === review.reviewer.id
+      ) {
+        issues.push(
+          policyIssue(
+            "review.own_evidence",
+            `Reviewer ${review.reviewer.id} cannot independently review evidence they produced`,
+            { review_id: review.id, evidence_id: evidenceId }
+          )
+        );
       }
     }
     if (review.independent && review.reviewer.id === task.owner.id) {
@@ -241,6 +252,32 @@ export function evaluateTaskPolicy({ task, events = [], evidence = [], reviews =
   }
 
   const evidenceHashes = new Map(taskEvidence.map((record) => [sha256Canonical(record), record.id]));
+  const independentReproductions = [];
+  for (const reproduction of taskEvidence.filter((record) => record.status === "reproduced")) {
+    const source = evidenceById.get(reproduction.reproduction_of);
+    if (!source || source.id === reproduction.id) {
+      issues.push(
+        policyIssue(
+          "evidence.reproduction_source_missing",
+          `Reproduction ${reproduction.id} must reference another evidence bundle in the task`,
+          { evidence_id: reproduction.id }
+        )
+      );
+    } else if (
+      reproduction.producer.id === source.producer.id ||
+      reproduction.producer.id === task.owner.id
+    ) {
+      issues.push(
+        policyIssue(
+          "evidence.reproduction_not_independent",
+          `Reproduction ${reproduction.id} must be produced independently`,
+          { evidence_id: reproduction.id }
+        )
+      );
+    } else {
+      independentReproductions.push(reproduction);
+    }
+  }
   for (const decision of taskDecisions) {
     for (const reviewId of decision.review_ids) {
       if (!reviewsById.has(reviewId)) {
@@ -443,6 +480,26 @@ export function evaluateTaskPolicy({ task, events = [], evidence = [], reviews =
           );
         }
       }
+      if (["high", "critical"].includes(task.risk)) {
+        const decisionEvidenceIds = new Set(
+          linkedDecision.evidence_hashes.map((hash) => evidenceHashes.get(hash)).filter(Boolean)
+        );
+        const acceptedReproduction = independentReproductions.find(
+          (reproduction) =>
+            decisionEvidenceIds.has(reproduction.id) &&
+            passingReview?.evidence_ids.includes(reproduction.id) &&
+            isAtOrBefore(reproduction, event)
+        );
+        if (!acceptedReproduction) {
+          issues.push(
+            policyIssue(
+              "gate.independent_reproduction_required",
+              "High-risk acceptance requires independently produced reproduction evidence reviewed and hashed by the decision",
+              { event_id: event.id }
+            )
+          );
+        }
+      }
     }
 
     state = targetState;
@@ -487,6 +544,8 @@ export function evaluateTaskPolicy({ task, events = [], evidence = [], reviews =
     gates: {
       evidence_present: taskEvidence.length > 0,
       independent_review: independentPass,
+      independent_reproduction:
+        !["high", "critical"].includes(task.risk) || independentReproductions.length > 0,
       remediation_recorded: !remediationReviewExists || remediationEventExists,
       human_decision: humanDecision,
       final_state_consistent: state === task.state

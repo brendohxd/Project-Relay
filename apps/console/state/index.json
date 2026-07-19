@@ -20,6 +20,7 @@
       "gates": {
         "evidence_present": true,
         "independent_review": true,
+        "independent_reproduction": true,
         "remediation_recorded": true,
         "human_decision": true,
         "final_state_consistent": true

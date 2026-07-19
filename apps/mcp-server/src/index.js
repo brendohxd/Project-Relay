@@ -37,8 +37,14 @@ const actorSchema = z.object({
   id: z.string().min(2).max(128),
   type: z.enum(["human", "model", "service"]),
   role: z.string().min(2).max(100),
+  capabilities: z.array(z.string().regex(/^[a-z][a-z0-9._:-]{1,99}$/)).optional(),
   provider: z.string().min(1).max(100).optional(),
   model: z.string().min(1).max(200).optional()
+});
+const causalLinkSchema = z.object({
+  relation: z.enum(["caused-by", "derived-from", "responds-to", "supersedes"]),
+  targetEventId: z.string().regex(/^EVT-[A-Za-z0-9_-]{8,}$/),
+  note: z.string().min(1).max(500).optional()
 });
 
 const registryPromise = createRegistry();
@@ -203,10 +209,11 @@ server.registerTool(
       type: z.enum(eventTypes),
       actor: actorSchema,
       previousEventHash: z.string().regex(/^[a-f0-9]{64}$/).nullable().optional(),
+      causalLinks: z.array(causalLinkSchema).optional(),
       payload: z.record(z.string(), z.unknown())
     }
   },
-  async ({ taskId, sequence, type, actor, previousEventHash, payload }) => {
+  async ({ taskId, sequence, type, actor, previousEventHash, causalLinks, payload }) => {
     const event = {
       schema_version: VERSION,
       id: `EVT-${randomUUID()}`,
@@ -216,6 +223,15 @@ server.registerTool(
       actor,
       occurred_at: new Date().toISOString(),
       previous_event_hash: previousEventHash ?? null,
+      ...(causalLinks
+        ? {
+            causal_links: causalLinks.map(({ relation, targetEventId, note }) => ({
+              relation,
+              target_event_id: targetEventId,
+              ...(note ? { note } : {})
+            }))
+          }
+        : {}),
       payload,
       event_hash: ""
     };
