@@ -117,6 +117,8 @@ See [Publication Boundary](docs/PUBLICATION_BOUNDARY.md) and [Security](SECURITY
 - [Protocol and decision gates](docs/PROTOCOL.md)
 - [Public/private publication boundary](docs/PUBLICATION_BOUNDARY.md)
 - [Version maintenance](docs/VERSION_MAINTENANCE.md)
+- [Antigravity handoff](docs/ANTIGRAVITY_HANDOFF.md)
+- [Antigravity integration guide](docs/clients/antigravity.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)
 - [Licence status](LICENSE-STATUS.md)
