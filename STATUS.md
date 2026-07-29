@@ -4,13 +4,13 @@
 
 **Stage:** pre-alpha<br>
 **Current milestone:** M2 — GitHub collaboration adapter<br>
-**Roadmap:** 16/28 actionable items complete; 0 blocked; 3 deferred.
+**Roadmap:** 17/28 actionable items complete; 0 blocked; 3 deferred.
 
 | Milestone | Status | Complete | Blocked | Deferred |
 |---|---:|---:|---:|---:|
 | M0 — Protocol kernel | complete | 3/3 | 0 | 0 |
 | M1 — Local vertical slice | complete | 6/6 | 0 | 0 |
-| M2 — GitHub collaboration adapter | planned | 2/6 | 0 | 0 |
+| M2 — GitHub collaboration adapter | planned | 3/6 | 0 | 0 |
 | M3 — Research and assessment profiles | planned | 1/6 | 0 | 1 |
 | M4 — Public console and integrations | planned | 4/7 | 0 | 0 |
 | M5 — Optional managed service | deferred | 0/0 | 0 | 2 |
@@ -60,8 +60,8 @@ Exit criteria:
   - Evidence: [Capability foundation](https://github.com/brendohxd/Project-Relay/commit/11dc90a)
 - [x] **M2-CAUSAL-LINKS: Typed causal provenance links** — done
   - Evidence: [Causal-link foundation](https://github.com/brendohxd/Project-Relay/commit/11dc90a)
-- [ ] **M2-PROPOSAL: Deterministic network-free GitHub mutation proposal** — planned
-  - Next: Define proposal input and output contracts before authentication or writes.
+- [x] **M2-PROPOSAL: Deterministic network-free GitHub mutation proposal** — done
+  - Evidence: [Human-approved M2 proposal contract](docs/proposals/AG_M2_PROPOSAL_CONTRACT.md)
 - [ ] **M2-CONTRACT: Fake-GitHub contract, conflict, retry, and idempotency tests** — planned
   - Next: Test the adapter without live repository mutations.
 - [ ] **M2-AUTH: Repository-scoped least-privilege authentication** — planned

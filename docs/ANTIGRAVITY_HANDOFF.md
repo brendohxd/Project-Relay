@@ -89,7 +89,7 @@ a review walkthrough without committing or pushing.
 
 ## Packet AG-M2-PROPOSAL-CONTRACT
 
-**Status:** ready, specification only. **Role:** adapter contract designer.
+**Status:** human-approved; ready for the network-free fake-adapter packet. **Role:** adapter contract designer.
 **Roadmap:** `M2-PROPOSAL`.
 
 Define deterministic inputs, preconditions, ordered proposed operations,

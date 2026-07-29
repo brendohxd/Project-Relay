@@ -1,0 +1,113 @@
+{
+  "contract_version": "0.1.0",
+  "record_type": "github_mutation_proposal",
+  "proposal_id": "PROP-5FA573DD3D8BEBA4",
+  "proposal_digest": "5fa573dd3d8beba4d1943f8db7168dda23427aa2880552dae85bf6ec6719e000",
+  "idempotency_key": "5fa573dd3d8beba4d1943f8db7168dda23427aa2880552dae85bf6ec6719e000",
+  "target": {
+    "host": "github.com",
+    "repository": "example/project-relay",
+    "base_ref": "refs/heads/main",
+    "expected_base_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "head_branch": "relay/task-relay-1001-remediation"
+  },
+  "actor": {
+    "id": "agent:synthetic-remediator",
+    "type": "model",
+    "role": "remediator",
+    "declared_capabilities": [
+      "relay.task.submit",
+      "relay.proposal.create"
+    ]
+  },
+  "authorization": {
+    "status": "unverified",
+    "required_capabilities": [
+      "relay.proposal.create",
+      "relay.github.branch.create",
+      "relay.github.pull_request.create"
+    ],
+    "note": "Declarations are auditable metadata, not proof of authenticated authority."
+  },
+  "causal_links": [
+    {
+      "relation": "responds-to",
+      "target_event_id": "EVT-m1event0008",
+      "target_event_hash": "99a44ed73262ff4737ac4ede892380d2e2d9864c5961730548c575d425a678c7"
+    }
+  ],
+  "local_checks": [
+    {
+      "kind": "relay_documents",
+      "command": "npm run validate",
+      "result": "passed"
+    },
+    {
+      "kind": "public_boundary",
+      "command": "npm run public:check",
+      "result": "passed"
+    }
+  ],
+  "operations": [
+    {
+      "sequence": 1,
+      "type": "assert_ref",
+      "ref": "refs/heads/main",
+      "expected_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "sequence": 2,
+      "type": "create_branch",
+      "branch": "relay/task-relay-1001-remediation",
+      "from_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "must_not_exist": true
+    },
+    {
+      "sequence": 3,
+      "type": "put_files",
+      "files": [
+        {
+          "action": "create",
+          "path": "relay/tasks/RELAY-1001.json",
+          "expected_prior_sha256": null,
+          "content": {
+            "kind": "workspace_file",
+            "path": "examples/m1/relay/tasks/RELAY-1001.json",
+            "sha256": "c951fb26ba363aaf2823019f6731db4db0092596fffb86b08bc62928a4364c3a"
+          },
+          "proposed_sha256": "c951fb26ba363aaf2823019f6731db4db0092596fffb86b08bc62928a4364c3a"
+        },
+        {
+          "action": "create",
+          "path": "relay/events/000009-task-resubmitted.json",
+          "expected_prior_sha256": null,
+          "content": {
+            "kind": "workspace_file",
+            "path": "examples/m1/relay/events/000009-task-resubmitted.json",
+            "sha256": "b4848e99f0bc8d720c70cb3d2f260b9ec3b445b023b0a6092bdb34d388e89b60"
+          },
+          "proposed_sha256": "b4848e99f0bc8d720c70cb3d2f260b9ec3b445b023b0a6092bdb34d388e89b60"
+        }
+      ]
+    },
+    {
+      "sequence": 4,
+      "type": "create_commit",
+      "expected_parent_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "message": "relay(RELAY-1001): propose remediation records\n\nCausal-Link: responds-to EVT-m1event0008",
+      "author": {
+        "name": "Relay proposal actor",
+        "email": "relay-proposal@example.invalid"
+      }
+    },
+    {
+      "sequence": 5,
+      "type": "create_pull_request",
+      "head": "relay/task-relay-1001-remediation",
+      "base": "main",
+      "must_not_exist": true,
+      "title": "relay(RELAY-1001): propose remediation records",
+      "body": "## Relay proposal\n\n- Task: RELAY-1001\n- Actor: agent:synthetic-remediator\n- Causal link: responds-to EVT-m1event0008\n- Authority: unverified; authenticated execution and human review remain required."
+    }
+  ]
+}

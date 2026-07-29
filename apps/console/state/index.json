@@ -188,9 +188,13 @@
           {
             "id": "M2-PROPOSAL",
             "title": "Deterministic network-free GitHub mutation proposal",
-            "state": "planned",
-            "evidence": [],
-            "next_action": "Define proposal input and output contracts before authentication or writes."
+            "state": "done",
+            "evidence": [
+              {
+                "label": "Human-approved M2 proposal contract",
+                "uri": "docs/proposals/AG_M2_PROPOSAL_CONTRACT.md"
+              }
+            ]
           },
           {
             "id": "M2-CONTRACT",
@@ -217,15 +221,15 @@
         "summary": {
           "state": "planned",
           "counts": {
-            "done": 2,
+            "done": 3,
             "in_progress": 0,
             "blocked": 0,
-            "planned": 4,
+            "planned": 3,
             "deferred": 0
           },
           "total": 6,
           "actionable": 6,
-          "completed": 2,
+          "completed": 3,
           "blockers": []
         }
       },
@@ -514,15 +518,15 @@
     "summary": {
       "state": "planned",
       "counts": {
-        "done": 16,
+        "done": 17,
         "in_progress": 0,
         "blocked": 0,
-        "planned": 12,
+        "planned": 11,
         "deferred": 3
       },
       "total": 31,
       "actionable": 28,
-      "completed": 16,
+      "completed": 17,
       "blockers": [],
       "current_milestone": "M2",
       "current_milestone_title": "GitHub collaboration adapter"
