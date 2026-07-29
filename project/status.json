@@ -157,9 +157,13 @@
         {
           "id": "M2-PROPOSAL",
           "title": "Deterministic network-free GitHub mutation proposal",
-          "state": "planned",
-          "evidence": [],
-          "next_action": "Define proposal input and output contracts before authentication or writes."
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Human-approved M2 proposal contract",
+              "uri": "docs/proposals/AG_M2_PROPOSAL_CONTRACT.md"
+            }
+          ]
         },
         {
           "id": "M2-CONTRACT",

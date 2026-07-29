@@ -1,0 +1,26 @@
+{
+  "contract_version": "0.1.0",
+  "record_type": "github_mutation_execution_receipt",
+  "proposal_id": "PROP-5FA573DD3D8BEBA4",
+  "proposal_digest": "5fa573dd3d8beba4d1943f8db7168dda23427aa2880552dae85bf6ec6719e000",
+  "idempotency_key": "5fa573dd3d8beba4d1943f8db7168dda23427aa2880552dae85bf6ec6719e000",
+  "attempt_id": "ATTEMPT-SYNTHETIC-0001",
+  "observed_at": "2026-07-29T17:11:00Z",
+  "outcome": "failed",
+  "phase": "precondition",
+  "failed_operation_sequence": 1,
+  "failure_class": "STALE_BASE_CONFLICT",
+  "retry_classification": "new_proposal_required",
+  "target": {
+    "host": "github.com",
+    "repository": "example/project-relay",
+    "base_ref": "refs/heads/main"
+  },
+  "observed_state": {
+    "expected_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "actual_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "network_actions_performed": [],
+  "message": "The explicitly observed base ref does not match the proposal's expected base SHA.",
+  "next_action": "Supply refreshed observed state as input to a new proposal, then repeat review and authorization."
+}
