@@ -6,7 +6,7 @@
     "stage": "pre-alpha",
     "repository": "https://github.com/brendohxd/Project-Relay"
   },
-  "updated_at": "2026-07-19",
+  "updated_at": "2026-08-04",
   "milestones": [
     {
       "id": "M0",
@@ -398,6 +398,58 @@
             "summary": "A real ITSM packet must wait for the synthetic M3 profile and explicit selection of a boundary-safe pilot task."
           },
           "next_action": "Select the pilot only after the synthetic profile passes."
+        }
+      ]
+    },
+    {
+      "id": "remote-relay",
+      "name": "Remote MCP interoperability prototype",
+      "visibility": "operational-summary-only",
+      "boundary": "Only synthetic and public-safe Relay records may enter the Cloudflare D1 prototype. Credentials, confidential development context, ITSM equations, datasets, results, manuscripts, and scientific decisions remain prohibited. Human decision writes are disabled.",
+      "items": [
+        {
+          "id": "REMOTE-PROTOTYPE",
+          "title": "Authenticated Cloudflare Worker and D1 prototype",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Authenticated Worker health endpoint",
+              "uri": "https://project-relay-prototype.brendohxd.workers.dev/health"
+            },
+            {
+              "label": "Remote MCP implementation PR",
+              "uri": "https://github.com/brendohxd/Project-Relay/pull/6"
+            }
+          ]
+        },
+        {
+          "id": "REMOTE-SMOKE",
+          "title": "Three-client identity, conflict, hash-chain, and read smoke test",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Remote MCP implementation PR",
+              "uri": "https://github.com/brendohxd/Project-Relay/pull/6"
+            }
+          ]
+        },
+        {
+          "id": "REMOTE-CUSTOM-DOMAIN",
+          "title": "Attach the reviewed custom MCP domain",
+          "state": "blocked",
+          "evidence": [],
+          "blocker": {
+            "kind": "external",
+            "summary": "The registrar must complete nameserver delegation before Cloudflare can activate relay.itsm-cosmology.com."
+          },
+          "next_action": "Continue using the authenticated workers.dev endpoint until delegation is confirmed."
+        },
+        {
+          "id": "REMOTE-PRODUCTION",
+          "title": "Production authentication and confidential workloads",
+          "state": "deferred",
+          "evidence": [],
+          "rationale": "The pre-shared-token prototype is limited to synthetic public-safe records; OAuth, tenancy, retention, backup, privacy, and operational threat models require separate review."
         }
       ]
     }
