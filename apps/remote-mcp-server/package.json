@@ -1,0 +1,19 @@
+﻿{
+  "name": "@project-relay/remote-mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy:dry-run": "wrangler deploy --dry-run --outdir dist",
+    "test": "node --test test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.0.0",
+    "agents": "0.20.1",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "wrangler": "4.118.0"
+  }
+}
