@@ -354,6 +354,54 @@
   ],
   "pilots": [
     {
+      "id": "itsm",
+      "name": "ITSM proving ground",
+      "visibility": "operational-summary-only",
+      "boundary": "Relay may show workflow readiness and gate progress only. ITSM equations, claims, datasets, results, manuscripts, and scientific acceptance remain in the separate ITSM repository and knowledge base.",
+      "items": [
+        {
+          "id": "ITSM-BOUNDARY",
+          "title": "Relay and ITSM separation rule documented",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "ITSM pilot operating model",
+              "uri": "https://app.notion.com/p/3a236fb4bd1d810fb409f87153bc3e84"
+            }
+          ]
+        },
+        {
+          "id": "ITSM-ROLES",
+          "title": "Operational owner, review, reproduction, audit, and authority roles documented",
+          "state": "done",
+          "evidence": [
+            {
+              "label": "ITSM pilot operating model",
+              "uri": "https://app.notion.com/p/3a236fb4bd1d810fb409f87153bc3e84"
+            }
+          ]
+        },
+        {
+          "id": "ITSM-SYNTHETIC",
+          "title": "Synthetic research profile passes before ITSM use",
+          "state": "planned",
+          "evidence": [],
+          "next_action": "Complete the M3 synthetic research-gate fixture."
+        },
+        {
+          "id": "ITSM-REAL-PILOT",
+          "title": "First real ITSM Relay packet",
+          "state": "blocked",
+          "evidence": [],
+          "blocker": {
+            "kind": "dependency",
+            "summary": "A real ITSM packet must wait for the synthetic M3 profile and explicit selection of a boundary-safe pilot task."
+          },
+          "next_action": "Select the pilot only after the synthetic profile passes."
+        }
+      ]
+    },
+    {
       "id": "remote-relay",
       "name": "Remote MCP interoperability prototype",
       "visibility": "operational-summary-only",
@@ -402,54 +450,6 @@
           "state": "deferred",
           "evidence": [],
           "rationale": "The pre-shared-token prototype is limited to synthetic public-safe records; OAuth, tenancy, retention, backup, privacy, and operational threat models require separate review."
-        }
-      ]
-    },
-    {
-      "id": "itsm",
-      "name": "ITSM proving ground",
-      "visibility": "operational-summary-only",
-      "boundary": "Relay may show workflow readiness and gate progress only. ITSM equations, claims, datasets, results, manuscripts, and scientific acceptance remain in the separate ITSM repository and knowledge base.",
-      "items": [
-        {
-          "id": "ITSM-BOUNDARY",
-          "title": "Relay and ITSM separation rule documented",
-          "state": "done",
-          "evidence": [
-            {
-              "label": "ITSM pilot operating model",
-              "uri": "https://app.notion.com/p/3a236fb4bd1d810fb409f87153bc3e84"
-            }
-          ]
-        },
-        {
-          "id": "ITSM-ROLES",
-          "title": "Operational owner, review, reproduction, audit, and authority roles documented",
-          "state": "done",
-          "evidence": [
-            {
-              "label": "ITSM pilot operating model",
-              "uri": "https://app.notion.com/p/3a236fb4bd1d810fb409f87153bc3e84"
-            }
-          ]
-        },
-        {
-          "id": "ITSM-SYNTHETIC",
-          "title": "Synthetic research profile passes before ITSM use",
-          "state": "planned",
-          "evidence": [],
-          "next_action": "Complete the M3 synthetic research-gate fixture."
-        },
-        {
-          "id": "ITSM-REAL-PILOT",
-          "title": "First real ITSM Relay packet",
-          "state": "blocked",
-          "evidence": [],
-          "blocker": {
-            "kind": "dependency",
-            "summary": "A real ITSM packet must wait for the synthetic M3 profile and explicit selection of a boundary-safe pilot task."
-          },
-          "next_action": "Select the pilot only after the synthetic profile passes."
         }
       ]
     }
