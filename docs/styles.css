@@ -138,10 +138,23 @@ h3 { font-size: 19px; margin: 5px 0 0; }
 .item-note { color: var(--muted); display: block; font-size: 11px; line-height: 1.4; margin-top: 6px; }
 .pilot-grid { display: grid; gap: 12px; }
 .pilot-boundary { border-left: 2px solid var(--blue); color: var(--muted); font-size: 13px; line-height: 1.55; padding-left: 14px; }
+.release-section { padding: 72px 0 24px; }
+.release-link { text-decoration: none; }
+.release-link:hover { color: var(--ink); }
+.release-grid { display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr); }
+.release-card { background: var(--panel); border: 1px solid var(--line); min-height: 220px; padding: 22px; }
+.release-card-complete { border-top-color: rgba(185, 247, 124, .55); }
+.release-card-current { border-top-color: rgba(121, 168, 255, .6); }
+.release-card-next { border-top-color: rgba(255, 107, 53, .7); }
+.release-stage { color: var(--orange); font-family: ui-monospace, monospace; font-size: 11px; }
+.release-card h3 { margin-top: 26px; }
+.release-card p { color: var(--muted); font-size: 13px; line-height: 1.55; min-height: 62px; }
+.release-state { color: var(--muted); display: block; font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
 
 @media (max-width: 800px) {
   .project-metrics { grid-template-columns: repeat(2, 1fr); }
   .project-metrics article { border-bottom: 1px solid var(--line); }
   .milestone-grid { grid-template-columns: 1fr; }
   .milestone-heading, .pilot-heading { align-items: start; flex-direction: column; }
+  .release-grid { grid-template-columns: repeat(2, 1fr); }
 }
