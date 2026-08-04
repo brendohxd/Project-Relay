@@ -199,9 +199,21 @@
           {
             "id": "M2-CONTRACT",
             "title": "Fake-GitHub contract, conflict, retry, and idempotency tests",
-            "state": "planned",
-            "evidence": [],
-            "next_action": "Test the adapter without live repository mutations."
+            "state": "done",
+            "evidence": [
+              {
+                "label": "Network-free fake GitHub adapter",
+                "uri": "packages/github-adapter/src/fake-github-adapter.js"
+              },
+              {
+                "label": "Adversarial fake-adapter contract tests",
+                "uri": "test/m2-fake-github-adapter.test.js"
+              },
+              {
+                "label": "External adversarial input audit",
+                "uri": "docs/reviews/M2_ADVERSARIAL_INPUT_AUDIT.md"
+              }
+            ]
           },
           {
             "id": "M2-AUTH",
@@ -221,15 +233,15 @@
         "summary": {
           "state": "planned",
           "counts": {
-            "done": 3,
+            "done": 4,
             "in_progress": 0,
             "blocked": 0,
-            "planned": 3,
+            "planned": 2,
             "deferred": 0
           },
           "total": 6,
           "actionable": 6,
-          "completed": 3,
+          "completed": 4,
           "blockers": []
         }
       },
@@ -596,15 +608,15 @@
     "summary": {
       "state": "planned",
       "counts": {
-        "done": 17,
+        "done": 18,
         "in_progress": 0,
         "blocked": 0,
-        "planned": 11,
+        "planned": 10,
         "deferred": 3
       },
       "total": 31,
       "actionable": 28,
-      "completed": 17,
+      "completed": 18,
       "blockers": [],
       "current_milestone": "M2",
       "current_milestone_title": "GitHub collaboration adapter"

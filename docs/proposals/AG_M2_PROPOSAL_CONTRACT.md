@@ -215,6 +215,22 @@ The dependent `AG-M2-FAKE-CONTRACT` packet must test, without network access:
 The fixture consistency tests added with this specification do not implement a
 fake GitHub adapter and do not complete `M2-CONTRACT`.
 
+### 10.1 Implemented fake-adapter evidence
+
+The later network-free implementation now completes `M2-CONTRACT` without
+changing this proposal contract:
+
+- [`packages/github-adapter/src/fake-github-adapter.js`](../../packages/github-adapter/src/fake-github-adapter.js)
+  implements a memory-only create flow and immutable receipts;
+- [`test/m2-fake-github-adapter.test.js`](../../test/m2-fake-github-adapter.test.js)
+  covers the acceptance requirements above, including concurrent identical
+  execution and post-application divergence;
+- [`docs/reviews/M2_ADVERSARIAL_INPUT_AUDIT.md`](../reviews/M2_ADVERSARIAL_INPUT_AUDIT.md)
+  records how an external 18-dimension adversarial design bundle was corrected
+  against this contract before use.
+
+This evidence authorises neither `M2-AUTH` nor a live GitHub write pilot.
+
 ## 11. Open decisions for human review
 
 - Whether live targets must include GitHub's stable numeric repository ID.

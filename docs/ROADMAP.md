@@ -53,3 +53,12 @@ M1 becomes complete when the candidate passes both CI operating systems and rece
 - Published comparison against API-heavy orchestration approaches
 
 Milestone order is intentional: the protocol and evidence gates must be testable before convenience automation can depend on them.
+## Release route
+
+The release-sized implementation route is maintained in
+[docs/RELEASE_PLAN.md](RELEASE_PLAN.md). The current public-safe foundation
+release covers the R1 GitHub collaboration contract, R2 Knowledge Hub contract,
+and R3 read-only discovery CLI. The next release gate is R4 Overseer MVP:
+local transcript normalization, cross-model comparison, decision packets, and
+human approval—before live Notion, Slack, MCP configuration, or provider
+routing writes.

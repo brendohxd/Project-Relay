@@ -168,9 +168,21 @@
         {
           "id": "M2-CONTRACT",
           "title": "Fake-GitHub contract, conflict, retry, and idempotency tests",
-          "state": "planned",
-          "evidence": [],
-          "next_action": "Test the adapter without live repository mutations."
+          "state": "done",
+          "evidence": [
+            {
+              "label": "Network-free fake GitHub adapter",
+              "uri": "packages/github-adapter/src/fake-github-adapter.js"
+            },
+            {
+              "label": "Adversarial fake-adapter contract tests",
+              "uri": "test/m2-fake-github-adapter.test.js"
+            },
+            {
+              "label": "External adversarial input audit",
+              "uri": "docs/reviews/M2_ADVERSARIAL_INPUT_AUDIT.md"
+            }
+          ]
         },
         {
           "id": "M2-AUTH",

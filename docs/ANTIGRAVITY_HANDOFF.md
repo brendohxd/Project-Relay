@@ -59,10 +59,11 @@ more convenient version.
 
 ## Current boundary
 
-M0 and M1 are complete. M2, the GitHub collaboration adapter, is current. Relay
-already includes the provider-neutral protocol, validation and provenance,
-policy-checked transitions, evidence bundling, read-only local MCP,
-deterministic project status, and a static read-only console.
+M0 and M1 are complete. `M2-PROPOSAL` and the network-free `M2-CONTRACT`
+fake-adapter gate are complete. Relay includes the provider-neutral protocol,
+validation and provenance, policy-checked transitions, evidence bundling,
+read-only local MCP, deterministic project status, a static read-only console,
+and a memory-only fake GitHub execution model.
 
 Authentication, privileged GitHub writes, remote MCP, secrets, billing,
 multi-tenancy, and production operation are not implemented or authorised.
@@ -87,9 +88,9 @@ make no live GitHub changes, run npm run check and git diff --check, and return
 a review walkthrough without committing or pushing.
 ```
 
-## Packet AG-M2-PROPOSAL-CONTRACT
+## Completed packet AG-M2-PROPOSAL-CONTRACT
 
-**Status:** human-approved; ready for the network-free fake-adapter packet. **Role:** adapter contract designer.
+**Status:** complete and human-approved. **Role:** adapter contract designer.
 **Roadmap:** `M2-PROPOSAL`.
 
 Define deterministic inputs, preconditions, ordered proposed operations,
@@ -106,4 +107,17 @@ remotely. Preserve existing edits, run npm run check and git diff --check, and
 return open questions for human review without committing or pushing.
 ```
 
-`AG-M2-FAKE-CONTRACT` is blocked until that contract is approved. A later
+## Completed packet AG-M2-FAKE-CONTRACT
+
+**Status:** complete and locally verified. **Roadmap:** `M2-CONTRACT`.
+
+The implementation is
+[`packages/github-adapter/src/fake-github-adapter.js`](../packages/github-adapter/src/fake-github-adapter.js)
+with adversarial coverage in
+[`test/m2-fake-github-adapter.test.js`](../test/m2-fake-github-adapter.test.js).
+It performs no network or repository writes. The audit at
+[`docs/reviews/M2_ADVERSARIAL_INPUT_AUDIT.md`](reviews/M2_ADVERSARIAL_INPUT_AUDIT.md)
+records which external test-design suggestions were corrected or rejected.
+
+`M2-AUTH` remains planned. Do not add credentials, call GitHub, or start a live
+write pilot without a separate threat-model review and explicit user approval.

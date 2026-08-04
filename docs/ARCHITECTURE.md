@@ -25,9 +25,14 @@ Owns schemas, canonical JSON encoding, document validation, evidence hashes, and
 
 Provides a stable tool surface for MCP-capable clients. The first release is local, stdio-based, and read-only. It validates documents, inspects tasks, verifies workspaces, and prepares proposed events without committing them.
 
-### GitHub adapter — planned
+### GitHub adapter — fake contract implemented; live execution planned
 
-Will translate approved proposals into branches, commits, pull requests, labels, and review requests. It is intentionally separate from the protocol and will use least-privilege GitHub permissions.
+The memory-only fake adapter translates approved proposals into synthetic
+branches, files, commits, pull requests, and execution receipts. It verifies
+expected state, immutable source hashes, create-only paths, authorization
+context, retries, and idempotency without network access or repository writes.
+Any future live adapter remains separate from the protocol and must use
+least-privilege GitHub permissions plus fresh policy checks.
 
 ### Policy engine
 

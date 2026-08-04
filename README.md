@@ -38,7 +38,7 @@ The canonical record is validated JSON plus referenced artifacts in Git history.
 
 ## Current public milestone
 
-The local M1 vertical slice now includes:
+The local M1 vertical slice and the network-free M2 adapter contract now include:
 
 - JSON Schemas for tasks, events, evidence, reviews, and decisions;
 - deterministic canonicalisation and SHA-256 provenance helpers;
@@ -47,9 +47,14 @@ The local M1 vertical slice now includes:
 - a read-only MCP server with tools, a task resource, and an independent-review prompt;
 - a deterministic static console projection of state, history, and gate results;
 - a synthetic submission, review, remediation, resubmission, and human-decision fixture;
+- a deterministic GitHub mutation proposal contract with content-addressed inputs;
+- a memory-only fake GitHub adapter covering conflicts, retries, partial failure,
+  idempotent replay, concurrency, authorization failure, and redaction;
 - Windows and Linux CI conformance coverage plus a public-boundary scanner.
 
-GitHub write automation, remote MCP transport, authentication, and hosted multi-tenant operation are deliberately deferred until their threat models are reviewed.
+Authenticated GitHub writes, remote MCP deployment, and hosted multi-tenant
+operation remain deliberately deferred until their threat models and approval
+boundaries are reviewed.
 
 ## Quick start
 
