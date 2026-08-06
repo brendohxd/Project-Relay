@@ -56,6 +56,18 @@ h1 { font-size: clamp(48px, 8.3vw, 104px); letter-spacing: -.065em; line-height:
 .hero-actions a { border-radius: 3px; font-size: 13px; font-weight: 700; padding: 13px 18px; text-decoration: none; }
 .primary-action { background: var(--ink); color: #111; }
 .secondary-action { border: 1px solid var(--line); }
+.introduction, .capability-section, .profiles-section { padding: 88px 0 16px; }
+.introduction { align-items: start; border-top: 1px solid var(--line); display: grid; gap: 72px; grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr); }
+.introduction-copy h2 { max-width: 780px; }
+.introduction-copy p, .introduction-callout p { color: var(--muted); font-size: 16px; line-height: 1.65; max-width: 760px; }
+.introduction-callout { border-left: 3px solid var(--orange); padding: 4px 0 4px 22px; }
+.callout-label, .capability-grid article > span { color: var(--orange); font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.introduction-callout p { color: var(--ink); font-size: 20px; line-height: 1.35; margin: 18px 0 0; }
+.capability-grid, .profiles-grid { display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr); }
+.capability-grid article, .profiles-grid article { background: var(--panel); border: 1px solid var(--line); min-height: 220px; padding: 22px; }
+.capability-grid h3, .profiles-grid h3 { margin-top: 25px; }
+.capability-grid p, .profiles-grid p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.profiles-grid article { border-top-color: rgba(121, 168, 255, .38); min-height: 175px; }
 .metrics { border-bottom: 1px solid var(--line); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(5, 1fr); }
 .metrics article { border-right: 1px solid var(--line); padding: 24px 18px; }
 .metrics article:first-child { padding-left: 0; }
@@ -107,6 +119,8 @@ footer { border-top: 1px solid var(--line); color: var(--muted); display: flex; 
   .flow { grid-template-columns: 1fr; }
   .flow li { min-height: 150px; }
   .flow li > span { margin-top: 36px; }
+  .introduction { gap: 34px; grid-template-columns: 1fr; }
+  .capability-grid, .profiles-grid { grid-template-columns: 1fr; }
 }
 
 .project-status { padding: 88px 0 24px; }
