@@ -1,6 +1,7 @@
 ﻿import assert from "node:assert/strict";
 import test from "node:test";
 
+import { authenticate } from "../src/index.js";
 import { canonicalJson, createRelayService, MemoryRelayStore, sha256Text } from "../src/core.js";
 
 const writer = {
@@ -24,6 +25,27 @@ function service() {
 test("canonical JSON and SHA-256 are deterministic", async () => {
   assert.equal(canonicalJson({ b: 2, a: 1 }), canonicalJson({ a: 1, b: 2 }));
   assert.equal(await sha256Text(canonicalJson({ b: 2, a: 1 })), await sha256Text(canonicalJson({ a: 1, b: 2 })));
+});
+
+test("an additional client mapping grants a distinct client without replacing the primary mapping", async () => {
+  const codexToken = "codex-test-token-1234567890";
+  const codexHash = await sha256Text(codexToken);
+  const principal = await authenticate(
+    new Request("https://relay.example/mcp", { headers: { authorization: `Bearer ${codexToken}` } }),
+    JSON.stringify({}),
+    JSON.stringify({
+      [codexHash]: {
+        actor_id: "model:codex",
+        actor_type: "model",
+        capabilities: ["relay.read", "relay.write"]
+      }
+    })
+  );
+  assert.deepEqual(principal, {
+    actorId: "model:codex",
+    actorType: "model",
+    capabilities: ["relay.read", "relay.write"]
+  });
 });
 
 test("two clients can append and read one shared task chain", async () => {

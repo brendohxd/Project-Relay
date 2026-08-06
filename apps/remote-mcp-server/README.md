@@ -49,6 +49,12 @@ by the SHA-256 digest of each client's bearer token:
 Never commit the tokens, their local plaintext values, or the secret JSON.
 Give each client its own random token. The endpoint rejects anonymous access.
 
+For an additive client rollout, configure `RELAY_ADDITIONAL_CLIENT_KEYS` with
+ the same JSON shape. The Worker combines it with the primary mapping, allowing
+ a new client to be enabled without replacing the existing secret or disrupting
+ an already connected client. Duplicate token hashes resolve to the primary
+ mapping; do not reuse credentials between clients.
+
 Run locally:
 
 ```powershell

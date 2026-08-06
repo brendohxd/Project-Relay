@@ -16,19 +16,31 @@ function result(value, isError = false) {
   };
 }
 
-async function authenticate(request, clientsJson) {
-  if (!clientsJson) throw Object.assign(new Error("RELAY_CLIENT_KEYS is not configured"), { status: 503 });
-  const header = request.headers.get("authorization") ?? "";
-  const match = /^Bearer ([A-Za-z0-9._~-]{24,256})$/.exec(header);
-  if (!match) throw Object.assign(new Error("Bearer authorization required"), { status: 401 });
+function parseClients(clientsJson, secretName, required = false) {
+  if (!clientsJson) {
+    if (required) throw Object.assign(new Error(`${secretName} is not configured`), { status: 503 });
+    return {};
+  }
   let clients;
   try {
     clients = JSON.parse(clientsJson);
   } catch {
-    throw Object.assign(new Error("RELAY_CLIENT_KEYS is invalid"), { status: 503 });
+    throw Object.assign(new Error(`${secretName} is invalid`), { status: 503 });
   }
+  if (!clients || Array.isArray(clients) || typeof clients !== "object") {
+    throw Object.assign(new Error(`${secretName} is invalid`), { status: 503 });
+  }
+  return clients;
+}
+
+export async function authenticate(request, clientsJson, additionalClientsJson) {
+  const clients = parseClients(clientsJson, "RELAY_CLIENT_KEYS", true);
+  const additionalClients = parseClients(additionalClientsJson, "RELAY_ADDITIONAL_CLIENT_KEYS");
+  const header = request.headers.get("authorization") ?? "";
+  const match = /^Bearer ([A-Za-z0-9._~-]{24,256})$/.exec(header);
+  if (!match) throw Object.assign(new Error("Bearer authorization required"), { status: 401 });
   const tokenHash = await sha256Text(match[1]);
-  const principal = clients[tokenHash];
+  const principal = clients[tokenHash] ?? additionalClients[tokenHash];
   if (!principal || typeof principal.actor_id !== "string" || !Array.isArray(principal.capabilities)) {
     throw Object.assign(new Error("unknown Relay client"), { status: 403 });
   }
@@ -137,7 +149,7 @@ export default {
     if (url.pathname !== "/mcp") return new Response("Not found", { status: 404 });
 
     try {
-      const principal = await authenticate(request, env.RELAY_CLIENT_KEYS);
+      const principal = await authenticate(request, env.RELAY_CLIENT_KEYS, env.RELAY_ADDITIONAL_CLIENT_KEYS);
       return createMcpHandler(() => createServer(env, principal))(request, env, context);
     } catch (error) {
       return Response.json({ error: error.message }, {
