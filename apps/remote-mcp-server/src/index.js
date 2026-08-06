@@ -33,14 +33,31 @@ function parseClients(clientsJson, secretName, required = false) {
   return clients;
 }
 
-export async function authenticate(request, clientsJson, additionalClientsJson) {
+function parseRevokedTokenHashes(hashesJson) {
+  if (!hashesJson) return new Set();
+  let hashes;
+  try {
+    hashes = JSON.parse(hashesJson);
+  } catch {
+    throw Object.assign(new Error("RELAY_REVOKED_CLIENT_KEY_HASHES is invalid"), { status: 503 });
+  }
+  if (!Array.isArray(hashes) || hashes.some((hash) => !/^[a-f0-9]{64}$/.test(hash))) {
+    throw Object.assign(new Error("RELAY_REVOKED_CLIENT_KEY_HASHES is invalid"), { status: 503 });
+  }
+  return new Set(hashes);
+}
+
+export async function authenticate(request, clientsJson, additionalClientsJson, rotatedClientsJson, revokedTokenHashesJson) {
   const clients = parseClients(clientsJson, "RELAY_CLIENT_KEYS", true);
   const additionalClients = parseClients(additionalClientsJson, "RELAY_ADDITIONAL_CLIENT_KEYS");
+  const rotatedClients = parseClients(rotatedClientsJson, "RELAY_ROTATED_CLIENT_KEYS");
+  const revokedTokenHashes = parseRevokedTokenHashes(revokedTokenHashesJson);
   const header = request.headers.get("authorization") ?? "";
   const match = /^Bearer ([A-Za-z0-9._~-]{24,256})$/.exec(header);
   if (!match) throw Object.assign(new Error("Bearer authorization required"), { status: 401 });
   const tokenHash = await sha256Text(match[1]);
-  const principal = clients[tokenHash] ?? additionalClients[tokenHash];
+  if (revokedTokenHashes.has(tokenHash)) throw Object.assign(new Error("unknown Relay client"), { status: 403 });
+  const principal = clients[tokenHash] ?? additionalClients[tokenHash] ?? rotatedClients[tokenHash];
   if (!principal || typeof principal.actor_id !== "string" || !Array.isArray(principal.capabilities)) {
     throw Object.assign(new Error("unknown Relay client"), { status: 403 });
   }
@@ -170,7 +187,7 @@ export default {
     if (url.pathname !== "/mcp") return new Response("Not found", { status: 404 });
 
     try {
-      const principal = await authenticate(request, env.RELAY_CLIENT_KEYS, env.RELAY_ADDITIONAL_CLIENT_KEYS);
+      const principal = await authenticate(request, env.RELAY_CLIENT_KEYS, env.RELAY_ADDITIONAL_CLIENT_KEYS, env.RELAY_ROTATED_CLIENT_KEYS, env.RELAY_REVOKED_CLIENT_KEY_HASHES);
       return createMcpHandler(() => createServer(env, principal))(request, env, context);
     } catch (error) {
       return Response.json({ error: error.message }, {

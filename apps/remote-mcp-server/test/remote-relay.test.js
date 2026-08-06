@@ -48,6 +48,33 @@ test("an additional client mapping grants a distinct client without replacing th
   });
 });
 
+test("rotated client mapping can replace a revoked primary credential without replacing other mappings", async () => {
+  const retiredToken = "retired-grok-token-1234567890";
+  const replacementToken = "replacement-grok-token-1234567890";
+  const retiredHash = await sha256Text(retiredToken);
+  const replacementHash = await sha256Text(replacementToken);
+  const primary = JSON.stringify({
+    [retiredHash]: { actor_id: "model:grok", capabilities: ["relay.read", "relay.write"] }
+  });
+  const rotated = JSON.stringify({
+    [replacementHash]: { actor_id: "model:grok", capabilities: ["relay.read", "relay.write"] }
+  });
+  const revoked = JSON.stringify([retiredHash]);
+
+  await assert.rejects(
+    authenticate(new Request("https://relay.example/mcp", { headers: { authorization: `Bearer ${retiredToken}` } }), primary, undefined, rotated, revoked),
+    (error) => error.status === 403
+  );
+  const principal = await authenticate(
+    new Request("https://relay.example/mcp", { headers: { authorization: `Bearer ${replacementToken}` } }),
+    primary,
+    undefined,
+    rotated,
+    revoked
+  );
+  assert.equal(principal.actorId, "model:grok");
+});
+
 test("one kind retains its own append chain", async () => {
   const relay = service();
   const first = await relay.append({
