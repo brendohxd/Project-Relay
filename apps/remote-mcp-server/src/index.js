@@ -34,6 +34,15 @@ function parseClients(clientsJson, secretName, required = false) {
   return clients;
 }
 
+function parseCapabilityOverrides(overridesJson) {
+  const overrides = parseClients(overridesJson, "RELAY_CAPABILITY_OVERRIDES");
+  for (const override of Object.values(overrides)) {
+    if (!override || typeof override.actor_id !== "string" || !Array.isArray(override.capabilities) || override.capabilities.some((capability) => typeof capability !== "string")) {
+      throw Object.assign(new Error("RELAY_CAPABILITY_OVERRIDES is invalid"), { status: 503 });
+    }
+  }
+  return overrides;
+}
 function parseRevokedTokenHashes(hashesJson) {
   if (!hashesJson) return new Set();
   let hashes;
@@ -48,11 +57,12 @@ function parseRevokedTokenHashes(hashesJson) {
   return new Set(hashes);
 }
 
-export async function authenticate(request, clientsJson, additionalClientsJson, rotatedClientsJson, revokedTokenHashesJson) {
+export async function authenticate(request, clientsJson, additionalClientsJson, rotatedClientsJson, revokedTokenHashesJson, capabilityOverridesJson) {
   const clients = parseClients(clientsJson, "RELAY_CLIENT_KEYS", true);
   const additionalClients = parseClients(additionalClientsJson, "RELAY_ADDITIONAL_CLIENT_KEYS");
   const rotatedClients = parseClients(rotatedClientsJson, "RELAY_ROTATED_CLIENT_KEYS");
   const revokedTokenHashes = parseRevokedTokenHashes(revokedTokenHashesJson);
+  const capabilityOverrides = parseCapabilityOverrides(capabilityOverridesJson);
   const header = request.headers.get("authorization") ?? "";
   const match = /^Bearer ([A-Za-z0-9._~-]{24,256})$/.exec(header);
   if (!match) throw Object.assign(new Error("Bearer authorization required"), { status: 401 });
@@ -62,10 +72,14 @@ export async function authenticate(request, clientsJson, additionalClientsJson, 
   if (!principal || typeof principal.actor_id !== "string" || !Array.isArray(principal.capabilities)) {
     throw Object.assign(new Error("unknown Relay client"), { status: 403 });
   }
+  const override = capabilityOverrides[tokenHash];
+  if (override && override.actor_id !== principal.actor_id) {
+    throw Object.assign(new Error("RELAY_CAPABILITY_OVERRIDES does not match its Relay client"), { status: 503 });
+  }
   return {
     actorId: principal.actor_id,
     actorType: principal.actor_type ?? "model",
-    capabilities: principal.capabilities
+    capabilities: [...new Set([...principal.capabilities, ...(override?.capabilities ?? [])])]
   };
 }
 
@@ -86,7 +100,7 @@ function createServer(env, principal) {
       storage: "Cloudflare D1",
       transport: "Streamable HTTP",
       actor: { id: principal.actorId, type: principal.actorType },
-      capabilities: principal.capabilities,
+      capabilities: [...new Set([...principal.capabilities, ...(override?.capabilities ?? [])])],
       writable_kinds: ["task", "event", "evidence", "review"],
       hybrid_task_timeline: true,
       human_decision_writes_enabled: false,
@@ -200,7 +214,7 @@ export default {
     if (url.pathname !== "/mcp") return new Response("Not found", { status: 404 });
 
     try {
-      const principal = await authenticate(request, env.RELAY_CLIENT_KEYS, env.RELAY_ADDITIONAL_CLIENT_KEYS, env.RELAY_ROTATED_CLIENT_KEYS, env.RELAY_REVOKED_CLIENT_KEY_HASHES);
+      const principal = await authenticate(request, env.RELAY_CLIENT_KEYS, env.RELAY_ADDITIONAL_CLIENT_KEYS, env.RELAY_ROTATED_CLIENT_KEYS, env.RELAY_REVOKED_CLIENT_KEY_HASHES, env.RELAY_CAPABILITY_OVERRIDES);
       return createMcpHandler(() => createServer(env, principal))(request, env, context);
     } catch (error) {
       return Response.json({ error: error.message }, {

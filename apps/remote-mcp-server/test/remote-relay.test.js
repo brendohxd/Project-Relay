@@ -48,6 +48,17 @@ test("an additional client mapping grants a distinct client without replacing th
   });
 });
 
+test("capability overrides add a scoped capability without replacing the primary client", async () => {
+  const token = "grok-test-token-1234567890";
+  const hash = await sha256Text(token);
+  const principal = await authenticate(
+    new Request("https://relay.example/mcp", { headers: { authorization: `Bearer ${token}` } }),
+    JSON.stringify({ [hash]: { actor_id: "model:grok", capabilities: ["relay.read", "relay.write"] } }),
+    undefined, undefined, undefined,
+    JSON.stringify({ [hash]: { actor_id: "model:grok", capabilities: ["relay.slack.project"] } })
+  );
+  assert.deepEqual(principal.capabilities, ["relay.read", "relay.write", "relay.slack.project"]);
+});
 test("rotated client mapping can replace a revoked primary credential without replacing other mappings", async () => {
   const retiredToken = "retired-grok-token-1234567890";
   const replacementToken = "replacement-grok-token-1234567890";
