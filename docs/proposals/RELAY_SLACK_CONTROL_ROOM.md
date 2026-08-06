@@ -76,8 +76,15 @@ and Slack profiles with identical non-authority and confirmation defaults.
 `test/control-room-profiles.test.js` verifies those shared boundaries and Slack's
 conversation-specific capability declarations without network access.
 
+The initial local contract is implemented in
+`packages/knowledge-hub/src/fake-slack-adapter.js` and
+`packages/knowledge-hub/src/local-overseer-dispatcher.js`. It verifies signed
+synthetic inbound deliveries, replay and stale-delivery rejection, stable task
+threads, named-model claims, untrusted model replies, and human-review-only
+comparison packets. It makes no Slack, model-provider, or network write.
+
 ## Next gate
 
-Implement a fake Slack adapter that consumes synthetic signed events and emits
-messages, threads, and interactive-action receipts. It must share the generic
-knowledge-hub inbox tests before any Slack token, application, or webhook is created.
+Connect the local dispatcher to an explicit local model-runner protocol and add
+golden transcript/redaction fixtures. Only then create a dedicated Slack app,
+configure its signing secret, and enable one synthetic control channel.
