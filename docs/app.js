@@ -117,31 +117,44 @@ function renderTask(task) {
   return row;
 }
 
+function setText(node, value) {
+  if (node) node.textContent = value;
+}
+
 try {
-  const response = await fetch("./state/index.json", { cache: "no-store" });
+  // Resolve against the script location so status/ and root pages both work.
+  const response = await fetch(new URL("./state/index.json", import.meta.url), { cache: "no-store" });
   if (!response.ok) throw new Error(`State request failed with ${response.status}`);
   const state = await response.json();
   const project = state.project;
 
-  elements.projectStage.textContent = project.project.stage;
-  elements.currentMilestone.textContent = project.summary.current_milestone ?? "complete";
-  elements.roadmapComplete.textContent = `${project.summary.completed}/${project.summary.actionable}`;
-  elements.roadmapBlocked.textContent = project.summary.counts.blocked;
-  elements.roadmapDeferred.textContent = project.summary.counts.deferred;
-  elements.projectUpdated.textContent = `updated · ${project.updated_at}`;
-  elements.milestoneRows.replaceChildren(...project.milestones.map(renderMilestone));
-  elements.pilotRows.replaceChildren(...project.pilots.map(renderPilot));
+  setText(elements.projectStage, project.project.stage);
+  setText(elements.currentMilestone, project.summary.current_milestone ?? "complete");
+  setText(elements.roadmapComplete, `${project.summary.completed}/${project.summary.actionable}`);
+  setText(elements.roadmapBlocked, project.summary.counts.blocked);
+  setText(elements.roadmapDeferred, project.summary.counts.deferred);
+  setText(elements.projectUpdated, `updated · ${project.updated_at}`);
+  if (elements.milestoneRows) {
+    elements.milestoneRows.replaceChildren(...project.milestones.map(renderMilestone));
+  }
+  if (elements.pilotRows) {
+    elements.pilotRows.replaceChildren(...project.pilots.map(renderPilot));
+  }
 
-  elements.tasks.textContent = state.summary.tasks;
-  elements.active.textContent = state.summary.active;
-  elements.evidence.textContent = state.summary.evidence_bundles;
-  elements.reviews.textContent = state.summary.reviews;
-  elements.decisions.textContent = state.summary.decisions;
-  elements.source.textContent = `source · ${state.generated_from}`;
-  elements.version.textContent = `Protocol ${state.protocol_version}`;
-  elements.rows.replaceChildren(...state.tasks.map(renderTask));
+  setText(elements.tasks, state.summary.tasks);
+  setText(elements.active, state.summary.active);
+  setText(elements.evidence, state.summary.evidence_bundles);
+  setText(elements.reviews, state.summary.reviews);
+  setText(elements.decisions, state.summary.decisions);
+  setText(elements.source, `source · ${state.generated_from}`);
+  setText(elements.version, `Protocol ${state.protocol_version}`);
+  if (elements.rows) {
+    elements.rows.replaceChildren(...state.tasks.map(renderTask));
+  }
 } catch (error) {
-  elements.source.textContent = "state unavailable";
-  elements.error.hidden = false;
-  elements.error.textContent = `${error.message}. Serve this directory over HTTP rather than opening index.html directly.`;
+  setText(elements.source, "state unavailable");
+  if (elements.error) {
+    elements.error.hidden = false;
+    elements.error.textContent = `${error.message}. Serve this directory over HTTP rather than opening index.html directly.`;
+  }
 }

@@ -13,32 +13,68 @@
   <body>
     <div class="page-shell">
       <header class="topbar">
-        <a class="brand" href="#top" aria-label="Project Relay home">
+        <a class="brand" href="./" aria-label="Project Relay home">
           <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
           <span>Project Relay</span>
         </a>
-        <div class="status-pill"><span></span> Protocol pre-alpha</div>
+        <nav class="top-nav" aria-label="Primary">
+          <a href="./status/">Status</a>
+          <a href="./architecture/">How it works</a>
+          <a href="./control-rooms/">Control rooms</a>
+          <a href="./roadmap/">Roadmap</a>
+        </nav>
+        <div class="status-pill"><span></span> Protocol pre-alpha · M2</div>
       </header>
 
-      <main id="top">
-        <section class="hero">
-          <div class="eyebrow">Evidence before consensus</div>
-          <h1>One record for work<br />across many minds.</h1>
-          <p>
-            Relay turns disconnected AI sessions and human reviews into bounded tasks,
-            reproducible evidence, explicit disagreements, and accountable decisions.
-          </p>
-          <div class="hero-actions">
-            <a class="primary-action" href="#how-it-works">How Relay works</a>
-            <a class="secondary-action" href="#roadmap">Live project status</a>
+      <main>
+        <section class="hero hero-split">
+          <div class="hero-copy">
+            <div class="eyebrow">Evidence before consensus</div>
+            <h1>One record for work<br />across many minds.</h1>
+            <p>
+              Relay turns disconnected AI sessions and human reviews into bounded tasks,
+              reproducible evidence, explicit disagreements, and accountable decisions.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-action" href="./architecture/">How Relay works</a>
+              <a class="secondary-action" href="./status/">Live project status</a>
+            </div>
+            <div class="hero-proof" aria-label="Design principles">
+              <span>Model neutral</span>
+              <span>Evidence first</span>
+              <span>Human accountable</span>
+            </div>
+          </div>
+          <div class="hero-map" aria-label="Relay workflow from question to human decision">
+            <div class="orbit a"></div>
+            <div class="orbit b"></div>
+            <div class="node q"><small>01</small><b>Question</b><span>bounded</span></div>
+            <div class="node e"><small>02</small><b>Evidence</b><span>hashed</span></div>
+            <div class="node r"><small>03</small><b>Review</b><span>independent</span></div>
+            <div class="node d"><small>04</small><b>Decision</b><span>human</span></div>
+            <div class="core"><small>RELAY</small><b>R/01</b></div>
           </div>
         </section>
 
-        <section class="introduction" id="how-it-works">
+        <section class="manifest">
+          <p class="manifest-kicker">Why Relay exists</p>
+          <h2>
+            AI can produce more answers than one person can responsibly inspect.
+            Relay is the missing coordination layer between
+            <em>generation</em> and <em>accountability</em>.
+          </h2>
+        </section>
+
+        <section class="introduction">
           <div class="introduction-copy">
-            <div class="eyebrow">Why Relay exists</div>
-            <h2>AI can produce more answers than one person can responsibly inspect.</h2>
-            <p>Relay is the coordination layer between AI tools, reviewers, and the person accountable for the result. It keeps the question, supporting evidence, disagreement, and final human decision connected—even when the work crosses models or applications.</p>
+            <div class="eyebrow">The problem</div>
+            <h2>Work fragments across models, chats, and tools.</h2>
+            <p>
+              Relay is the coordination layer between AI tools, reviewers, and the person
+              accountable for the result. It keeps the question, supporting evidence,
+              disagreement, and final human decision connected—even when the work crosses
+              models or applications.
+            </p>
           </div>
           <div class="introduction-callout">
             <span class="callout-label">The rule</span>
@@ -46,132 +82,80 @@
           </div>
         </section>
 
-        <section class="capability-section" aria-labelledby="capability-title">
-          <div class="section-heading"><div><div class="eyebrow">What works today</div><h2 id="capability-title">A measured system, not a promise.</h2></div></div>
-          <div class="capability-grid">
-            <article><span>01</span><h3>One accountable record</h3><p>Tasks, events, evidence, reviews, and decisions have stable identifiers, deterministic hashes, and causal history.</p></article>
-            <article><span>02</span><h3>Evidence without execution</h3><p>Methods, commands, environments, artifacts, failures, and hashes can travel with a claim without Relay executing them.</p></article>
-            <article><span>03</span><h3>Disagreement stays visible</h3><p>Independent review and reproduction are explicit. Contradictions trigger remediation; they are not silently averaged away.</p></article>
-            <article><span>04</span><h3>Humans keep authority</h3><p>Models can contribute and compare. A named person still accepts, remediates, rejects, or defers consequential work.</p></article>
-          </div>
-        </section>
-
-        <section class="profiles-section">
-          <div class="section-heading"><div><div class="eyebrow">One protocol, many contexts</div><h2>Change the evidence threshold, not the record.</h2></div></div>
-          <div class="profiles-grid">
-            <article><h3>Multi-model work</h3><p>Compare competing outputs without losing who said what, what they used, or where they differ.</p></article>
-            <article><h3>Operations</h3><p>Bound incidents and changes with reproducible checks, visible exceptions, and accountable decisions.</p></article>
-            <article><h3>Research</h3><p>Preserve methods, artifacts, independent reproduction, adversarial review, and named scientific authority.</p></article>
-            <article><h3>Governance</h3><p>Keep evidence gaps, residual risk, review trails, and final approvals legible to the people responsible.</p></article>
-          </div>
-        </section>
-        <section class="metrics" aria-label="Workspace summary">
-          <article><span>Tasks</span><strong id="metric-tasks">—</strong></article>
-          <article><span>Active</span><strong id="metric-active">—</strong></article>
-          <article><span>Evidence</span><strong id="metric-evidence">—</strong></article>
-          <article><span>Reviews</span><strong id="metric-reviews">—</strong></article>
-          <article><span>Decisions</span><strong id="metric-decisions">—</strong></article>
-        </section>
-
-        <section class="project-status" id="roadmap">
+        <section class="capability-section">
           <div class="section-heading">
             <div>
-              <div class="eyebrow">Project control plane</div>
-              <h2>Roadmap and blockers</h2>
-            </div>
-            <div class="source-note" id="project-updated">Loading status?</div>
-          </div>
-          <div class="project-metrics" aria-label="Project summary">
-            <article><span>Stage</span><strong id="project-stage">?</strong></article>
-            <article><span>Current</span><strong id="current-milestone">?</strong></article>
-            <article><span>Complete</span><strong id="roadmap-complete">?</strong></article>
-            <article><span>Blocked</span><strong id="roadmap-blocked">?</strong></article>
-            <article><span>Deferred</span><strong id="roadmap-deferred">?</strong></article>
-          </div>
-          <div id="milestone-rows" class="milestone-grid"></div>
-        </section>
-
-        <section class="pilot-section">
-          <div class="section-heading">
-            <div>
-              <div class="eyebrow">Boundary-safe proving grounds</div>
-              <h2>Pilot readiness</h2>
+              <div class="eyebrow">What works today</div>
+              <h2>A measured system, not a promise.</h2>
             </div>
           </div>
-          <div id="pilot-rows" class="pilot-grid"></div>
-        </section>
-
-        <section class="release-section" id="release-route">
-          <div class="section-heading">
-            <div>
-              <div class="eyebrow">Release route</div>
-              <h2>Ship the safe path first.</h2>
-            </div>
-            <a class="source-note release-link" href="https://github.com/brendohxd/Project-Relay/blob/main/docs/RELEASE_PLAN.md">Read full plan ↗</a>
-          </div>
-          <div class="release-grid" aria-label="Relay release stages">
-            <article class="release-card release-card-complete">
-              <span class="release-stage">R0</span>
-              <h3>Foundation</h3>
-              <p>Protocol kernel, evidence gates, local MCP, and public-boundary checks.</p>
-              <span class="release-state">complete</span>
+          <div class="workinggrid">
+            <article>
+              <span>01</span>
+              <b>One accountable record</b>
+              <p>Tasks, events, evidence, reviews, and decisions have stable identifiers, deterministic hashes, and causal history.</p>
             </article>
-            <article class="release-card release-card-current">
-              <span class="release-stage">R1–R3</span>
-              <h3>Public-safe foundation</h3>
-              <p>GitHub contract, Knowledge Hub projections, and read-only discovery CLI.</p>
-              <span class="release-state">shipped</span>
+            <article>
+              <span>02</span>
+              <b>Evidence without execution</b>
+              <p>Methods, commands, environments, artifacts, failures, and hashes travel with a claim without Relay executing them.</p>
             </article>
-            <article class="release-card release-card-next">
-              <span class="release-stage">R4</span>
-              <h3>Overseer MVP</h3>
-              <p>Normalize transcripts, compare model intakes, and queue human decisions.</p>
-              <span class="release-state">next gate</span>
+            <article>
+              <span>03</span>
+              <b>Disagreement stays visible</b>
+              <p>Independent review and reproduction are explicit. Contradictions trigger remediation; they are not silently averaged away.</p>
             </article>
-            <article class="release-card">
-              <span class="release-stage">R5–R10</span>
-              <h3>Control rooms and scale</h3>
-              <p>Notion, Slack, live archive, MCP setup, routing, and optional hosted services.</p>
-              <span class="release-state">planned</span>
+            <article>
+              <span>04</span>
+              <b>Humans keep authority</b>
+              <p>Models can contribute and compare. A named person still accepts, remediates, rejects, or defers consequential work.</p>
+            </article>
+            <article>
+              <span>05</span>
+              <b>Static live console</b>
+              <p>A credential-free projection of project and task status for GitHub Pages and local review.</p>
+            </article>
+            <article>
+              <span>06</span>
+              <b>Provider-neutral MCP</b>
+              <p>Local read-only tools for validate, verify, and prepare—without publishing or holding secrets.</p>
             </article>
           </div>
         </section>
-        <section class="control-rooms-section" id="control-rooms"><div class="section-heading"><div><div class="eyebrow">Control rooms</div><h2>One governed record, different ways to work.</h2></div></div><div class="control-room-grid"><article><h3>Local-first</h3><p>CLI, local archive, and optional local model: the free portable reference path.</p><small>R7–R9</small></article><article><h3>Notion</h3><p>A structured knowledge and task projection: convenient, rebuildable, never canonical authority.</p><small>R5</small></article><article><h3>Slack</h3><p>Threads, notifications, review requests, and attributed commands. Messages never equal approval.</p><small>R6</small></article><article><h3>GitHub</h3><p>Reviewable proposals, issues, receipts, and public-safe operational status.</p><small>R1–R4</small></article></div></section>
-        <section class="build-map-section" id="build-map"><div class="section-heading"><div><div class="eyebrow">Build map</div><h2>Every convenience layer has an evidence gate.</h2></div><a class="source-note release-link" href="https://github.com/brendohxd/Project-Relay/blob/main/docs/RELEASE_PLAN.md">Read the canonical plan ↗</a></div><div class="build-map"><article><b>R0</b><div><h3>Foundation</h3><p>Canonical records, policy gates, local MCP, public-boundary checks.</p><small>Complete</small></div></article><article><b>R1–R3</b><div><h3>Safe collaboration</h3><p>GitHub contract, Knowledge Hub projections, and read-only discovery CLI.</p><small>Complete</small></div></article><article><b>R4</b><div><h3>Overseer MVP</h3><p>Transcript normalization, comparison packets, assignment, provenance, redaction, and human approval queue.</p><small>Next gate</small></div></article><article><b>R5–R6</b><div><h3>Control rooms</h3><p>Opt-in Notion projection, then Slack channels, threads, notifications, and signed commands.</p><small>Planned</small></div></article><article><b>R7–R8</b><div><h3>Archive and installer</h3><p>Low-RAM local bookshelf, retention/export, MCP discovery, dry-run configuration plans, backup and rollback.</p><small>Planned</small></div></article><article><b>R9–R10</b><div><h3>Routing and scale</h3><p>Provider adapters, manual packets, local-model fallback, cost policy, then optional managed hosting.</p><small>Future</small></div></article></div></section>        <section class="workspace" id="workspace">
+
+        <section class="page-cards">
           <div class="section-heading">
             <div>
-              <div class="eyebrow">Canonical projection</div>
-              <h2>Current tasks</h2>
-            </div>
-            <div class="source-note" id="source-note">Loading state…</div>
-          </div>
-
-          <div class="task-table" role="table" aria-label="Relay tasks">
-            <div class="task-row task-header" role="row">
-              <span role="columnheader">Task</span>
-              <span role="columnheader">State</span>
-              <span role="columnheader">Risk</span>
-              <span role="columnheader">Evidence</span>
-              <span role="columnheader">Reviews</span>
-            </div>
-            <div id="task-rows" class="task-rows"></div>
-          </div>
-          <p id="load-error" class="load-error" hidden></p>
-        </section>
-
-        <section class="flow-section">
-          <div class="section-heading">
-            <div>
-              <div class="eyebrow">Default evidence gate</div>
-              <h2>From question to decision</h2>
+              <div class="eyebrow">Explore</div>
+              <h2>Separate pages for status, protocol, and roadmap.</h2>
             </div>
           </div>
-          <ol class="flow">
-            <li><b>01</b><span><strong>Bound the task</strong>One question, inputs, constraints, and acceptance criteria.</span></li>
-            <li><b>02</b><span><strong>Submit evidence</strong>Methods, commands, environment, artifacts, failures, and hashes.</span></li>
-            <li><b>03</b><span><strong>Review independently</strong>Reproduce where required and preserve material disagreement.</span></li>
-            <li><b>04</b><span><strong>Record authority</strong>A named human accepts, remediates, rejects, or defers.</span></li>
-          </ol>
+          <div class="page-card-grid">
+            <a class="page-card" href="./status/">
+              <small>01</small>
+              <h3>Live status</h3>
+              <p>Roadmap counts, pilot readiness, and current task projections from the canonical state snapshot.</p>
+              <span>Open status →</span>
+            </a>
+            <a class="page-card" href="./architecture/">
+              <small>02</small>
+              <h3>How it works</h3>
+              <p>Default evidence gate, interactive claim trace, trust boundary, and deliberate non-goals.</p>
+              <span>Open protocol →</span>
+            </a>
+            <a class="page-card" href="./control-rooms/">
+              <small>03</small>
+              <h3>Control rooms</h3>
+              <p>Local-first, Notion, Slack, and GitHub as rebuildable projections—never alternate authority.</p>
+              <span>Open control rooms →</span>
+            </a>
+            <a class="page-card" href="./roadmap/">
+              <small>04</small>
+              <h3>Release roadmap</h3>
+              <p>R0–R10 release route, build map, and the next gate: Overseer MVP.</p>
+              <span>Open roadmap →</span>
+            </a>
+          </div>
         </section>
 
         <aside class="principle">
@@ -182,9 +166,9 @@
 
       <footer>
         <span>Project Relay · working title</span>
-        <span id="protocol-version">Protocol —</span>
+        <span>Evidence before consensus.</span>
+        <span>Protocol 0.1.0</span>
       </footer>
     </div>
-    <script type="module" src="./app.js"></script>
   </body>
 </html>
