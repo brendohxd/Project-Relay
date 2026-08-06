@@ -14,18 +14,42 @@ const mediaTypes = {
   ".svg": "image/svg+xml"
 };
 
+function resolveTarget(pathname) {
+  let requested = pathname === "/" ? "/home.html" : pathname;
+  // Support directory-style multipage routes used by GitHub Pages.
+  if (requested.endsWith("/")) requested += "index.html";
+  const asDirIndex = path.resolve(root, `.${requested}`);
+  return asDirIndex;
+}
+
 const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url ?? "/", "http://127.0.0.1");
-    const requested = url.pathname === "/" ? "/index.html" : url.pathname;
-    const target = path.resolve(root, `.${requested}`);
+    let target = resolveTarget(url.pathname);
 
     if (target !== root && !target.startsWith(`${root}${path.sep}`)) {
       response.writeHead(403).end("Forbidden");
       return;
     }
 
-    const metadata = await stat(target);
+    let metadata;
+    try {
+      metadata = await stat(target);
+      if (metadata.isDirectory()) {
+        target = path.join(target, "index.html");
+        metadata = await stat(target);
+      }
+    } catch {
+      // Map /status -> status/index.html etc.
+      const alt = path.resolve(root, `.${url.pathname.replace(/\/?$/, "")}/index.html`);
+      if (alt.startsWith(`${root}${path.sep}`)) {
+        target = alt;
+        metadata = await stat(target);
+      } else {
+        throw new Error("Not found");
+      }
+    }
+
     if (!metadata.isFile()) throw new Error("Not a file");
     response.writeHead(200, {
       "Content-Type": mediaTypes[path.extname(target)] ?? "application/octet-stream",

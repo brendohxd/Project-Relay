@@ -3,10 +3,10 @@ import { readFile } from "node:fs/promises";
 const pairs = [
   ["apps/console/home.html", "docs/index.html"],
   ["apps/console/gpt-style.css", "docs/gpt-style.css"],
-  ["apps/console/status.html", "docs/status/index.html"],
-  ["apps/console/roadmap.html", "docs/roadmap/index.html"],
-  ["apps/console/control-rooms.html", "docs/control-rooms/index.html"],
-  ["apps/console/architecture.html", "docs/architecture/index.html"],
+  ["apps/console/status/index.html", "docs/status/index.html"],
+  ["apps/console/roadmap/index.html", "docs/roadmap/index.html"],
+  ["apps/console/control-rooms/index.html", "docs/control-rooms/index.html"],
+  ["apps/console/architecture/index.html", "docs/architecture/index.html"],
   ["apps/console/app.js", "docs/app.js"],
   ["apps/console/styles.css", "docs/styles.css"],
   ["apps/console/state/index.json", "docs/state/index.json"]
