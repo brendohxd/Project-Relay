@@ -55,6 +55,10 @@ function validateAppendInput(input) {
   if (SECRET_PATTERNS.some((pattern) => pattern.test(serialized))) throw Object.assign(new Error("credential-like content rejected"), { code: "REDACTION_FAILURE" });
 }
 
+function validateRecordReference(input) {
+  if (!WORKSPACE_PATTERN.test(input.workspaceId)) throw Object.assign(new Error("invalid workspaceId"), { code: "INVALID_INPUT" });
+  if (!RECORD_ID_PATTERN.test(input.recordId)) throw Object.assign(new Error("invalid recordId"), { code: "INVALID_INPUT" });
+}
 function publicRecord(row) {
   return {
     workspace_id: row.workspace_id,
@@ -151,10 +155,19 @@ export function createRelayService({ store, clock = () => new Date().toISOString
 
     async get({ workspaceId, recordId }, principal) {
       requireCapability(principal, "relay.read");
+      validateRecordReference({ workspaceId, recordId });
       const row = await store.get(workspaceId, recordId);
       return row ? publicRecord(row) : null;
     },
 
+    async projectRecordToSlack({ workspaceId, recordId, channelId, threadTs }, principal, projector) {
+      requireCapability(principal, "relay.slack.project");
+      validateRecordReference({ workspaceId, recordId });
+      const row = await store.get(workspaceId, recordId);
+      if (!row) throw Object.assign(new Error("record not found"), { code: "RECORD_NOT_FOUND" });
+      if (row.actor_id !== principal.actorId) throw Object.assign(new Error("only the record author may project it to Slack"), { code: "RECORD_NOT_OWNED" });
+      return projector({ record: publicRecord(row), channelId, threadTs });
+    },
     async listTimeline({ workspaceId, taskId, limit = 50 }, principal) {
       requireCapability(principal, "relay.read");
       if (!WORKSPACE_PATTERN.test(workspaceId)) throw Object.assign(new Error("invalid workspaceId"), { code: "INVALID_INPUT" });

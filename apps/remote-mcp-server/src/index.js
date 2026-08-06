@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import { createRelayService, sha256Text } from "./core.js";
 import { D1RelayStore } from "./d1-store.js";
+import { createSlackProjector } from "./slack-projector.js";
 
 const VERSION = "0.2.0";
 const recordKind = z.enum(["task", "event", "evidence", "review"]);
@@ -71,6 +72,7 @@ export async function authenticate(request, clientsJson, additionalClientsJson, 
 function createServer(env, principal) {
   const server = new McpServer({ name: "project-relay-remote-prototype", version: VERSION });
   const service = createRelayService({ store: new D1RelayStore(env.RELAY_DB) });
+  const slackProjector = createSlackProjector({ botToken: env.SLACK_BOT_TOKEN, allowedChannelsJson: env.RELAY_SLACK_ALLOWED_CHANNELS });
 
   server.registerTool(
     "relay_remote_status",
@@ -146,6 +148,17 @@ function createServer(env, principal) {
     }
   );
 
+  server.registerTool(
+    "relay_project_record_to_slack",
+    {
+      description: "Project an existing, self-authored Relay record to an approved Slack channel. This never creates a human decision.",
+      inputSchema: { workspaceId: z.string(), recordId: z.string(), channelId: z.string(), threadTs: z.string().optional() }
+    },
+    async (input) => {
+      try { return result({ projection: await service.projectRecordToSlack(input, principal, slackProjector) }); }
+      catch (error) { return result({ error: error.message, code: error.code ?? "SLACK_PROJECTION_FAILED" }, true); }
+    }
+  );
   server.registerTool(
     "relay_append_record",
     {
