@@ -1,11 +1,11 @@
-﻿import { McpServer } from "@modelcontextprotocol/server";
+import { McpServer } from "@modelcontextprotocol/server";
 import { createMcpHandler } from "agents/mcp/server";
 import { z } from "zod";
 
 import { createRelayService, sha256Text } from "./core.js";
 import { D1RelayStore } from "./d1-store.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
 const recordKind = z.enum(["task", "event", "evidence", "review"]);
 
 function result(value, isError = false) {
@@ -69,6 +69,7 @@ function createServer(env, principal) {
       actor: { id: principal.actorId, type: principal.actorType },
       capabilities: principal.capabilities,
       writable_kinds: ["task", "event", "evidence", "review"],
+      hybrid_task_timeline: true,
       human_decision_writes_enabled: false,
       target_endpoint: "https://relay.itsm-cosmology.com/mcp",
       publication_boundary: "Synthetic and public-safe Relay records only; ITSM scientific canon remains separate."
@@ -110,6 +111,25 @@ function createServer(env, principal) {
   );
 
   server.registerTool(
+    "relay_list_task_timeline",
+    {
+      description: "List the immutable cross-kind timeline for one Relay task.",
+      inputSchema: {
+        workspaceId: z.string(),
+        taskId: z.string(),
+        limit: z.number().int().min(1).max(100).optional()
+      }
+    },
+    async (input) => {
+      try {
+        return result({ timeline: await service.listTimeline(input, principal) });
+      } catch (error) {
+        return result({ error: error.message, code: error.code ?? "READ_FAILED" }, true);
+      }
+    }
+  );
+
+  server.registerTool(
     "relay_append_record",
     {
       description: "Append one validated, idempotent, public-safe Relay record. Human decision records are not writable.",
@@ -119,6 +139,7 @@ function createServer(env, principal) {
         taskId: z.string().optional(),
         sequence: z.number().int().positive(),
         expectedPreviousHash: z.string().nullable().optional(),
+        causalParentHash: z.string().nullable().optional(),
         idempotencyKey: z.string(),
         document: z.record(z.string(), z.unknown())
       }

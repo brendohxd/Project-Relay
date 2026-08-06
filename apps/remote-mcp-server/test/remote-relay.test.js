@@ -1,4 +1,4 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import test from "node:test";
 
 import { authenticate } from "../src/index.js";
@@ -48,7 +48,7 @@ test("an additional client mapping grants a distinct client without replacing th
   });
 });
 
-test("two clients can append and read one shared task chain", async () => {
+test("one kind retains its own append chain", async () => {
   const relay = service();
   const first = await relay.append({
     workspaceId: "relay-test",
@@ -75,6 +75,34 @@ test("two clients can append and read one shared task chain", async () => {
   assert.deepEqual(second.network_actions_performed, []);
 });
 
+test("hybrid timeline links independent kinds in task order", async () => {
+  const relay = service();
+  const task = await relay.append({
+    workspaceId: "relay-test",
+    kind: "task",
+    sequence: 1,
+    expectedPreviousHash: null,
+    idempotencyKey: "writer:relay-2101:task",
+    document: { id: "RELAY-2101", title: "Synthetic hybrid task" }
+  }, writer);
+  const review = await relay.append({
+    workspaceId: "relay-test",
+    kind: "review",
+    taskId: "RELAY-2101",
+    sequence: 1,
+    expectedPreviousHash: null,
+    idempotencyKey: "reader:relay-2101:review",
+    document: { id: "REV-2101", task_id: "RELAY-2101", assessment: "safe synthetic review" }
+  }, writer);
+
+  const timeline = await relay.listTimeline({ workspaceId: "relay-test", taskId: "RELAY-2101" }, reader);
+  assert.equal(task.timeline.task_sequence, 1);
+  assert.equal(review.timeline.task_sequence, 2);
+  assert.equal(review.timeline.causal_parent_hash, task.record.content_hash);
+  assert.equal(review.timeline.previous_timeline_hash, task.timeline.timeline_hash);
+  assert.deepEqual(timeline.map((entry) => entry.record_id), ["RELAY-2101", "REV-2101"]);
+});
+
 test("exact idempotent replay returns the original record", async () => {
   const relay = service();
   const input = {
@@ -90,6 +118,7 @@ test("exact idempotent replay returns the original record", async () => {
   assert.equal(applied.outcome, "applied");
   assert.equal(replayed.outcome, "replayed");
   assert.equal(replayed.record.content_hash, applied.record.content_hash);
+  assert.equal(replayed.timeline.timeline_hash, applied.timeline.timeline_hash);
 });
 
 test("stale sequence or previous hash fails closed", async () => {

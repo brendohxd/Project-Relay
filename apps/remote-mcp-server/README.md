@@ -1,4 +1,4 @@
-﻿# Remote Relay MCP prototype
+# Remote Relay MCP prototype
 
 This package is a deliberately constrained remote interoperability test for
 Project Relay. It exposes a stateless Streamable HTTP MCP endpoint backed by
@@ -10,6 +10,9 @@ Cloudflare D1.
 - Initial deployment: a private `workers.dev` test URL.
 - Stored data: synthetic, public-safe Relay records only.
 - Writable kinds: task, event, evidence, and review.
+- Hybrid task timeline: each accepted record is also committed to an immutable,
+  task-scoped cross-kind timeline. Per-kind append chains remain intact, while
+  the timeline supplies an ordered comparison surface for multiple models.
 - Human decision writes: disabled.
 - ITSM equations, datasets, results, manuscripts, and scientific decisions:
   prohibited.
