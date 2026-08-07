@@ -334,6 +334,41 @@ h1 { font-size: clamp(48px, 8.3vw, 104px); letter-spacing: -.065em; line-height:
   margin-top: 10px;
 }
 .nav-active { color: var(--ink) !important; font-weight: 700; }
+.status-summary-strip {
+  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  margin: 0 0 8px;
+  padding: 22px 0;
+}
+.status-summary-label {
+  color: var(--orange);
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: .12em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+#status-summary {
+  color: var(--ink);
+  font-family: ui-monospace, monospace;
+  font-size: clamp(14px, 1.8vw, 16px);
+  letter-spacing: .01em;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 960px;
+}
+.fixture-note {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 12px 0 0;
+  max-width: 640px;
+}
+.fixture-section h2 code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.85em;
+  font-weight: 600;
+}
 .status-banner { padding: 24px 0 8px; }
 .intro.split {
   align-items: end;

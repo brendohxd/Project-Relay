@@ -27,20 +27,15 @@
         <section class="hero compact-hero">
           <div class="eyebrow">Project control plane</div>
           <h1>Live status</h1>
-          <p>Roadmap, pilot readiness, and task projection from the public-safe state snapshot.</p>
+          <p>Project health from the public-safe state snapshot, plus a clearly labeled synthetic workspace fixture.</p>
+        </section>
+
+        <section class="status-summary-strip" aria-label="Project health summary">
+          <p class="status-summary-label">Project health</p>
+          <p id="status-summary">Loading…</p>
         </section>
 
         <section class="status-banner" id="status-banner">
-          <div class="intro split">
-            <div>
-              <p class="kicker">Verified project status</p>
-              <h2>Foundation complete. Collaboration adapter in progress.</h2>
-            </div>
-            <p>
-              Relay has completed its protocol kernel and local remediation loop. M2 extends that
-              record into GitHub collaboration without crossing the authentication or live-write boundary.
-            </p>
-          </div>
           <div class="milestones" aria-label="Milestone strip">
             <article class="complete"><span>M0</span><div><b>Protocol kernel</b><small>complete</small></div></article>
             <article class="complete"><span>M1</span><div><b>Local vertical slice</b><small>complete</small></div></article>
@@ -84,15 +79,16 @@
           <div id="pilot-rows" class="pilot-grid"></div>
         </section>
 
-        <section class="workspace" id="workspace">
+        <section class="workspace fixture-section" id="workspace">
           <div class="section-heading">
             <div>
-              <div class="eyebrow">Canonical projection</div>
-              <h2>Current tasks</h2>
+              <div class="eyebrow">Synthetic fixture · examples/m1</div>
+              <h2>Synthetic fixture (<code>examples/m1</code>)</h2>
+              <p class="fixture-note">Illustrative workspace projection, not a live production queue.</p>
             </div>
             <div class="source-note" id="source-note">Loading state…</div>
           </div>
-          <div class="task-table" role="table" aria-label="Relay tasks">
+          <div class="task-table" role="table" aria-label="Synthetic fixture tasks">
             <div class="task-row task-header" role="row">
               <span role="columnheader">Task</span>
               <span role="columnheader">State</span>
