@@ -6,14 +6,21 @@
     <meta name="description" content="Live roadmap projection and synthetic fixture status for Project Relay." />
     <title>Status · Project Relay</title>
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../assets/favicons/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../assets/favicons/icon-192.png" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
     <div class="page-shell">
       <header class="topbar">
         <a class="brand" href="../" aria-label="Project Relay home">
-          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span>Project Relay</span>
+          <img
+            class="brand-logo"
+            src="../assets/logo/headers/wordmark-weighted.svg"
+            width="229"
+            height="40"
+            alt=""
+          />
         </a>
         <nav class="top-nav" aria-label="Primary">
           <a class="nav-active" href="./">Status</a>
@@ -49,9 +56,27 @@
 
         <section class="status-banner" id="status-banner">
           <div class="milestones" aria-label="Milestone strip">
-            <article class="complete"><span>M0</span><div><b>Protocol kernel</b><small>complete</small></div></article>
-            <article class="complete"><span>M1</span><div><b>Local vertical slice</b><small>complete</small></div></article>
-            <article class="active"><span>M2</span><div><b>GitHub collaboration adapter</b><small>active</small></div></article>
+            <article class="complete">
+              <span>M0</span>
+              <div>
+                <img class="state-badge" src="../assets/badges/badge-completed.svg" height="20" alt="Completed" />
+                <b>Protocol kernel</b><small>complete</small>
+              </div>
+            </article>
+            <article class="complete">
+              <span>M1</span>
+              <div>
+                <img class="state-badge" src="../assets/badges/badge-completed.svg" height="20" alt="Completed" />
+                <b>Local vertical slice</b><small>complete</small>
+              </div>
+            </article>
+            <article class="active">
+              <span>M2</span>
+              <div>
+                <img class="state-badge" src="../assets/badges/badge-in-progress.svg" height="20" alt="In progress" />
+                <b>GitHub collaboration adapter</b><small>active</small>
+              </div>
+            </article>
           </div>
         </section>
 

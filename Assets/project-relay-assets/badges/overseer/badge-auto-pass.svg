@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 28" role="img" aria-label="Auto-pass">
+  <title>Standing policy auto-pass</title>
+  <defs>
+    <style>
+      .label { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.04em; fill: #79a8ff; }
+    </style>
+  </defs>
+  <!-- Blue outline pill — deliberately not solid lime -->
+  <rect x="0.5" y="0.5" width="127" height="27" rx="13.5" fill="rgba(121,168,255,0.08)" stroke="#79a8ff" stroke-width="1.5"/>
+  <!-- Bolt / policy mark instead of check -->
+  <path d="M16 9 L13 16 H18 L14 23" fill="none" stroke="#79a8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="30" y="18.5" class="label">AUTO-PASS</text>
+</svg>

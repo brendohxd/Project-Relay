@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Overseer">
+  <title>Comparison / multi-intake packet</title>
+  <!-- Two intakes feeding into one decision -->
+  <rect x="6" y="8" width="14" height="10" rx="2" fill="none" stroke="#ff6b35" stroke-width="1.8"/>
+  <rect x="28" y="8" width="14" height="10" rx="2" fill="none" stroke="#79a8ff" stroke-width="1.8"/>
+  <!-- Funnel / comparison lines -->
+  <path d="M13 18 L24 28 L35 18" fill="none" stroke="#a7a49a" stroke-width="1.6"/>
+  <!-- Decision packet -->
+  <rect x="16" y="28" width="16" height="12" rx="2" fill="none" stroke="#b9f77c" stroke-width="2"/>
+  <line x1="20" y1="33" x2="28" y2="33" stroke="#b9f77c" stroke-width="1.4"/>
+  <line x1="20" y1="37" x2="26" y2="37" stroke="#b9f77c" stroke-width="1.4"/>
+</svg>

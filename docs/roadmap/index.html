@@ -6,14 +6,21 @@
     <meta name="description" content="R0–R10 release route: foundation, Overseer, control rooms, and scale." />
     <title>Roadmap · Project Relay</title>
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../assets/favicons/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../assets/favicons/icon-192.png" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
     <div class="page-shell">
       <header class="topbar">
         <a class="brand" href="../" aria-label="Project Relay home">
-          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span>Project Relay</span>
+          <img
+            class="brand-logo"
+            src="../assets/logo/headers/wordmark-weighted.svg"
+            width="229"
+            height="40"
+            alt=""
+          />
         </a>
         <nav class="top-nav" aria-label="Primary">
           <a href="../status/">Status</a>
@@ -132,6 +139,7 @@
           <div class="release-grid" aria-label="Relay release stages">
             <article class="release-card release-card-complete">
               <span class="release-stage">R0</span>
+              <img class="state-badge" src="../assets/badges/badge-completed.svg" height="22" alt="Completed" />
               <h3>Foundation</h3>
               <p>Protocol kernel, evidence gates, local MCP, and public-boundary checks.</p>
               <span class="release-state">complete</span>
@@ -145,6 +153,7 @@
             </article>
             <article class="release-card release-card-current">
               <span class="release-stage">R1–R3</span>
+              <img class="state-badge" src="../assets/badges/badge-completed.svg" height="22" alt="Completed" />
               <h3>Public-safe foundation</h3>
               <p>GitHub contract, Knowledge Hub projections, and read-only discovery CLI.</p>
               <span class="release-state">shipped</span>
@@ -158,6 +167,7 @@
             </article>
             <article class="release-card release-card-next">
               <span class="release-stage">R4</span>
+              <img class="state-badge" src="../assets/badges/badge-in-progress.svg" height="22" alt="In progress" />
               <h3>Overseer MVP</h3>
               <p>Normalize transcripts, compare model intakes, and queue human decisions.</p>
               <span class="release-state">next gate</span>
@@ -171,9 +181,60 @@
             </article>
             <article class="release-card">
               <span class="release-stage">R5–R10</span>
+              <img class="state-badge" src="../assets/badges/badge-planned.svg" height="22" alt="Planned" />
               <h3>Control rooms and scale</h3>
               <p>Notion, Slack, live archive, MCP setup, routing, and optional hosted services.</p>
               <span class="release-state">planned</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="overseer-assets-section" id="overseer-scale">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">R4.1 · after MVP</div>
+              <h2>Standing auto-pass and notify (design locked).</h2>
+            </div>
+            <img class="section-lead-icon" src="../assets/icons/overseer/icon-overseer.svg" width="48" height="48" alt="" />
+          </div>
+          <p class="profiles-lede">
+            Humans author the rules; Overseer may execute clean matches at scale. Questionable or failed
+            matches notify and enter the human queue. Silence is never acceptance.
+            See <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/decisions/ADR-003-overseer-standing-auto-pass-and-notifications.md">ADR-003</a>.
+          </p>
+          <div class="overseer-badge-row" aria-label="Overseer outcome badges">
+            <figure>
+              <img src="../assets/badges/overseer/badge-auto-pass.svg" height="28" alt="Auto-pass" />
+              <figcaption>Auto-pass · policy match</figcaption>
+            </figure>
+            <figure>
+              <img src="../assets/badges/overseer/badge-questionable.svg" height="28" alt="Questionable" />
+              <figcaption>Questionable · human look</figcaption>
+            </figure>
+            <figure>
+              <img src="../assets/badges/overseer/badge-escalated.svg" height="28" alt="Escalated" />
+              <figcaption>Escalated · required human</figcaption>
+            </figure>
+            <figure>
+              <img src="../assets/badges/overseer/badge-human-queue.svg" height="28" alt="Human queue" />
+              <figcaption>Human queue · waiting</figcaption>
+            </figure>
+          </div>
+          <div class="workinggrid overseer-icon-grid" aria-label="Overseer concepts">
+            <article class="with-icon">
+              <img class="feature-icon" src="../assets/icons/overseer/icon-policy.svg" width="40" height="40" alt="" />
+              <b>Standing policy</b>
+              <p>Human-authored rules with risk ceiling, scope, and hashed snapshot at apply time.</p>
+            </article>
+            <article class="with-icon">
+              <img class="feature-icon" src="../assets/icons/overseer/icon-packet.svg" width="40" height="40" alt="" />
+              <b>Comparison packet</b>
+              <p>Multi-model intakes with provenance—input to evaluate, never silent authority.</p>
+            </article>
+            <article class="with-icon">
+              <img class="feature-icon" src="../assets/icons/overseer/icon-notify.svg" width="40" height="40" alt="" />
+              <b>Notify + queue</b>
+              <p>Grey-zone and hard fails interrupt a human. Delivery channels are projections only.</p>
             </article>
           </div>
         </section>

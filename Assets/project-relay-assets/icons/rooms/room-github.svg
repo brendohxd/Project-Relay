@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="GitHub control room">
+  <title>GitHub — branch / PR / commit</title>
+  <!-- Branch lines -->
+  <path d="M16 10 L16 24 L32 24 L32 38" fill="none" stroke="#f3f1eb" stroke-width="2" stroke-linecap="round"/>
+  <path d="M16 24 L32 10" fill="none" stroke="#79a8ff" stroke-width="2" stroke-linecap="round"/>
+  <!-- Commit nodes -->
+  <circle cx="16" cy="10" r="3.5" fill="#ff6b35"/>
+  <circle cx="32" cy="10" r="3.5" fill="#b9f77c"/>
+  <circle cx="16" cy="24" r="3.5" fill="#79a8ff"/>
+  <circle cx="32" cy="38" r="3.5" fill="#f3f1eb"/>
+</svg>

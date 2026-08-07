@@ -6,14 +6,21 @@
     <meta name="description" content="From bounded question to human decision: evidence, review, and authority." />
     <title>How it works · Project Relay</title>
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../assets/favicons/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../assets/favicons/icon-192.png" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
     <div class="page-shell">
       <header class="topbar">
         <a class="brand" href="../" aria-label="Project Relay home">
-          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span>Project Relay</span>
+          <img
+            class="brand-logo"
+            src="../assets/logo/headers/wordmark-weighted.svg"
+            width="229"
+            height="40"
+            alt=""
+          />
         </a>
         <nav class="top-nav" aria-label="Primary">
           <a href="../status/">Status</a>
@@ -59,21 +66,25 @@
           </div>
           <ol class="flow flow-rich">
             <li>
+              <img class="flow-icon" src="../assets/icons/flow/flow-question.svg" width="40" height="40" alt="" />
               <span>01</span>
               <b>Bound the task</b>
               <p>Declare one question, inputs, constraints, risks, and acceptance criteria.</p>
             </li>
             <li>
+              <img class="flow-icon" src="../assets/icons/flow/flow-evidence.svg" width="40" height="40" alt="" />
               <span>02</span>
               <b>Submit evidence</b>
               <p>Attach methods, commands, artifacts, failures, hashes, and context.</p>
             </li>
             <li>
+              <img class="flow-icon" src="../assets/icons/flow/flow-review.svg" width="40" height="40" alt="" />
               <span>03</span>
               <b>Review independently</b>
               <p>Reproduce where policy requires it and preserve material disagreement.</p>
             </li>
             <li>
+              <img class="flow-icon" src="../assets/icons/flow/flow-decision.svg" width="40" height="40" alt="" />
               <span>04</span>
               <b>Record authority</b>
               <p>A named person accepts, remediates, rejects, or defers.</p>
@@ -124,23 +135,38 @@
               <span role="columnheader">One line</span>
             </div>
             <div class="record-row" role="row">
-              <b role="cell">Task</b>
+              <span class="record-type" role="cell">
+                <img src="../assets/icons/records/record-task.svg" width="28" height="28" alt="" />
+                <b>Task</b>
+              </span>
               <p role="cell">One bounded question, owner, risk, acceptance criteria</p>
             </div>
             <div class="record-row" role="row">
-              <b role="cell">Event</b>
+              <span class="record-type" role="cell">
+                <img src="../assets/icons/records/record-event.svg" width="28" height="28" alt="" />
+                <b>Event</b>
+              </span>
               <p role="cell">Append-only transition with sequence and previous hash</p>
             </div>
             <div class="record-row" role="row">
-              <b role="cell">Evidence</b>
+              <span class="record-type" role="cell">
+                <img src="../assets/icons/records/record-evidence.svg" width="28" height="28" alt="" />
+                <b>Evidence</b>
+              </span>
               <p role="cell">Method, commands, env, artifacts, hashes, failures</p>
             </div>
             <div class="record-row" role="row">
-              <b role="cell">Review</b>
+              <span class="record-type" role="cell">
+                <img src="../assets/icons/records/record-review.svg" width="28" height="28" alt="" />
+                <b>Review</b>
+              </span>
               <p role="cell">Findings, independence declaration, AI disclosure</p>
             </div>
             <div class="record-row" role="row">
-              <b role="cell">Decision</b>
+              <span class="record-type" role="cell">
+                <img src="../assets/icons/records/record-decision.svg" width="28" height="28" alt="" />
+                <b>Decision</b>
+              </span>
               <p role="cell">Human gate outcome; not writable by remote model clients</p>
             </div>
           </div>
@@ -360,6 +386,7 @@
           </p>
           <div class="trust-grid">
             <article class="trust-yes">
+              <img class="trust-heading-icon" src="../assets/icons/trust/trust-can.svg" width="32" height="32" alt="" />
               <span>Relay can establish</span>
               <ul>
                 <li>
@@ -389,6 +416,7 @@
               </ul>
             </article>
             <article class="trust-no">
+              <img class="trust-heading-icon" src="../assets/icons/trust/trust-cannot.svg" width="32" height="32" alt="" />
               <span>Relay cannot establish by itself</span>
               <ul>
                 <li>
@@ -420,6 +448,7 @@
           </div>
           <div class="trust-examples">
             <article>
+              <img class="trust-heading-icon" src="../assets/icons/trust/boundary-public.svg" width="28" height="28" alt="" />
               <span class="callout-label">Example · hash</span>
               <p>
                 Two reviewers can both hold a valid hash of the same artifact and still disagree on
@@ -445,6 +474,7 @@
             </article>
           </div>
           <aside class="trust-aside">
+            <img class="trust-heading-icon" src="../assets/icons/trust/boundary-private.svg" width="28" height="28" alt="" />
             <b>ITSM proving-ground boundary</b>
             <p>
               Relay may publish workflow readiness and gate progress for the ITSM pilot. ITSM
@@ -455,6 +485,7 @@
             </p>
           </aside>
           <aside class="trust-aside trust-aside-secondary">
+            <img class="trust-heading-icon" src="../assets/icons/trust/trust-r01.svg" width="28" height="28" alt="" />
             <b>R/01 reminder</b>
             <p>
               Schema validity proves structure. A hash proves integrity. Neither proves that a claim

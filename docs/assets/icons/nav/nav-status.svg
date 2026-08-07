@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Live status">
+  <title>Live status / metrics</title>
+  <!-- Pulse / live indicator -->
+  <circle cx="24" cy="24" r="14" fill="none" stroke="#b9f77c" stroke-width="2"/>
+  <circle cx="24" cy="24" r="6" fill="#b9f77c"/>
+  <circle cx="24" cy="24" r="10" fill="none" stroke="#b9f77c" stroke-width="1.5" opacity="0.4"/>
+</svg>

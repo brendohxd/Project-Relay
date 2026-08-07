@@ -1,3 +1,11 @@
+<p align="center">
+  <img
+    src="Assets/project-relay-assets/logo/headers/wordmark-lockup.png"
+    alt="Project Relay — One record · Many minds"
+    width="480"
+  />
+</p>
+
 # Project Relay
 
 Project Relay is an evidence-governed coordination layer for multiple AI systems and human reviewers. It uses a Git repository as a shared, inspectable record while MCP provides a provider-neutral integration surface.
@@ -130,4 +138,4 @@ See [Publication Boundary](docs/PUBLICATION_BOUNDARY.md) and [Security](SECURITY
 
 ## Licence status
 
-No open-source licence has been selected yet. Publication on GitHub does not grant permission to reuse the work beyond rights provided by GitHub's terms. See [LICENSE-STATUS.md](LICENSE-STATUS.md).
+Project Relay is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [LICENSE-STATUS.md](LICENSE-STATUS.md) for details.

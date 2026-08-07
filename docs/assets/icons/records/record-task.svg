@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Task record">
+  <title>Task — single bounded question</title>
+  <!-- Ticket / bounded question card -->
+  <rect x="8" y="8" width="32" height="32" rx="3" fill="none" stroke="#ff6b35" stroke-width="2"/>
+  <!-- Question mark emphasis -->
+  <text x="24" y="30" text-anchor="middle" font-family="ui-monospace, monospace" font-size="18" font-weight="700" fill="#ff6b35">?</text>
+  <!-- Small bound markers -->
+  <rect x="12" y="12" width="8" height="2.5" rx="0.8" fill="#a7a49a"/>
+  <rect x="12" y="16.5" width="12" height="2.5" rx="0.8" fill="#a7a49a"/>
+</svg>

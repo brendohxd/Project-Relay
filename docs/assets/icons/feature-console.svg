@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Static live console">
+  <title>Static live console</title>
+  <!-- Terminal / dashboard frame -->
+  <rect x="6" y="8" width="36" height="28" rx="3" fill="none" stroke="#79a8ff" stroke-width="2"/>
+  <!-- Title bar -->
+  <rect x="6" y="8" width="36" height="7" rx="3" fill="#79a8ff" opacity="0.25"/>
+  <circle cx="12" cy="11.5" r="1.5" fill="#ff6b35"/>
+  <circle cx="17" cy="11.5" r="1.5" fill="#b9f77c"/>
+  <circle cx="22" cy="11.5" r="1.5" fill="#79a8ff"/>
+  <!-- Content lines -->
+  <line x1="12" y1="22" x2="36" y2="22" stroke="#a7a49a" stroke-width="1.5"/>
+  <line x1="12" y1="27" x2="30" y2="27" stroke="#a7a49a" stroke-width="1.5"/>
+  <line x1="12" y1="32" x2="33" y2="32" stroke="#a7a49a" stroke-width="1.5"/>
+</svg>

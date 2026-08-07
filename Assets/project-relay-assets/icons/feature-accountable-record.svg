@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="One accountable record">
+  <title>One accountable record</title>
+  <!-- Stacked ledger / chain of records -->
+  <rect x="10" y="8" width="28" height="6" rx="1.5" fill="#ff6b35" opacity="0.9"/>
+  <rect x="10" y="17" width="28" height="6" rx="1.5" fill="#b9f77c" opacity="0.9"/>
+  <rect x="10" y="26" width="28" height="6" rx="1.5" fill="#79a8ff" opacity="0.9"/>
+  <rect x="10" y="35" width="28" height="6" rx="1.5" fill="#a7a49a" opacity="0.5"/>
+  <!-- Hash mark -->
+  <path d="M14 11 h4 M18 11 v4" stroke="#0b0d0e" stroke-width="1.2" opacity="0.6"/>
+</svg>

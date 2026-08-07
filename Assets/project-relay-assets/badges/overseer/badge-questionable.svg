@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 28" role="img" aria-label="Questionable">
+  <title>Grey-zone / needs human</title>
+  <defs>
+    <style>
+      .label { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.04em; fill: #a7a49a; }
+    </style>
+  </defs>
+  <rect x="0.5" y="0.5" width="139" height="27" rx="13.5" fill="rgba(255,255,255,0.04)" stroke="#a7a49a" stroke-width="1.4"/>
+  <!-- Question mark -->
+  <text x="16" y="19" text-anchor="middle" font-family="ui-monospace, monospace" font-size="14" font-weight="700" fill="#a7a49a">?</text>
+  <text x="30" y="18.5" class="label">QUESTIONABLE</text>
+</svg>

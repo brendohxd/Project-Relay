@@ -1,6 +1,7 @@
 {
   "name": "project-relay",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "private": true,
   "description": "Evidence-governed coordination for multi-model AI and human review.",
   "type": "module",

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Evidence record">
+  <title>Evidence — bundle + hash</title>
+  <!-- Stacked evidence bundle -->
+  <rect x="10" y="10" width="28" height="8" rx="1.5" fill="none" stroke="#b9f77c" stroke-width="1.8"/>
+  <rect x="10" y="20" width="28" height="8" rx="1.5" fill="none" stroke="#b9f77c" stroke-width="1.8"/>
+  <rect x="10" y="30" width="28" height="8" rx="1.5" fill="none" stroke="#b9f77c" stroke-width="1.8"/>
+  <!-- Hash seal overlapping -->
+  <circle cx="34" cy="34" r="8" fill="#0b0d0e" stroke="#ff6b35" stroke-width="1.8"/>
+  <text x="34" y="37.5" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9" font-weight="700" fill="#ff6b35">#</text>
+</svg>

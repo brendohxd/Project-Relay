@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Control rooms">
+  <title>Multiple surfaces</title>
+  <!-- Multiple panels -->
+  <rect x="6" y="10" width="16" height="12" rx="2" fill="none" stroke="#ff6b35" stroke-width="1.8"/>
+  <rect x="26" y="10" width="16" height="12" rx="2" fill="none" stroke="#b9f77c" stroke-width="1.8"/>
+  <rect x="6" y="26" width="16" height="12" rx="2" fill="none" stroke="#79a8ff" stroke-width="1.8"/>
+  <rect x="26" y="26" width="16" height="12" rx="2" fill="none" stroke="#a7a49a" stroke-width="1.8"/>
+</svg>

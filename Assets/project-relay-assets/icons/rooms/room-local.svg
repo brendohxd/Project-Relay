@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Local control room">
+  <title>Local — CLI / offline</title>
+  <!-- Laptop / terminal -->
+  <rect x="8" y="12" width="32" height="20" rx="2" fill="none" stroke="#b9f77c" stroke-width="2"/>
+  <rect x="11" y="15" width="26" height="14" rx="1" fill="rgba(185,247,124,0.12)"/>
+  <!-- Terminal cursor / prompt -->
+  <text x="14" y="25" font-family="ui-monospace, monospace" font-size="10" fill="#b9f77c">›_</text>
+  <!-- Base -->
+  <path d="M16 32 L32 32 L34 36 L14 36 Z" fill="none" stroke="#b9f77c" stroke-width="1.6"/>
+</svg>
