@@ -7,6 +7,7 @@ const pairs = [
   ["apps/console/roadmap/index.html", "docs/roadmap/index.html"],
   ["apps/console/control-rooms/index.html", "docs/control-rooms/index.html"],
   ["apps/console/architecture/index.html", "docs/architecture/index.html"],
+  ["apps/console/start/index.html", "docs/start/index.html"],
   ["apps/console/app.js", "docs/app.js"],
   ["apps/console/styles.css", "docs/styles.css"],
   ["apps/console/state/index.json", "docs/state/index.json"]

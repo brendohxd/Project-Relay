@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Clone Project Relay, run checks, open the local console, and optionally wire a local MCP client."
+    />
+    <title>Get started · Project Relay</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../" aria-label="Project Relay home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Project Relay</span>
+        </a>
+        <nav class="top-nav" aria-label="Primary">
+          <a href="../status/">Status</a>
+          <a href="../architecture/">How it works</a>
+          <a href="../control-rooms/">Control rooms</a>
+          <a href="../roadmap/">Roadmap</a>
+          <a class="nav-active" href="./">Start</a>
+        </nav>
+        <details class="mobile-nav">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile">
+            <a href="../status/">Status</a>
+            <a href="../architecture/">How it works</a>
+            <a href="../control-rooms/">Control rooms</a>
+            <a href="../roadmap/">Roadmap</a>
+            <a class="nav-active" href="./">Start</a>
+          </nav>
+        </details>
+        <div class="status-pill"><span></span> Public-safe path</div>
+      </header>
+
+      <main>
+        <section class="hero compact-hero">
+          <div class="eyebrow">Get started</div>
+          <h1>Run Relay on your machine.</h1>
+          <p>
+            Public-safe setup only: clone the repo, install dependencies, verify the surface, and open the local multipage console.
+            No credentials, tokens, or private workspaces on this page.
+          </p>
+        </section>
+
+        <section class="today-section">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">Requirements</div>
+              <h2>What you need first.</h2>
+            </div>
+          </div>
+          <ul class="today-list">
+            <li>
+              <b>Node.js 24 or newer</b>
+              <p>
+                Relay targets a current Node LTS line. Confirm with
+                <code>node -v</code>
+                before installing.
+              </p>
+            </li>
+            <li>
+              <b>Git and a clean working tree</b>
+              <p>
+                Start from a fresh clone of
+                <a href="https://github.com/brendohxd/Project-Relay">github.com/brendohxd/Project-Relay</a>.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="today-section">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">Install and verify</div>
+              <h2>Four commands from a clean clone.</h2>
+            </div>
+          </div>
+          <ul class="today-list">
+            <li>
+              <b>1 · Clone</b>
+              <p><code>git clone https://github.com/brendohxd/Project-Relay.git</code></p>
+              <p>Then <code>cd Project-Relay</code>.</p>
+            </li>
+            <li>
+              <b>2 · Install</b>
+              <p><code>npm install</code></p>
+              <p>Installs workspace packages from the published lockfile.</p>
+            </li>
+            <li>
+              <b>3 · Check</b>
+              <p><code>npm run check</code></p>
+              <p>Validates the public surface, schemas, examples, and Pages bundle on a clean tree.</p>
+            </li>
+            <li>
+              <b>4 · Local multipage console</b>
+              <p><code>npm run console</code></p>
+              <p>
+                Serves this site from
+                <code>apps/console</code>
+                (default
+                <code>http://127.0.0.1:4173</code>).
+                Directory routes match GitHub Pages:
+                <code>/status/</code>,
+                <code>/architecture/</code>,
+                <code>/start/</code>, and so on.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="today-section">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">Optional · local MCP</div>
+              <h2>Wire a client without tokens.</h2>
+            </div>
+          </div>
+          <ul class="today-list">
+            <li>
+              <b>Stdio MCP process</b>
+              <p>
+                The local MCP server uses stdio and reads the workspace in
+                <code>RELAY_WORKSPACE</code>
+                (current directory by default). No API keys or OAuth tokens appear in this public config.
+              </p>
+              <p>Example client config (paths are placeholders—replace with your absolute paths):</p>
+              <pre class="start-snippet">{
+  "mcpServers": {
+    "project-relay": {
+      "command": "npm",
+      "args": ["--prefix", "/absolute/path/to/Project-Relay", "run", "mcp"],
+      "env": {
+        "RELAY_WORKSPACE": "/absolute/path/to/a/relay-workspace"
+      }
+    }
+  }
+}
+</pre>
+              <p>
+                Start the process with
+                <code>npm run mcp</code>
+                from the repo root when your client expects a manual launch.
+              </p>
+              <p>Client-specific MCP setup lives under <code>docs/clients/</code> in the repository.</p>
+            </li>
+            <li>
+              <b>Inspect fixtures</b>
+              <p>
+                Use
+                <code>examples/m1</code>
+                for the full local remediation loop, or
+                <code>examples/minimal</code>
+                for the smallest M0 kernel fixture.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="today-section">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">Further reading</div>
+              <h2>Public docs on GitHub.</h2>
+            </div>
+          </div>
+          <ul class="today-list">
+            <li>
+              <b>Publication boundary</b>
+              <p>
+                <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/PUBLICATION_BOUNDARY.md">docs/PUBLICATION_BOUNDARY.md</a>
+                — what must never land in this public repository.
+              </p>
+            </li>
+            <li>
+              <b>Protocol</b>
+              <p>
+                <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/PROTOCOL.md">docs/PROTOCOL.md</a>
+                — decision gates, evidence, and review rules.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <aside class="principle">
+          <span class="principle-index">R/01</span>
+          <p>Schema validity proves structure. A hash proves integrity. Neither proves that a claim is true.</p>
+        </aside>
+      </main>
+
+      <footer>
+        <span>Project Relay · working title</span>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="https://github.com/brendohxd/Project-Relay">GitHub</a>
+          <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/PROTOCOL.md">Protocol</a>
+          <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/PUBLICATION_BOUNDARY.md">Publication boundary</a>
+        </nav>
+        <span>Protocol 0.1.0</span>
+      </footer>
+    </div>
+  </body>
+</html>
