@@ -155,11 +155,86 @@ h1 { font-size: clamp(48px, 8.3vw, 104px); letter-spacing: -.065em; line-height:
 .hero-map .e { right: -4%; top: 12%; }
 .hero-map .r { bottom: 12%; left: -2%; }
 .hero-map .d { bottom: 15%; right: -3%; }
-.introduction, .capability-section, .profiles-section, .page-cards, .checkpoint-section { padding: 88px 0 16px; }
+.introduction, .capability-section, .profiles-section, .page-cards, .checkpoint-section, .scenario, .today-section { padding: 88px 0 16px; }
 .manifest {
   border-bottom: 1px solid var(--line);
   border-top: 1px solid var(--line);
   padding: 72px 0;
+}
+.scenario-body {
+  align-items: start;
+  display: grid;
+  gap: 48px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.6fr);
+}
+.scenario-steps {
+  counter-reset: scenario;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.scenario-steps li {
+  border-top: 1px solid var(--line);
+  padding: 20px 0 20px 52px;
+  position: relative;
+}
+.scenario-steps li:last-child { border-bottom: 1px solid var(--line); }
+.scenario-steps li::before {
+  color: var(--orange);
+  content: counter(scenario, decimal-leading-zero);
+  counter-increment: scenario;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  left: 0;
+  letter-spacing: .08em;
+  position: absolute;
+  top: 22px;
+}
+.scenario-steps b { display: block; font-size: 15px; margin-bottom: 6px; }
+.scenario-steps p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 640px;
+}
+.scenario-callout {
+  border-left: 3px solid var(--blue);
+  padding: 4px 0 4px 22px;
+}
+.scenario-callout p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 14px 0 0;
+}
+.today-list {
+  border-top: 1px solid var(--line);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.today-list li {
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+}
+.today-list b { display: block; font-size: 15px; margin-bottom: 8px; }
+.today-list p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 720px;
+}
+.today-list a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.today-list code {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--lime);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  padding: 2px 7px;
 }
 .manifest-kicker, .kicker {
   color: var(--orange);
@@ -642,6 +717,7 @@ footer { border-top: 1px solid var(--line); color: var(--muted); display: flex; 
   .flow li { min-height: 150px; }
   .flow-rich b { margin-top: 36px; }
   .introduction { gap: 34px; grid-template-columns: 1fr; }
+  .scenario-body { gap: 28px; grid-template-columns: 1fr; }
   .capability-grid, .profiles-grid { grid-template-columns: 1fr; }
   .trust-grid { grid-template-columns: 1fr; }
   footer { flex-direction: column; }
