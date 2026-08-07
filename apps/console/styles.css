@@ -661,17 +661,87 @@ h1 { font-size: clamp(48px, 8.3vw, 104px); letter-spacing: -.065em; line-height:
   color: var(--orange);
   content: "× ";
 }
-.control-room-grid.large article { min-height: 230px; }
+.control-room-grid.large article { min-height: 320px; display: flex; flex-direction: column; }
 .control-room-grid.large small {
   color: var(--orange);
   display: block;
   font-family: ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: .1em;
-  margin-bottom: 24px;
   text-transform: uppercase;
 }
-.control-room-grid.large h3 { margin-top: 0; }
+.control-room-grid.large h3 { margin: 18px 0 12px; }
+.cr-card-top {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.cr-badge {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: inline-flex;
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: .06em;
+  padding: 5px 9px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.cr-badge-shipped {
+  border-color: rgba(185, 247, 124, .4);
+  color: var(--lime);
+}
+.cr-badge-partial {
+  border-color: rgba(121, 168, 255, .45);
+  color: var(--blue);
+}
+.cr-badge-planned {
+  border-color: rgba(255, 107, 53, .45);
+  color: var(--orange);
+}
+.cr-matrix {
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: auto 0 0;
+  padding-top: 16px;
+}
+.cr-matrix div { margin: 0; }
+.cr-matrix dt {
+  color: var(--orange);
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+.cr-matrix dd {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+.cr-authority-callout {
+  border: 1px solid rgba(185, 247, 124, .28);
+  border-left: 3px solid var(--lime);
+  margin-top: 16px;
+  padding: 20px 24px;
+}
+.cr-authority-callout .callout-label {
+  color: var(--lime);
+}
+.cr-authority-callout p {
+  color: var(--ink);
+  font-size: clamp(16px, 2.2vw, 20px);
+  letter-spacing: -.02em;
+  line-height: 1.35;
+  margin: 12px 0 0;
+  max-width: 720px;
+}
 .introduction { align-items: start; border-top: 1px solid var(--line); display: grid; gap: 72px; grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr); }
 .introduction-copy h2 { max-width: 780px; }
 .introduction-copy p, .introduction-callout p { color: var(--muted); font-size: 16px; line-height: 1.65; max-width: 760px; }
