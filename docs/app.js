@@ -1,4 +1,5 @@
 const elements = {
+  statusSummary: document.querySelector("#status-summary"),
   projectStage: document.querySelector("#project-stage"),
   currentMilestone: document.querySelector("#current-milestone"),
   roadmapComplete: document.querySelector("#roadmap-complete"),
@@ -128,10 +129,20 @@ try {
   const state = await response.json();
   const project = state.project;
 
-  setText(elements.projectStage, project.project.stage);
-  setText(elements.currentMilestone, project.summary.current_milestone ?? "complete");
-  setText(elements.roadmapComplete, `${project.summary.completed}/${project.summary.actionable}`);
-  setText(elements.roadmapBlocked, project.summary.counts.blocked);
+  const stage = project.project.stage;
+  const current = project.summary.current_milestone ?? "complete";
+  const done = project.summary.completed;
+  const actionable = project.summary.actionable;
+  const blocked = project.summary.counts.blocked;
+  setText(
+    elements.statusSummary,
+    `${stage} · current ${current} · ${done}/${actionable} roadmap items complete · ${blocked} blocked`
+  );
+
+  setText(elements.projectStage, stage);
+  setText(elements.currentMilestone, current);
+  setText(elements.roadmapComplete, `${done}/${actionable}`);
+  setText(elements.roadmapBlocked, blocked);
   setText(elements.roadmapDeferred, project.summary.counts.deferred);
   setText(elements.projectUpdated, `updated · ${project.updated_at}`);
   if (elements.milestoneRows) {
@@ -152,6 +163,7 @@ try {
     elements.rows.replaceChildren(...state.tasks.map(renderTask));
   }
 } catch (error) {
+  setText(elements.statusSummary, "Status unavailable");
   setText(elements.source, "state unavailable");
   if (elements.error) {
     elements.error.hidden = false;

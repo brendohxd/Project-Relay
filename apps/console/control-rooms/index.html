@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Project Relay control rooms: local-first, Notion, Slack, and GitHub projections." />
-    <title>Project Relay — Control rooms</title>
+    <meta name="description" content="Local-first, Notion, Slack, and GitHub as projections—not alternate authority." />
+    <title>Control rooms · Project Relay</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body>
@@ -19,7 +20,18 @@
           <a href="../architecture/">How it works</a>
           <a class="nav-active" href="./">Control rooms</a>
           <a href="../roadmap/">Roadmap</a>
+          <a href="../start/">Start</a>
         </nav>
+        <details class="mobile-nav">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile">
+            <a href="../status/">Status</a>
+            <a href="../architecture/">How it works</a>
+            <a class="nav-active" href="./">Control rooms</a>
+            <a href="../roadmap/">Roadmap</a>
+            <a href="../start/">Start</a>
+          </nav>
+        </details>
         <div class="status-pill"><span></span> Projections only</div>
       </header>
 
@@ -41,26 +53,98 @@
         <section class="control-rooms-section">
           <div class="control-room-grid large">
             <article>
-              <small>R7–R9</small>
+              <div class="cr-card-top">
+                <small>R7–R9</small>
+                <span class="cr-badge cr-badge-partial">Partial</span>
+              </div>
               <h3>Local-first</h3>
               <p>CLI, local archive, and optional local model: the cheapest and most testable path, and the reference fallback when hosted tools are unavailable.</p>
+              <dl class="cr-matrix">
+                <div>
+                  <dt>Allowed</dt>
+                  <dd>Read workspace records; project tasks; notify; draft packets; request review</dd>
+                </div>
+                <div>
+                  <dt>Forbidden</dt>
+                  <dd>Silent acceptance; model summary as decision; inventing authority outside validated records</dd>
+                </div>
+                <div>
+                  <dt>Canonical?</dt>
+                  <dd>No — portable reference path, not alternate authority</dd>
+                </div>
+              </dl>
             </article>
             <article>
-              <small>R5</small>
+              <div class="cr-card-top">
+                <small>R5</small>
+                <span class="cr-badge cr-badge-planned">Planned</span>
+              </div>
               <h3>Notion</h3>
               <p>A structured knowledge and task projection for people who already work in Notion. Convenient and rebuildable—never canonical authority.</p>
+              <dl class="cr-matrix">
+                <div>
+                  <dt>Allowed</dt>
+                  <dd>Project tasks and knowledge views; notify; surface decision packets for a named human</dd>
+                </div>
+                <div>
+                  <dt>Forbidden</dt>
+                  <dd>Silent acceptance; checkbox or page text as approval; last-write-wins over Relay</dd>
+                </div>
+                <div>
+                  <dt>Canonical?</dt>
+                  <dd>No — rebuildable projection only</dd>
+                </div>
+              </dl>
             </article>
             <article>
-              <small>R6</small>
+              <div class="cr-card-top">
+                <small>R6</small>
+                <span class="cr-badge cr-badge-planned">Planned</span>
+              </div>
               <h3>Slack</h3>
               <p>Threads, notifications, review requests, and attributed commands. Messages can hand off work; they never equal approval by themselves.</p>
+              <dl class="cr-matrix">
+                <div>
+                  <dt>Allowed</dt>
+                  <dd>Notify; request review; thread coordination; explicit attributed command hand-offs</dd>
+                </div>
+                <div>
+                  <dt>Forbidden</dt>
+                  <dd>Message ≠ decision; emoji/reaction as acceptance; model-authored “approved” phrases</dd>
+                </div>
+                <div>
+                  <dt>Canonical?</dt>
+                  <dd>No — conversational projection only</dd>
+                </div>
+              </dl>
             </article>
             <article>
-              <small>R1–R4</small>
+              <div class="cr-card-top">
+                <small>R1–R4</small>
+                <span class="cr-badge cr-badge-shipped">Shipped contract</span>
+              </div>
               <h3>GitHub</h3>
               <p>Reviewable proposals, issues, receipts, and public-safe operational status committed to the durable Git record.</p>
+              <dl class="cr-matrix">
+                <div>
+                  <dt>Allowed</dt>
+                  <dd>Reviewable proposals; issues; receipts; public-safe status projection (live writes still gated)</dd>
+                </div>
+                <div>
+                  <dt>Forbidden</dt>
+                  <dd>Silent acceptance via label or bot comment; Issues UI as sole authority without Relay decision</dd>
+                </div>
+                <div>
+                  <dt>Canonical?</dt>
+                  <dd>Git (validated public commits) is the durable record; GitHub UI is not</dd>
+                </div>
+              </dl>
             </article>
           </div>
+          <aside class="cr-authority-callout" role="note">
+            <span class="callout-label">Authority</span>
+            <p>If a projection and Git disagree, the validated Git record wins.</p>
+          </aside>
         </section>
 
         <section class="checkpoint-section">
@@ -113,8 +197,12 @@
       </main>
 
       <footer>
-        <span>Project Relay</span>
-        <span>Evidence before consensus.</span>
+        <span>Project Relay · working title</span>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="https://github.com/brendohxd/Project-Relay">GitHub</a>
+          <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/PROTOCOL.md">Protocol</a>
+          <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/PUBLICATION_BOUNDARY.md">Publication boundary</a>
+        </nav>
         <span>Protocol 0.1.0</span>
       </footer>
     </div>

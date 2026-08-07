@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Project Relay — evidence-governed coordination for multi-model AI and human review."
+      content="Evidence-governed coordination for multi-model AI and human review."
     />
     <title>Project Relay</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -22,7 +23,18 @@
           <a href="./architecture/">How it works</a>
           <a href="./control-rooms/">Control rooms</a>
           <a href="./roadmap/">Roadmap</a>
+          <a href="./start/">Start</a>
         </nav>
+        <details class="mobile-nav">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile">
+            <a href="./status/">Status</a>
+            <a href="./architecture/">How it works</a>
+            <a href="./control-rooms/">Control rooms</a>
+            <a href="./roadmap/">Roadmap</a>
+            <a href="./start/">Start</a>
+          </nav>
+        </details>
         <div class="status-pill"><span></span> Protocol pre-alpha · M2</div>
       </header>
 
@@ -36,7 +48,8 @@
               reproducible evidence, explicit disagreements, and accountable decisions.
             </p>
             <div class="hero-actions">
-              <a class="primary-action" href="./architecture/">How Relay works</a>
+              <a class="primary-action" href="./start/">Get started</a>
+              <a class="secondary-action" href="./architecture/">How Relay works</a>
               <a class="secondary-action" href="./status/">Live project status</a>
             </div>
             <div class="hero-proof" aria-label="Design principles">
@@ -60,25 +73,41 @@
           <p class="manifest-kicker">Why Relay exists</p>
           <h2>
             AI can produce more answers than one person can responsibly inspect.
-            Relay is the missing coordination layer between
-            <em>generation</em> and <em>accountability</em>.
           </h2>
         </section>
 
-        <section class="introduction">
-          <div class="introduction-copy">
-            <div class="eyebrow">The problem</div>
-            <h2>Work fragments across models, chats, and tools.</h2>
-            <p>
-              Relay is the coordination layer between AI tools, reviewers, and the person
-              accountable for the result. It keeps the question, supporting evidence,
-              disagreement, and final human decision connected—even when the work crosses
-              models or applications.
-            </p>
+        <section class="scenario" aria-labelledby="scenario-heading">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">Synthetic example</div>
+              <h2 id="scenario-heading">Two models disagree. The record keeps going.</h2>
+            </div>
           </div>
-          <div class="introduction-callout">
-            <span class="callout-label">The rule</span>
-            <p>More agreement is not the same as more truth. Relay makes the path to a decision inspectable.</p>
+          <div class="scenario-body">
+            <ol class="scenario-steps">
+              <li>
+                <b>Claim</b>
+                <p>Two models assess a safety check on the same bounded task and reach opposite conclusions.</p>
+              </li>
+              <li>
+                <b>Independent review</b>
+                <p>A separate review fails the submission: evidence is incomplete, and the contradiction stays visible.</p>
+              </li>
+              <li>
+                <b>Remediation</b>
+                <p>The task returns with a remediation request—not a silent average of the two answers.</p>
+              </li>
+              <li>
+                <b>Human decision</b>
+                <p>A named person accepts the remediated result against the attached evidence and review history.</p>
+              </li>
+            </ol>
+            <aside class="scenario-callout">
+              <span class="callout-label">Synthetic example</span>
+              <p>
+                Illustrative path only. Schema validity and hashes prove structure and integrity—not that a claim is true.
+              </p>
+            </aside>
           </div>
         </section>
 
@@ -117,10 +146,42 @@
             </article>
             <article>
               <span>06</span>
-              <b>Provider-neutral MCP</b>
+              <b>Provider-neutral tools</b>
               <p>Local read-only tools for validate, verify, and prepare—without publishing or holding secrets.</p>
             </article>
           </div>
+        </section>
+
+        <section class="today-section">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">What you can do today</div>
+              <h2>Start from the public repo.</h2>
+            </div>
+          </div>
+          <ul class="today-list">
+            <li>
+              <b>Clone the repository</b>
+              <p>
+                <a href="https://github.com/brendohxd/Project-Relay">github.com/brendohxd/Project-Relay</a>
+                — protocol schemas, examples, and this console.
+              </p>
+            </li>
+            <li>
+              <b>Run the check suite</b>
+              <p><code>npm run check</code> validates the public surface and examples on a clean clone.</p>
+            </li>
+            <li>
+              <b>Inspect status</b>
+              <p>
+                Open the
+                <a href="./status/">live status page</a>
+                here, or run
+                <code>npm run console</code>
+                for a local multipage preview.
+              </p>
+            </li>
+          </ul>
         </section>
 
         <section class="page-cards">
@@ -152,7 +213,7 @@
             <a class="page-card" href="./roadmap/">
               <small>04</small>
               <h3>Release roadmap</h3>
-              <p>R0–R10 release route, build map, and the next gate: Overseer MVP.</p>
+              <p>Release route, build map, and what is deliberately deferred until the next gate.</p>
               <span>Open roadmap →</span>
             </a>
           </div>
@@ -166,7 +227,11 @@
 
       <footer>
         <span>Project Relay · working title</span>
-        <span>Evidence before consensus.</span>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="https://github.com/brendohxd/Project-Relay">GitHub</a>
+          <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/PROTOCOL.md">Protocol</a>
+          <a href="https://github.com/brendohxd/Project-Relay/blob/main/docs/PUBLICATION_BOUNDARY.md">Publication boundary</a>
+        </nav>
         <span>Protocol 0.1.0</span>
       </footer>
     </div>
