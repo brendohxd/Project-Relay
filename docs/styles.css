@@ -766,7 +766,10 @@ h2 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -.035em; margin: 8px 0 0
 }
 .not-enabled-list li:first-child { border-top: 0; }
 .not-enabled-list li::before { color: var(--orange); content: "× "; }
-footer { border-top: 1px solid var(--line); color: var(--muted); display: flex; font-size: 11px; gap: 16px; justify-content: space-between; padding: 26px 0 42px; }
+footer { border-top: 1px solid var(--line); color: var(--muted); display: flex; font-size: 11px; gap: 16px; justify-content: space-between; padding: 26px 0 42px; align-items: center; }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 12px; }
+.footer-nav a { color: inherit; text-decoration: none; }
+.footer-nav a:hover { color: var(--text); }
 
 @media (max-width: 960px) {
   .top-nav { display: none; }
