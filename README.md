@@ -1,6 +1,6 @@
 <p align="center">
   <img
-    src="Assets/project-relay-assets/logo/headers/wordmark-lockup.png"
+    src="Assets/project-relay-assets/logo/headers/wordmark-lockup-readme.svg"
     alt="Project Relay — One record · Many minds"
     width="480"
   />
