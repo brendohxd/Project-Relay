@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Review record">
+  <title>Review — independent eye + checklist</title>
+  <!-- Eye (independence / visibility) -->
+  <ellipse cx="24" cy="18" rx="12" ry="8" fill="none" stroke="#79a8ff" stroke-width="2"/>
+  <circle cx="24" cy="18" r="4" fill="#79a8ff"/>
+  <!-- Checklist below -->
+  <path d="M14 30 L18 34 L26 26" fill="none" stroke="#b9f77c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="30" y1="32" x2="36" y2="32" stroke="#a7a49a" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="14" y1="40" x2="36" y2="40" stroke="#a7a49a" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

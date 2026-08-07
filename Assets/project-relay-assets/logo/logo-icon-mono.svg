@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Project Relay">
+  <title>Project Relay Icon (Monochrome)</title>
+  <g transform="translate(32 32) skewX(-14) translate(-32 -32)">
+    <rect x="14" y="12" width="8" height="40" rx="1.5" fill="currentColor"/>
+    <rect x="28" y="12" width="8" height="40" rx="1.5" fill="currentColor" opacity="0.7"/>
+    <rect x="42" y="12" width="8" height="40" rx="1.5" fill="currentColor" opacity="0.45"/>
+  </g>
+</svg>

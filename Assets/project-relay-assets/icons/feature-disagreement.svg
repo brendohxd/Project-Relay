@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Disagreement stays visible">
+  <title>Disagreement stays visible</title>
+  <!-- Two opposing arrows / branches that don't merge -->
+  <path d="M10 24 L22 12" fill="none" stroke="#ff6b35" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M10 24 L22 36" fill="none" stroke="#79a8ff" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Visible gap / parallel tracks -->
+  <path d="M26 12 L38 12" fill="none" stroke="#ff6b35" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M26 36 L38 36" fill="none" stroke="#79a8ff" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Eye / visibility mark in center -->
+  <circle cx="24" cy="24" r="4" fill="none" stroke="#b9f77c" stroke-width="1.8"/>
+  <circle cx="24" cy="24" r="1.8" fill="#b9f77c"/>
+</svg>

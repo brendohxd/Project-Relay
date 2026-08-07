@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 40" role="img" aria-label="Project Relay">
+  <title>Project Relay — primary</title>
+  <g transform="translate(14 20) skewX(-14) translate(-14 -20)">
+    <rect x="2" y="4" width="5" height="32" rx="1.1" fill="#ff6b35"/>
+    <rect x="10.5" y="4" width="5" height="32" rx="1.1" fill="#b9f77c"/>
+    <rect x="19" y="4" width="5" height="32" rx="1.1" fill="#79a8ff"/>
+  </g>
+  <text x="36" y="26" fill="#f3f1eb" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.04em">Project Relay</text>
+</svg>

@@ -9,14 +9,43 @@
     />
     <title>Project Relay</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./assets/favicons/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="./assets/favicons/icon-192.png" />
+    <meta property="og:title" content="Project Relay" />
+    <meta
+      property="og:description"
+      content="Evidence-governed coordination for multi-model AI and human review."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://brendohxd.github.io/Project-Relay/assets/social/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Project Relay" />
+    <meta
+      name="twitter:description"
+      content="Evidence-governed coordination for multi-model AI and human review."
+    />
+    <meta
+      name="twitter:image"
+      content="https://brendohxd.github.io/Project-Relay/assets/social/og-image.png"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="page-shell">
       <header class="topbar">
         <a class="brand" href="./" aria-label="Project Relay home">
-          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span>Project Relay</span>
+          <img
+            class="brand-logo"
+            src="./assets/logo/headers/wordmark-weighted.svg"
+            width="229"
+            height="40"
+            alt=""
+          />
         </a>
         <nav class="top-nav" aria-label="Primary">
           <a href="./status/">Status</a>
@@ -86,18 +115,22 @@
           <div class="scenario-body">
             <ol class="scenario-steps">
               <li>
+                <img class="flow-icon" src="./assets/icons/flow/flow-question.svg" width="32" height="32" alt="" />
                 <b>Claim</b>
                 <p>Two models assess a safety check on the same bounded task and reach opposite conclusions.</p>
               </li>
               <li>
+                <img class="flow-icon" src="./assets/icons/flow/flow-review.svg" width="32" height="32" alt="" />
                 <b>Independent review</b>
                 <p>A separate review fails the submission: evidence is incomplete, and the contradiction stays visible.</p>
               </li>
               <li>
+                <img class="flow-icon" src="./assets/icons/flow/flow-evidence.svg" width="32" height="32" alt="" />
                 <b>Remediation</b>
                 <p>The task returns with a remediation request—not a silent average of the two answers.</p>
               </li>
               <li>
+                <img class="flow-icon" src="./assets/icons/flow/flow-decision.svg" width="32" height="32" alt="" />
                 <b>Human decision</b>
                 <p>A named person accepts the remediated result against the attached evidence and review history.</p>
               </li>
@@ -119,32 +152,38 @@
             </div>
           </div>
           <div class="workinggrid">
-            <article>
+            <article class="with-icon">
+              <img class="feature-icon" src="./assets/icons/feature-accountable-record.svg" width="40" height="40" alt="" />
               <span>01</span>
               <b>One accountable record</b>
               <p>Tasks, events, evidence, reviews, and decisions have stable identifiers, deterministic hashes, and causal history.</p>
             </article>
-            <article>
+            <article class="with-icon">
+              <img class="feature-icon" src="./assets/icons/feature-evidence.svg" width="40" height="40" alt="" />
               <span>02</span>
               <b>Evidence without execution</b>
               <p>Methods, commands, environments, artifacts, failures, and hashes travel with a claim without Relay executing them.</p>
             </article>
-            <article>
+            <article class="with-icon">
+              <img class="feature-icon" src="./assets/icons/feature-disagreement.svg" width="40" height="40" alt="" />
               <span>03</span>
               <b>Disagreement stays visible</b>
               <p>Independent review and reproduction are explicit. Contradictions trigger remediation; they are not silently averaged away.</p>
             </article>
-            <article>
+            <article class="with-icon">
+              <img class="feature-icon" src="./assets/icons/feature-human-authority.svg" width="40" height="40" alt="" />
               <span>04</span>
               <b>Humans keep authority</b>
               <p>Models can contribute and compare. A named person still accepts, remediates, rejects, or defers consequential work.</p>
             </article>
-            <article>
+            <article class="with-icon">
+              <img class="feature-icon" src="./assets/icons/feature-console.svg" width="40" height="40" alt="" />
               <span>05</span>
               <b>Static live console</b>
               <p>A credential-free projection of project and task status for GitHub Pages and local review.</p>
             </article>
-            <article>
+            <article class="with-icon">
+              <img class="feature-icon" src="./assets/icons/feature-tools.svg" width="40" height="40" alt="" />
               <span>06</span>
               <b>Provider-neutral tools</b>
               <p>Local read-only tools for validate, verify, and prepare—without publishing or holding secrets.</p>
@@ -193,33 +232,45 @@
           </div>
           <div class="page-card-grid">
             <a class="page-card" href="./status/">
+              <img class="nav-icon" src="./assets/icons/nav/nav-status.svg" width="40" height="40" alt="" />
               <small>01</small>
               <h3>Live status</h3>
               <p>Roadmap counts, pilot readiness, and current task projections from the canonical state snapshot.</p>
               <span>Open status →</span>
             </a>
             <a class="page-card" href="./architecture/">
+              <img class="nav-icon" src="./assets/icons/nav/nav-protocol.svg" width="40" height="40" alt="" />
               <small>02</small>
               <h3>How it works</h3>
               <p>Default evidence gate, interactive claim trace, trust boundary, and deliberate non-goals.</p>
               <span>Open protocol →</span>
             </a>
             <a class="page-card" href="./control-rooms/">
+              <img class="nav-icon" src="./assets/icons/nav/nav-control-rooms.svg" width="40" height="40" alt="" />
               <small>03</small>
               <h3>Control rooms</h3>
               <p>Local-first, Notion, Slack, and GitHub as rebuildable projections—never alternate authority.</p>
               <span>Open control rooms →</span>
             </a>
             <a class="page-card" href="./roadmap/">
+              <img class="nav-icon" src="./assets/icons/nav/nav-roadmap.svg" width="40" height="40" alt="" />
               <small>04</small>
               <h3>Release roadmap</h3>
               <p>Release route, build map, and what is deliberately deferred until the next gate.</p>
               <span>Open roadmap →</span>
             </a>
+            <a class="page-card" href="./start/">
+              <img class="nav-icon" src="./assets/icons/nav/nav-start.svg" width="40" height="40" alt="" />
+              <small>05</small>
+              <h3>Get started</h3>
+              <p>Clone, install, check, and run the local multipage console—public-safe only.</p>
+              <span>Open start →</span>
+            </a>
           </div>
         </section>
 
         <aside class="principle">
+          <img class="principle-icon" src="./assets/icons/trust/trust-r01.svg" width="36" height="36" alt="" />
           <span class="principle-index">R/01</span>
           <p>Schema validity proves structure. A hash proves integrity. Neither proves that a claim is true.</p>
         </aside>

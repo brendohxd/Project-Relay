@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Decision packet">
+  <title>Decision / comparison packet</title>
+  <!-- Folder / packet -->
+  <path d="M8 14 L18 14 L22 10 L40 10 L40 38 L8 38 Z" fill="none" stroke="#b9f77c" stroke-width="2"/>
+  <!-- Comparison marks inside -->
+  <line x1="14" y1="22" x2="34" y2="22" stroke="#a7a49a" stroke-width="1.4"/>
+  <line x1="14" y1="28" x2="30" y2="28" stroke="#a7a49a" stroke-width="1.4"/>
+  <path d="M14 34 L18 37 L24 30" fill="none" stroke="#ff6b35" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

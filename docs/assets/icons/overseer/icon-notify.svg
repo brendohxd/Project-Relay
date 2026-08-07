@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Notify">
+  <title>Notification / inbox</title>
+  <!-- Bell / alert -->
+  <path d="M24 8 C18 8 14 13 14 18 L14 26 L10 30 L38 30 L34 26 L34 18 C34 13 30 8 24 8 Z" fill="none" stroke="#ff6b35" stroke-width="2"/>
+  <path d="M20 30 C20 33 22 36 24 36 C26 36 28 33 28 30" fill="none" stroke="#ff6b35" stroke-width="2"/>
+  <!-- Badge dot -->
+  <circle cx="32" cy="14" r="4" fill="#b9f77c"/>
+</svg>

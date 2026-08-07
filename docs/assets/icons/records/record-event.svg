@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Event record">
+  <title>Event — chain / sequence + hash</title>
+  <!-- Chain links -->
+  <rect x="6" y="18" width="14" height="12" rx="6" fill="none" stroke="#b9f77c" stroke-width="2.2"/>
+  <rect x="18" y="18" width="14" height="12" rx="6" fill="none" stroke="#79a8ff" stroke-width="2.2"/>
+  <rect x="30" y="18" width="12" height="12" rx="6" fill="none" stroke="#ff6b35" stroke-width="2.2"/>
+  <!-- Hash indicator on last link -->
+  <text x="36" y="27" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8" font-weight="700" fill="#ff6b35">#</text>
+</svg>

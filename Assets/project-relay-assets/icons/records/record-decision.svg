@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Decision record">
+  <title>Decision — human gate / stamp</title>
+  <!-- Stamp / seal shape -->
+  <rect x="10" y="12" width="28" height="24" rx="3" fill="none" stroke="#ff6b35" stroke-width="2"/>
+  <!-- Inner stamp area -->
+  <rect x="14" y="16" width="20" height="16" rx="1.5" fill="rgba(255,107,53,0.15)"/>
+  <!-- Human authority mark -->
+  <circle cx="24" cy="22" r="4" fill="none" stroke="#f3f1eb" stroke-width="1.6"/>
+  <path d="M18 32 C18 28 30 28 30 32" fill="none" stroke="#f3f1eb" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Small check of acceptance -->
+  <path d="M20 24 L22.5 26.5 L27 21.5" fill="none" stroke="#b9f77c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Public boundary">
+  <title>Safe to publish</title>
+  <!-- Open lock / public -->
+  <rect x="14" y="22" width="20" height="14" rx="2" fill="none" stroke="#b9f77c" stroke-width="2"/>
+  <path d="M18 22 V16 A6 6 0 0 1 30 16" fill="none" stroke="#b9f77c" stroke-width="2" stroke-linecap="round"/>
+  <!-- Check -->
+  <path d="M20 29 L23 32 L28 26" fill="none" stroke="#b9f77c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

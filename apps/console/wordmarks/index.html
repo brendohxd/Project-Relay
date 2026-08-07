@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wordmark options · Project Relay</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .wm-page { padding-bottom: 80px; }
+      .wm-intro { padding: 48px 0 24px; max-width: 720px; }
+      .wm-intro h1 { font-size: clamp(32px, 5vw, 48px); letter-spacing: -0.04em; margin: 10px 0 16px; }
+      .wm-intro p { color: var(--muted); line-height: 1.6; }
+      .wm-rec {
+        border: 1px solid rgba(185, 247, 124, 0.35);
+        background: rgba(185, 247, 124, 0.06);
+        margin: 24px 0 40px;
+        padding: 18px 20px;
+      }
+      .wm-rec b { color: var(--lime); display: block; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+      .wm-rec p { color: var(--ink); margin: 0; font-size: 14px; line-height: 1.55; }
+      .wm-grid { display: grid; gap: 20px; }
+      .wm-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        padding: 0;
+        overflow: hidden;
+      }
+      .wm-card header {
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+        justify-content: space-between;
+        padding: 16px 20px;
+      }
+      .wm-card header h2 { font-size: 16px; margin: 0; letter-spacing: -0.02em; }
+      .wm-card header p { color: var(--muted); font-size: 13px; margin: 4px 0 0; max-width: 520px; line-height: 1.45; }
+      .wm-meta {
+        color: var(--orange);
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .wm-stage {
+        background: #080a0b;
+        border-bottom: 1px solid var(--line);
+        padding: 28px 24px;
+      }
+      .wm-stage.topbar-demo {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 72px;
+        padding: 18px 24px;
+      }
+      .wm-stage.topbar-demo .fake-nav {
+        color: var(--muted);
+        display: flex;
+        gap: 18px;
+        font-size: 12px;
+      }
+      .wm-stage.hero-demo { padding: 40px 28px 48px; }
+      .wm-stage img { display: block; height: auto; max-width: 100%; }
+      .wm-stage.compact img { height: 28px; width: auto; }
+      .wm-stage.primary img,
+      .wm-stage.weighted img,
+      .wm-stage.accent img { height: 36px; width: auto; }
+      .wm-stage.protocol img { height: 52px; width: auto; }
+      .wm-stage.lockup img { height: 88px; width: auto; max-width: min(100%, 420px); }
+      .wm-css-row {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px dashed var(--line);
+      }
+      .wm-css-row small { color: var(--muted); font-family: ui-monospace, monospace; font-size: 10px; }
+      /* CSS implementations for live-feel comparison */
+      .wm-css {
+        align-items: center;
+        display: inline-flex;
+        gap: 11px;
+        text-decoration: none;
+      }
+      .wm-css .mark {
+        display: flex;
+        gap: 3px;
+        height: 22px;
+        transform: skewX(-14deg);
+      }
+      .wm-css .mark i { display: block; width: 5px; background: var(--orange); }
+      .wm-css .mark i:nth-child(2) { background: var(--lime); }
+      .wm-css .mark i:nth-child(3) { background: var(--blue); }
+      .wm-css.primary .label {
+        color: var(--ink);
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      .wm-css.weighted .label { font-size: 16px; letter-spacing: -0.04em; }
+      .wm-css.weighted .label .soft { color: var(--muted); font-weight: 500; }
+      .wm-css.weighted .label .hard { color: var(--ink); font-weight: 700; }
+      .wm-css.accent { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .wm-css.accent .row { align-items: center; display: flex; gap: 11px; }
+      .wm-css.accent .label {
+        color: var(--ink);
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      .wm-css.accent .uline { display: flex; gap: 0; height: 2px; margin-left: 28px; width: 126px; }
+      .wm-css.accent .uline i { display: block; flex: 1; }
+      .wm-css.accent .uline i:nth-child(1) { background: var(--orange); }
+      .wm-css.accent .uline i:nth-child(2) { background: var(--lime); }
+      .wm-css.accent .uline i:nth-child(3) { background: var(--blue); }
+      .wm-css.compact .mark { height: 18px; gap: 2.5px; }
+      .wm-css.compact .mark i { width: 4px; }
+      .wm-css.compact .label {
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.035em;
+      }
+      .wm-css.protocol { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .wm-css.protocol .row { align-items: center; display: flex; gap: 11px; }
+      .wm-css.protocol .label {
+        color: var(--ink);
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      .wm-css.protocol .tag {
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        margin-left: 28px;
+        text-transform: uppercase;
+      }
+      .wm-css.lockup { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .wm-css.lockup .row { align-items: center; display: flex; gap: 14px; }
+      .wm-css.lockup .mark { height: 36px; gap: 4px; }
+      .wm-css.lockup .mark i { width: 8px; }
+      .wm-css.lockup .label {
+        color: var(--ink);
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.05em;
+      }
+      .wm-css.lockup .tag {
+        color: var(--muted);
+        font-size: 14px;
+        margin-left: 46px;
+      }
+      .wm-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+      .wm-actions a {
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 12px 16px;
+        text-decoration: none;
+      }
+      .wm-actions a.primary { background: var(--ink); color: #111; border-color: transparent; }
+      @media (max-width: 700px) {
+        .wm-stage.topbar-demo .fake-nav { display: none; }
+        .wm-css.lockup .label { font-size: 22px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell wm-page">
+      <header class="topbar">
+        <a class="brand" href="../" aria-label="Back to site">
+          <img class="brand-logo" src="../assets/logo/headers/wordmark-weighted.svg" width="229" height="40" alt="" />
+        </a>
+        <div class="status-pill"><span></span> Wordmark review (local)</div>
+      </header>
+
+      <main>
+        <div class="wm-intro">
+          <div class="eyebrow">Visual review</div>
+          <h1>Wordmark options</h1>
+          <p>
+            Your designed wordmarks from
+            <code>Assets/project-relay-assets/logo/headers/</code>
+            (SVG + PNG), shown in topbar-scale demos and as CSS approximations on the real page background.
+          </p>
+          <div class="wm-rec">
+            <b>Recommendation in the brief</b>
+            <p>
+              Topbar: start with <strong>compact</strong> or <strong>primary</strong>. For a more intentional
+              modern feel without noise, try <strong>weighted</strong> (muted “Project” + bold “Relay”).
+              Use <strong>protocol</strong> on hero/protocol pages and <strong>lockup</strong> for README / social / large hero.
+            </p>
+          </div>
+          <div class="wm-actions">
+            <a class="primary" href="../">Open live site home</a>
+            <a href="../architecture/">How it works</a>
+          </div>
+        </div>
+
+        <div class="wm-grid">
+          <!-- PRIMARY -->
+          <article class="wm-card" id="primary">
+            <header>
+              <div>
+                <div class="wm-meta">wordmark-primary · best default</div>
+                <h2>Primary</h2>
+                <p>Clean, tighter tracking, stronger mark proportions. Default site header candidate.</p>
+              </div>
+            </header>
+            <div class="wm-stage topbar-demo primary">
+              <img src="../assets/logo/headers/wordmark-primary.svg" alt="Primary wordmark SVG" height="36" />
+              <div class="fake-nav" aria-hidden="true"><span>Status</span><span>How it works</span><span>Start</span></div>
+            </div>
+            <div class="wm-stage">
+              <div class="wm-css primary" aria-label="CSS primary wordmark">
+                <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="label">Project Relay</span>
+              </div>
+              <div class="wm-css-row"><small>CSS component · same tokens as the site</small></div>
+            </div>
+          </article>
+
+          <!-- WEIGHTED -->
+          <article class="wm-card" id="weighted">
+            <header>
+              <div>
+                <div class="wm-meta">wordmark-weighted · distinctive</div>
+                <h2>Weighted</h2>
+                <p>“Project” muted + <strong>Relay</strong> bold. Modern hierarchy; draws the eye to the distinctive word.</p>
+              </div>
+            </header>
+            <div class="wm-stage topbar-demo weighted">
+              <img src="../assets/logo/headers/wordmark-weighted.svg" alt="Weighted wordmark SVG" height="36" />
+              <div class="fake-nav" aria-hidden="true"><span>Status</span><span>How it works</span><span>Start</span></div>
+            </div>
+            <div class="wm-stage">
+              <div class="wm-css weighted" aria-label="CSS weighted wordmark">
+                <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="label"><span class="soft">Project </span><span class="hard">Relay</span></span>
+              </div>
+              <div class="wm-css-row"><small>Recommended if you want more intention without extra chrome</small></div>
+            </div>
+          </article>
+
+          <!-- ACCENT -->
+          <article class="wm-card" id="accent">
+            <header>
+              <div>
+                <div class="wm-meta">wordmark-accent</div>
+                <h2>Accent</h2>
+                <p>Same as primary + three-colour underline. Slightly more distinctive without adding noise.</p>
+              </div>
+            </header>
+            <div class="wm-stage topbar-demo accent">
+              <img src="../assets/logo/headers/wordmark-accent.svg" alt="Accent wordmark SVG" height="40" />
+              <div class="fake-nav" aria-hidden="true"><span>Status</span><span>How it works</span><span>Start</span></div>
+            </div>
+            <div class="wm-stage">
+              <div class="wm-css accent" aria-label="CSS accent wordmark">
+                <span class="row">
+                  <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="label">Project Relay</span>
+                </span>
+                <span class="uline" aria-hidden="true"><i></i><i></i><i></i></span>
+              </div>
+            </div>
+          </article>
+
+          <!-- COMPACT -->
+          <article class="wm-card" id="compact">
+            <header>
+              <div>
+                <div class="wm-meta">wordmark-compact · topbar drop-in</div>
+                <h2>Compact</h2>
+                <p>Smaller, tighter — matches current topbar height. Drop-in replacement for the live site header.</p>
+              </div>
+            </header>
+            <div class="wm-stage topbar-demo compact">
+              <img src="../assets/logo/headers/wordmark-compact.svg" alt="Compact wordmark SVG" height="28" />
+              <div class="fake-nav" aria-hidden="true"><span>Status</span><span>How it works</span><span>Control rooms</span><span>Roadmap</span><span>Start</span></div>
+            </div>
+            <div class="wm-stage">
+              <div class="wm-css compact" aria-label="CSS compact wordmark">
+                <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="label">Project Relay</span>
+              </div>
+              <div class="wm-css-row"><small>Closest to current live topbar scale (28px)</small></div>
+            </div>
+          </article>
+
+          <!-- PROTOCOL -->
+          <article class="wm-card" id="protocol">
+            <header>
+              <div>
+                <div class="wm-meta">wordmark-protocol · hero / protocol pages</div>
+                <h2>Protocol</h2>
+                <p>Wordmark + small tagline “Evidence before consensus”.</p>
+              </div>
+            </header>
+            <div class="wm-stage hero-demo protocol">
+              <img src="../assets/logo/headers/wordmark-protocol.svg" alt="Protocol wordmark SVG" height="52" />
+            </div>
+            <div class="wm-stage">
+              <div class="wm-css protocol" aria-label="CSS protocol wordmark">
+                <span class="row">
+                  <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="label">Project Relay</span>
+                </span>
+                <span class="tag">Evidence before consensus</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- LOCKUP -->
+          <article class="wm-card" id="lockup">
+            <header>
+              <div>
+                <div class="wm-meta">wordmark-lockup · README / social / large hero</div>
+                <h2>Lockup</h2>
+                <p>Larger mark + “One record · Many minds”. Full lockup for README, social, or hero.</p>
+              </div>
+            </header>
+            <div class="wm-stage hero-demo lockup">
+              <img src="../assets/logo/headers/wordmark-lockup.svg" alt="Lockup wordmark SVG" height="88" />
+            </div>
+            <div class="wm-stage">
+              <div class="wm-css lockup" aria-label="CSS lockup wordmark">
+                <span class="row">
+                  <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="label">Project Relay</span>
+                </span>
+                <span class="tag">One record · Many minds</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="wm-intro" style="padding-top: 48px">
+          <div class="eyebrow">Next</div>
+          <h2 style="font-size: 28px; letter-spacing: -0.03em; margin: 10px 0 12px">Pick a topbar style</h2>
+          <p>
+            Tell me which option you want on the live site topbar
+            (<strong>primary</strong>, <strong>weighted</strong>, <strong>accent</strong>, or <strong>compact</strong>
+            — and optionally whether hero pages should use <strong>protocol</strong> or <strong>lockup</strong>.
+            I can apply it across all multipage headers after you choose.
+          </p>
+        </div>
+      </main>
+
+      <footer>
+        <span>Wordmark review · local only</span>
+        <span>Not linked from public nav</span>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Evidence without execution">
+  <title>Evidence without execution</title>
+  <!-- Document with hash / seal -->
+  <rect x="12" y="6" width="24" height="32" rx="2" fill="none" stroke="#b9f77c" stroke-width="2"/>
+  <line x1="16" y1="14" x2="32" y2="14" stroke="#a7a49a" stroke-width="1.5"/>
+  <line x1="16" y1="20" x2="28" y2="20" stroke="#a7a49a" stroke-width="1.5"/>
+  <line x1="16" y1="26" x2="30" y2="26" stroke="#a7a49a" stroke-width="1.5"/>
+  <!-- Seal / hash circle -->
+  <circle cx="30" cy="34" r="7" fill="#0b0d0e" stroke="#ff6b35" stroke-width="1.8"/>
+  <text x="30" y="37" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8" fill="#ff6b35" font-weight="700">#</text>
+</svg>

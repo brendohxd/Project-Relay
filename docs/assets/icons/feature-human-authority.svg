@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Humans keep authority">
+  <title>Humans keep authority</title>
+  <!-- Person silhouette with decision stamp -->
+  <circle cx="24" cy="14" r="7" fill="none" stroke="#f3f1eb" stroke-width="2"/>
+  <path d="M12 38 C12 28 36 28 36 38" fill="none" stroke="#f3f1eb" stroke-width="2" stroke-linecap="round"/>
+  <!-- Authority mark / key or stamp -->
+  <rect x="28" y="28" width="12" height="10" rx="1.5" fill="#ff6b35"/>
+  <path d="M31 33 h6" stroke="#0b0d0e" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="34" cy="31" r="1.2" fill="#0b0d0e"/>
+</svg>

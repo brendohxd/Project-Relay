@@ -1,7 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Project Relay">
-  <g transform="translate(16 16) skewX(-14) translate(-16 -16)">
-    <rect x="6" y="5" width="5" height="22" fill="#ff6b35"/>
-    <rect x="13.5" y="5" width="5" height="22" fill="#b9f77c"/>
-    <rect x="21" y="5" width="5" height="22" fill="#79a8ff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Project Relay">
+  <title>Project Relay Icon</title>
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#b9f77c" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#79a8ff" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <!-- Subtle background circle for app icons -->
+  <circle cx="32" cy="32" r="30" fill="#0b0d0e"/>
+  <circle cx="32" cy="32" r="30" fill="url(#glow)"/>
+  
+  <!-- Three skewed bars - the brand mark -->
+  <g transform="translate(32 32) skewX(-14) translate(-32 -32)">
+    <rect x="14" y="12" width="8" height="40" rx="1.5" fill="#ff6b35"/>
+    <rect x="28" y="12" width="8" height="40" rx="1.5" fill="#b9f77c"/>
+    <rect x="42" y="12" width="8" height="40" rx="1.5" fill="#79a8ff"/>
   </g>
 </svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 28" role="img" aria-label="Completed">
+  <title>Completed</title>
+  <defs>
+    <style>
+      .label {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        fill: #0b0d0e;
+      }
+    </style>
+  </defs>
+  
+  <!-- Pill background - lime solid -->
+  <rect x="0.5" y="0.5" width="119" height="27" rx="13.5" fill="#b9f77c" stroke="#9ad45a" stroke-width="1"/>
+  
+  <!-- Mini brand bars (completed = all solid) -->
+  <g transform="translate(14 14) skewX(-12) translate(-14 -14)">
+    <rect x="8" y="7" width="3" height="14" rx="0.8" fill="#0b0d0e"/>
+    <rect x="13" y="7" width="3" height="14" rx="0.8" fill="#0b0d0e"/>
+    <rect x="18" y="7" width="3" height="14" rx="0.8" fill="#0b0d0e"/>
+  </g>
+  
+  <!-- Check mark -->
+  <path d="M28 14.5 L31.5 18 L38 10.5" fill="none" stroke="#0b0d0e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <text x="48" y="18.5" class="label">COMPLETED</text>
+</svg>
