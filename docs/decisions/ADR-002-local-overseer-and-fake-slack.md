@@ -41,7 +41,10 @@ creates a human decision. Both surface `network_actions_performed: []` and
 - Live Slack remains an opt-in projection with a dedicated signing secret and
   a synthetic channel pilot.
 - The comparison packet preserves response provenance but deliberately makes
-  no automatic recommendation or approval.
+  no automatic recommendation or approval for the R4 MVP slice.
+- Standing auto-pass policies and escalation notifications are specified in
+  [ADR-003](ADR-003-overseer-standing-auto-pass-and-notifications.md) for a
+  post-MVP (R4.1) scale layer; they are not part of the MVP dispatcher contract.
 
 ## Next actions
 
@@ -49,3 +52,5 @@ creates a human decision. Both surface `network_actions_performed: []` and
 2. Add golden transcript normalization and redaction fixtures.
 3. Pilot one Slack Events API application in a dedicated Relay channel after
    explicit credential configuration and a rollback plan.
+4. After MVP human-queue path is proven, implement ADR-003 policy evaluator
+   and notification outcomes with synthetic fixtures.

@@ -178,36 +178,170 @@
               <h2>Change the evidence threshold, not the record.</h2>
             </div>
           </div>
-          <div class="appgrid">
+          <p class="profiles-lede">
+            Profiles raise or lower what must be shown before a named human may accept work.
+            They do not invent new sources of truth, merge models into a vote, or let a dashboard
+            rewrite history. Expand a profile for what it covers, what it demands, and what it
+            deliberately refuses.
+          </p>
+          <div class="appgrid appgrid-rich">
             <details>
               <summary><span>01</span><b>Scientific research</b><i>+</i></summary>
-              <p>Claims, methods, independent reproduction, adversarial review, remediation, and named scientific authority.</p>
-              <small>Scientific acceptance remains with the relevant community and canon.</small>
+              <div class="profile-body">
+                <p>
+                  Bound a claim (one primary question), attach methods and environments, preserve
+                  failures and exclusions, require independent reproduction for high-risk claims,
+                  keep adversarial findings attached, and record named scientific authority for
+                  acceptance—not silent model consensus.
+                </p>
+                <dl class="profile-meta">
+                  <div>
+                    <dt>Typical evidence</dt>
+                    <dd>Commands, code/data versions, artifact hashes, reproduction packets, reviewer independence notes</dd>
+                  </div>
+                  <div>
+                    <dt>Who decides</dt>
+                    <dd>Named human scientific authority for consequential gates; community peer review remains external</dd>
+                  </div>
+                  <div>
+                    <dt>Boundary</dt>
+                    <dd>Relay proves process integrity, not that a theory is true. Canon stays in the relevant scientific record.</dd>
+                  </div>
+                </dl>
+                <small>Status: research-profile gates planned after synthetic high-risk fixtures pass (M3).</small>
+              </div>
             </details>
             <details>
               <summary><span>02</span><b>ITSM validation</b><i>+</i></summary>
-              <p>Bound operational questions, reproducible checks, explicit exceptions, and accountable service decisions.</p>
-              <small>Workflow readiness only; ITSM scientific claims remain separate.</small>
+              <div class="profile-body">
+                <p>
+                  Use Relay as a <strong>workflow proving ground</strong>: bounded operational questions,
+                  reproducible checks, explicit exceptions, remediation loops, and accountable service
+                  decisions. Separate from ITSM’s scientific manuscript and equation canon.
+                </p>
+                <dl class="profile-meta">
+                  <div>
+                    <dt>Typical evidence</dt>
+                    <dd>Gate checklists, environment notes, synthetic fixtures, review outcomes, human accept/defer records</dd>
+                  </div>
+                  <div>
+                    <dt>Who decides</dt>
+                    <dd>Named project authority for operational readiness—not automated “science is proven” labels</dd>
+                  </div>
+                  <div>
+                    <dt>Boundary</dt>
+                    <dd>
+                      No equations, datasets, results, or manuscripts from ITSM science on this public
+                      site or in the public Relay repo. Those live in the separate ITSM hub.
+                    </dd>
+                  </div>
+                </dl>
+                <small>Status: first real-world pilot context; scientific claims remain out of band.</small>
+              </div>
             </details>
             <details>
               <summary><span>03</span><b>Education and assessment</b><i>+</i></summary>
-              <p>Rubric-based marking, moderation, appeals, and consistency checks with teacher authority.</p>
-              <small>Assessment assistance, never autonomous academic judgement.</small>
+              <div class="profile-body">
+                <p>
+                  Model rubric-based marking, moderation, appeals, and consistency checks. Relay can
+                  hold the rubric version, samples of evidence considered, reviewer notes, and the
+                  teacher’s final mark—while keeping student identity and private work out of public
+                  records.
+                </p>
+                <dl class="profile-meta">
+                  <div>
+                    <dt>Typical evidence</dt>
+                    <dd>Rubric id/version, anonymised samples, moderation notes, appeal trail, AI disclosure</dd>
+                  </div>
+                  <div>
+                    <dt>Who decides</dt>
+                    <dd>Teacher or designated assessor; appeals path stays human</dd>
+                  </div>
+                  <div>
+                    <dt>Boundary</dt>
+                    <dd>Assistance only—never autonomous academic judgement, auto-grades as final marks, or real student PII in public fixtures.</dd>
+                  </div>
+                </dl>
+                <small>Status: synthetic profile planned; no real student data.</small>
+              </div>
             </details>
             <details>
               <summary><span>04</span><b>Hiring assistance</b><i>+</i></summary>
-              <p>Evidence against declared criteria, consistency checks, review trails, and accountable decisions.</p>
-              <small>No autonomous hiring decisions or opaque ranking.</small>
+              <div class="profile-body">
+                <p>
+                  Compare candidates against <strong>declared criteria</strong> with visible evidence,
+                  consistency checks, and review trails. Relay is decision support for a named hiring
+                  authority—not an opaque ranking engine.
+                </p>
+                <dl class="profile-meta">
+                  <div>
+                    <dt>Typical evidence</dt>
+                    <dd>Job criteria snapshot, scored dimensions with sources, disagreement notes, AI disclosure</dd>
+                  </div>
+                  <div>
+                    <dt>Who decides</dt>
+                    <dd>Named hiring manager / panel with legal and policy accountability</dd>
+                  </div>
+                  <div>
+                    <dt>Boundary</dt>
+                    <dd>
+                      Deferred until dedicated privacy, fairness, discrimination, explainability, and
+                      appeal gates exist. No silent automated hire/reject. No real candidate data in public fixtures.
+                    </dd>
+                  </div>
+                </dl>
+                <small>Status: deferred profile—requires threat models before any real-world use.</small>
+              </div>
             </details>
             <details>
               <summary><span>05</span><b>Incident investigation</b><i>+</i></summary>
-              <p>Timelines, artifacts, competing explanations, remediation evidence, and post-incident decisions.</p>
-              <small>Useful across engineering, safety, security, and operations.</small>
+              <div class="profile-body">
+                <p>
+                  Build inspectable incident timelines: what was known when, which artifacts support
+                  each claim, competing explanations, remediation evidence, and the post-incident
+                  decision (accept residual risk, change process, reopen).
+                </p>
+                <dl class="profile-meta">
+                  <div>
+                    <dt>Typical evidence</dt>
+                    <dd>Logs (redacted), configs, command transcripts, timeline events, alternate hypotheses, fix verification</dd>
+                  </div>
+                  <div>
+                    <dt>Who decides</dt>
+                    <dd>Incident commander or named ops authority; blameless process still requires named gate outcomes</dd>
+                  </div>
+                  <div>
+                    <dt>Boundary</dt>
+                    <dd>Public fixtures stay synthetic. Real incidents must not leak credentials, customer data, or raw secrets into Git/Pages.</dd>
+                  </div>
+                </dl>
+                <small>Useful across engineering, safety, security, and operations.</small>
+              </div>
             </details>
             <details>
               <summary><span>06</span><b>Audit and due diligence</b><i>+</i></summary>
-              <p>Declared evidence, artifact verification, visible gaps, exceptions, and accepted residual risk.</p>
-              <small>Applicable to compliance, grants, procurement, and policy review.</small>
+              <div class="profile-body">
+                <p>
+                  Assemble declared evidence packs for compliance, grants, procurement, or policy
+                  review: what was checked, what matched its hash, what was missing, what exceptions
+                  were granted, and what residual risk a human accepted.
+                </p>
+                <dl class="profile-meta">
+                  <div>
+                    <dt>Typical evidence</dt>
+                    <dd>Control list, artifact inventory, verification results, gap register, exception rationale, acceptance record</dd>
+                  </div>
+                  <div>
+                    <dt>Who decides</dt>
+                    <dd>Named auditor / accountable owner—software does not “pass the audit” alone</dd>
+                  </div>
+                  <div>
+                    <dt>Boundary</dt>
+                    <dd>Gaps and exceptions stay visible. A green dashboard is not a substitute for a decision record.</dd>
+                  </div>
+                </dl>
+                <small>Applicable to compliance, grants, procurement, and policy review.</small>
+              </div>
             </details>
           </div>
         </section>
@@ -219,34 +353,112 @@
               <h2>Integrity is not truth.</h2>
             </div>
           </div>
+          <p class="profiles-lede">
+            Relay’s job is to make the path to a decision inspectable. A valid schema and a matching
+            hash answer different questions from “is this claim correct?” Conflating them is how
+            automation creates false confidence.
+          </p>
           <div class="trust-grid">
             <article class="trust-yes">
               <span>Relay can establish</span>
               <ul>
-                <li>A record follows a declared structure</li>
-                <li>An artifact matches its hash</li>
-                <li>Required reviews and reproductions exist</li>
-                <li>Disagreement and remediation were preserved</li>
-                <li>Who exercised decision authority</li>
+                <li>
+                  <strong>Structure</strong> — a task, event, evidence, review, or decision matches
+                  the declared schema for protocol 0.1
+                </li>
+                <li>
+                  <strong>Integrity</strong> — an artifact’s bytes match its recorded SHA-256 hash
+                  under Relay Canonical JSON rules
+                </li>
+                <li>
+                  <strong>Process completeness</strong> — required reviews, reproductions, or
+                  remediation steps exist in the chain for the stated risk
+                </li>
+                <li>
+                  <strong>Disagreement survival</strong> — failed reviews and competing findings stay
+                  attached; they are not averaged away
+                </li>
+                <li>
+                  <strong>Authority attribution</strong> — which named human accepted, remediated,
+                  rejected, or deferred a gate
+                </li>
+                <li>
+                  <strong>AI disclosure</strong> — whether models were used at review/decision
+                  boundaries and in what scope
+                </li>
               </ul>
             </article>
             <article class="trust-no">
               <span>Relay cannot establish by itself</span>
               <ul>
-                <li>A claim is scientifically true</li>
-                <li>A method is valid merely because it ran</li>
-                <li>Consensus is correct</li>
-                <li>An AI output deserves authority</li>
-                <li>Governance can be replaced by software</li>
+                <li>
+                  <strong>Scientific truth</strong> — a claim is true in nature or ready for a
+                  research canon
+                </li>
+                <li>
+                  <strong>Method validity</strong> — a pipeline is correct merely because it ran and
+                  produced files
+                </li>
+                <li>
+                  <strong>Consensus quality</strong> — multiple models agreeing implies correctness
+                  (shared prompts, data, or bugs break independence)
+                </li>
+                <li>
+                  <strong>Model authority</strong> — an AI review can self-promote into canonical
+                  acceptance
+                </li>
+                <li>
+                  <strong>Governance replacement</strong> — policy, law, ethics, or peer review can be
+                  fully automated away
+                </li>
+                <li>
+                  <strong>Honest provenance</strong> — a hash does not prove who authored the content
+                  or that inputs were not staged
+                </li>
               </ul>
+            </article>
+          </div>
+          <div class="trust-examples">
+            <article>
+              <span class="callout-label">Example · hash</span>
+              <p>
+                Two reviewers can both hold a valid hash of the same artifact and still disagree on
+                whether the method answers the task’s acceptance criteria. The hash settles
+                “same bytes?”; the human gate settles “acceptable?”
+              </p>
+            </article>
+            <article>
+              <span class="callout-label">Example · independence</span>
+              <p>
+                Switching model brands does not make a review independent if both runs share the same
+                prompt pack, cleaned dataset, or hidden context. Independence is declared and
+                auditable—not inferred from marketing labels.
+              </p>
+            </article>
+            <article>
+              <span class="callout-label">Example · projection</span>
+              <p>
+                A green Status card or Slack thread can be rebuilt from Git. If the projection and the
+                validated Git record disagree, the Git record wins. Dashboards never become an
+                alternate authority.
+              </p>
             </article>
           </div>
           <aside class="trust-aside">
             <b>ITSM proving-ground boundary</b>
             <p>
-              Relay may publish workflow readiness and gate progress. ITSM equations, datasets,
-              results, manuscripts, and scientific acceptance remain in the separate ITSM
-              repository and knowledge base.
+              Relay may publish workflow readiness and gate progress for the ITSM pilot. ITSM
+              equations, datasets, results, manuscripts, reviewer correspondence, and scientific
+              acceptance remain in the separate ITSM repository and knowledge base. Contaminating
+              the public Relay record with unpublished science is a publication-boundary failure,
+              not a feature.
+            </p>
+          </aside>
+          <aside class="trust-aside trust-aside-secondary">
+            <b>R/01 reminder</b>
+            <p>
+              Schema validity proves structure. A hash proves integrity. Neither proves that a claim
+              is true.
             </p>
           </aside>
         </section>
