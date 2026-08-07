@@ -65,6 +65,53 @@ a { color: inherit; }
   white-space: nowrap;
 }
 .status-pill span { background: var(--lime); border-radius: 50%; box-shadow: 0 0 12px var(--lime); height: 7px; width: 7px; }
+.mobile-nav {
+  display: none;
+  position: relative;
+}
+.mobile-nav summary {
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  gap: 8px;
+  list-style: none;
+  padding: 8px 12px;
+  white-space: nowrap;
+  user-select: none;
+}
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav summary::after {
+  content: "▾";
+  font-size: 10px;
+  opacity: 0.7;
+}
+.mobile-nav[open] summary::after { content: "▴"; }
+.mobile-nav summary:hover { color: var(--ink); }
+.mobile-nav nav {
+  background: var(--page);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 8px;
+  min-width: 180px;
+  padding: 8px 0;
+  position: absolute;
+  right: 0;
+  z-index: 40;
+}
+.mobile-nav nav a {
+  color: var(--muted);
+  font-size: 13px;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+.mobile-nav nav a:hover { color: var(--ink); background: var(--panel); }
+.mobile-nav nav a.nav-active { color: var(--ink); font-weight: 700; }
 .hero { padding: 108px 0 88px; }
 .hero-split {
   align-items: center;
@@ -723,6 +770,7 @@ footer { border-top: 1px solid var(--line); color: var(--muted); display: flex; 
 
 @media (max-width: 960px) {
   .top-nav { display: none; }
+  .mobile-nav { display: block; }
   .hero-split { grid-template-columns: 1fr; }
   .hero-map { max-width: 360px; }
   .workinggrid, .milestones, .page-card-grid, .appgrid, .checkpoint, .not-enabled, .intro.split {
