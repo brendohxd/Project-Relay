@@ -17,6 +17,7 @@ await Promise.all([
   copyFile("apps/console/app.js", "docs/app.js"),
   copyFile("apps/console/styles.css", "docs/styles.css"),
   copyFile("apps/console/state/index.json", "docs/state/index.json"),
+  copyFile("apps/console/favicon.svg", "docs/favicon.svg"),
   writeFile("docs/.nojekyll", "", "utf8")
 ]);
 console.log("Wrote GitHub Pages bundle to docs/.");

@@ -10,7 +10,8 @@ const pairs = [
   ["apps/console/start/index.html", "docs/start/index.html"],
   ["apps/console/app.js", "docs/app.js"],
   ["apps/console/styles.css", "docs/styles.css"],
-  ["apps/console/state/index.json", "docs/state/index.json"]
+  ["apps/console/state/index.json", "docs/state/index.json"],
+  ["apps/console/favicon.svg", "docs/favicon.svg"]
 ];
 const stale = [];
 for (const [source, generated] of pairs) {
